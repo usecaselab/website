@@ -1,6 +1,5 @@
 // Route map: path <-> thesis ID
 const routes = {
-  '/verifiable-cities': 'cities',
   '/open-telematics': 'telematics',
   '/composable-commerce': 'commerce',
   '/global-insurance': 'insurance',

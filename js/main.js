@@ -1,8 +1,21 @@
+// Route map: path <-> thesis ID
+const routes = {
+  '/verifiable-cities': 'cities',
+  '/open-telematics': 'telematics',
+  '/composable-commerce': 'commerce',
+  '/global-insurance': 'insurance',
+  '/automated-smes': 'sme'
+};
+
+const idToPath = Object.fromEntries(
+  Object.entries(routes).map(([path, id]) => [id, path])
+);
+
 function showMain() {
   document.getElementById('mainPage').style.display = 'block';
   document.querySelectorAll('.thesis-page').forEach(p => p.classList.remove('active'));
   window.scrollTo(0, 0);
-  history.pushState(null, '', window.location.pathname);
+  history.pushState(null, '', '/');
 }
 
 function showThesis(id) {
@@ -10,23 +23,24 @@ function showThesis(id) {
   document.querySelectorAll('.thesis-page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   window.scrollTo(0, 0);
-  history.pushState(null, '', '#' + id);
+  const path = idToPath[id] || '/' + id;
+  history.pushState(null, '', path);
 }
 
 document.getElementById('homeLink').addEventListener('click', () => { showMain(); });
 
-// Handle back button
+// Handle back/forward button
 window.addEventListener('popstate', () => {
-  const hash = window.location.hash.replace('#', '');
-  if (hash && document.getElementById('page-' + hash)) {
-    showThesis(hash);
+  const path = window.location.pathname;
+  if (routes[path]) {
+    showThesis(routes[path]);
   } else {
     showMain();
   }
 });
 
-// Handle direct hash navigation
-const initHash = window.location.hash.replace('#', '');
-if (initHash && document.getElementById('page-' + initHash)) {
-  showThesis(initHash);
+// Handle direct navigation to a thesis path
+const initPath = window.location.pathname;
+if (routes[initPath]) {
+  showThesis(routes[initPath]);
 }

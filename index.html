@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Use Case Lab — Ethereum Foundation</title>
+<title>Use Case Lab - Ethereum Foundation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=JetBrains+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=22">
 </head>
 <body>
 
@@ -26,7 +26,7 @@
   <div class="intro">
     <div class="intro-label">An Ethereum Foundation initiative</div>
     <h1>Extending self-sovereign coordination to new domains</h1>
-    <p class="intro-body">Use Case Lab identifies domains where people are stuck coordinating through unnecessary intermediaries helps lay the foundation for open alternatives.</p>
+    <p class="intro-body">Use Case Lab identifies domains where people are stuck coordinating through unnecessary intermediaries and helps lay the foundation for open alternatives.</p>
   </div>
 
   <div class="section" id="work">
@@ -34,17 +34,11 @@
     <p class="section-desc">Use case hypotheses we're actively exploring with domain experts working at the intersection of their field and Ethereum.</p>
 
     <div class="thesis-grid">
-      <a class="thesis-card" href="/verifiable-cities" target="_blank">
+      <a class="thesis-card" onclick="showThesis('cities'); return false;" href="/verifiable-cities">
         <img class="thesis-card-img" src="images/image-2.png" alt="">
         <span class="card-arrow">→</span>
         <h3>Verifiable Cities</h3>
         <div class="brief">Cryptographic technologies in urban systems and municipal services</div>
-              </a>
-      <a class="thesis-card" onclick="showThesis('telematics'); return false;" href="/open-telematics">
-        <img class="thesis-card-img" src="images/image-3.png" alt="">
-        <span class="card-arrow">→</span>
-        <h3>Open Telematics</h3>
-        <div class="brief">Ethereum-powered telecommunication & geospatial services</div>
               </a>
       <a class="thesis-card" onclick="showThesis('commerce'); return false;" href="/composable-commerce">
         <img class="thesis-card-img" src="images/image-4.png" alt="">
@@ -56,12 +50,12 @@
         <img class="thesis-card-img" src="images/image-5.png" alt="">
         <span class="card-arrow">→</span>
         <h3>Global Insurance</h3>
-        <div class="brief">Globally interoperable, on-chain safety nets</div>
+        <div class="brief">Globally interoperable, onchain safety nets</div>
               </a>
-      <a class="thesis-card" onclick="showThesis('sme'); return false;" href="/automated-smes">
+      <a class="thesis-card" onclick="showThesis('sme'); return false;" href="/automated-smbs">
         <img class="thesis-card-img" src="images/image-6.png" alt="">
         <span class="card-arrow">→</span>
-        <h3>Automated SMEs</h3>
+        <h3>Automated SMBs</h3>
         <div class="brief">Self-executing business processes and agreements</div>
               </a>
     </div>
@@ -69,16 +63,15 @@
 
   <div class="section" id="sprints">
     <div class="section-label">Design Sprints</div>
-    <p class="section-desc">Intensive collaborative sprints where builders and domain experts prototype solutions to problems no single team would tackle alone.</p>
+    <p class="section-desc">Bringing together builders and domain experts to surface blockers and prototype solutions that bring Ethereum to new domains.</p>
 
     <div class="sprints-grid">
       <div class="sprint-card">
-        <img class="sprint-img" src="images/image-7.jpg" alt="Ethereum Unblock SF">
+        <img class="sprint-img" src="images/image-7.png" alt="Ethereum Unblock SF">
         <div class="sprint-body">
-          <div class="sprint-tag stag-upcoming">Upcoming</div>
-          <h3>Ethereum Unblock SF</h3>
-          <div class="sprint-meta">Mar 9–13, 2026 · ETHSF</div>
-          <div class="sprint-desc">Five days with Silicon Valley product teams working on the missing pieces — the primitives, protocols, and patterns that multiple real-world use cases need but no single company would build alone.</div>
+<h3>Ethereum Unblock SF</h3>
+          <div class="sprint-meta">Mar 10–12, 2026 · ETHSF</div>
+          <div class="sprint-desc">Leveraging smart contracts, AI, and ZK to build alternatives that reduce dependence on corporate monopolies and expand Ethereum beyond DeFi into commercial systems and physical infrastructure.</div>
           <a class="sprint-cta" href="https://luma.com/unblock-sf-2026" target="_blank">Register on Luma ↗</a>
         </div>
       </div>
@@ -86,11 +79,10 @@
       <div class="sprint-card">
         <img class="sprint-img" src="images/image-8.png" alt="Argentina Onchain">
         <div class="sprint-body">
-          <div class="sprint-tag stag-past">Completed</div>
-          <h3>Argentina Onchain</h3>
+<h3>Argentina Onchain</h3>
           <div class="sprint-meta">Nov 1–14, 2025 · Edge City Patagonia</div>
-          <div class="sprint-desc">Argentine institutions are experimenting with on-chain coordination faster than almost anyone. We spent two weeks understanding what they need, what's working, and where Ethereum falls short.</div>
-          <a class="sprint-cta" href="https://docs.google.com/document/d/1N87Ba94Jcvwt0Qidz6wawyUgRPZVK40XFBBwBUwQeD0/edit" target="_blank">Read the report (w/ BlockchainGov) ↗</a>
+          <div class="sprint-desc">Engaging with Argentine institutions to explore how Ethereum can address coordination bottlenecks across private enterprise, public sector, and civil society.</div>
+          <a class="sprint-cta" href="https://x.com/i/status/2000650998243532814" target="_blank">Watch the recap ↗</a>
         </div>
       </div>
     </div>
@@ -101,7 +93,7 @@
     <div class="contact-box">
       <p>If you're working on a real-world use case for Ethereum, we'd like to talk.</p>
       <div class="contact-methods">
-        <a class="cta-btn" href="https://forms.gle/placeholder" target="_blank">Contact form ↗</a>
+        <a class="cta-btn" href="https://forms.gle/7Mrh3ZSL1scRw15j7" target="_blank">Contact form ↗</a>
         <span class="or">or</span>
         <a class="email-link" href="mailto:usecaselab@ethereum.org">usecaselab@ethereum.org</a>
       </div>
@@ -118,158 +110,179 @@
   <div class="thesis-page-header">
     <h1>Verifiable Cities</h1>
     <p class="thesis-hypothesis">Cities lack cross-agency coordination capacity, constraining service delivery and policy execution. Cryptographic technologies can make municipal operations verifiable, composable, and privacy-preserving — moving from institutional trust to technical proof.</p>
-    
+    <div class="vc-sidebar-header">
+      <a class="sidebar-btn sidebar-btn-primary" href="/verifiable-cities.pdf" target="_blank">Download PDF ↗</a>
+      <div class="vc-collaborate">
+        <div class="sidebar-label">Collaborate</div>
+        <p class="sidebar-desc">Interested in working with us on this research track?</p>
+        <a class="sidebar-btn sidebar-btn-primary" href="https://sticky-mink-a1c.notion.site/2e1d34f360e480a9b8b3d0d0bc89e800" target="_blank">Get in touch</a>
+      </div>
+    </div>
   </div>
   <div class="thesis-page-body">
     <div class="thesis-flavor-bar"></div>
-
-    <div class="thesis-tensions">
-      <div class="tension-box tension-capture">
-        <h4>Capture risk</h4>
-        Cloud platforms and "smart city" vendors create dependency and lock-in at the infrastructure layer. Cities that adopt proprietary civic tech often can't switch providers, audit algorithms, or even access their own data without the vendor's permission.
-      </div>
-      <div class="tension-box tension-exit">
-        <h4>Exit story</h4>
-        Every primitive must be forkable and vendor-neutral — rules maintained at the policy layer, not the platform layer. If a city adopts a verifiable service delivery system, it should be able to swap out every technical provider without losing state or history.
-      </div>
-    </div>
-
-    <div class="thesis-examples">
-      <h3>Example apps</h3>
-      <div class="example-chips">
-        <span class="example-chip">ZK-verified benefits eligibility without exposing personal data</span>
-        <span class="example-chip">Real-time disaster relief payments triggered by sensor data</span>
-        <span class="example-chip">Municipal bonds with on-chain outcome tracking</span>
-        <span class="example-chip">Cross-agency data sharing with cryptographic access control</span>
-        <span class="example-chip">Auditable AI-assisted policy decisions</span>
-        <span class="example-chip">Citizen-verifiable budget execution</span>
-      </div>
-    </div>
     <div class="thesis-content">
-      <h3>The landscape</h3>
-      <img src="images/image-9.png" alt="Verifiable Cities Use Case Landscape">
-      <p>Today, trust in city operations relies on institutional legitimacy and procedural safeguards. Systems are siloed by department, optimized for individual agency mandates rather than cross-agency coordination. Verification happens after the fact — audits, reports, investigations — rather than being embedded into the systems themselves.</p>
-      <p>This creates a gap between what cities promise and what they can verifiably deliver. Climate volatility, aging infrastructure, demographic shifts, and rising citizen expectations are widening that gap.</p>
+      <h3>Overview</h3>
+      <p>Cities are increasingly expected to deliver public services with greater effectiveness and accountability. While many are beginning to adopt AI and data-driven systems, a shared digital foundation to support coordination and verifiability across organizations and domains remains largely absent. As a result, long-standing public-sector challenges—such as fragmented data sharing, citizen privacy concerns, slow financial flows, and high compliance and reporting costs—continue to divert institutional capacity away from improving services and outcomes. Instead, this capacity is often spent managing public trust through short-term political negotiation and manual administrative processes.</p>
+      <p>Rather than introduce new fully centralized or closed platforms, as previous and current government modernization efforts have done, recent advances in public blockchains make it possible to transparently embed verification, accountability, and coordination capabilities directly into how public rules and finances operate. These technologies offer a practical path to increasing state capacity without expanding state power and vendor control, or adding further administrative overhead. In doing so, they can enable the development of a shared digital "trust" layer across cities that extend accountability from administrative processes to transparent technical mechanisms.</p>
 
-<h3>The thesis</h3>
-      <p>Cryptographic primitives — verifiable computation, zero-knowledge proofs, programmable commitments — can underpin a new operating layer for cities. One where service delivery is verifiable in real-time, cross-sector coordination is technically enforced rather than politically negotiated, and citizen data stays sovereign while still enabling data-driven governance.</p>
-      <p>Privacy is non-negotiable here: residents must be able to prove eligibility for services without exposing personal data. Censorship resistance matters too — verifiable public records can't depend on any single authority's willingness to keep publishing them.</p>
-      <p>The path runs from the current digitization era — where trust relies on process — toward a coordination era where trust is supported by transparent, independently checkable technical mechanisms embedded directly into public rules, systems, and finances.</p>
-      <div class="thesis-open-note">All research, specifications, and reference implementations produced under this track are published openly under permissive licenses.</div>
+      <h3>Why Cities</h3>
+      <ul class="vc-hypotheses">
+        <li><strong>Hypothesis #1:</strong> Cities are the primary institutional level where coordination and service delivery must happen in real time due to their proximity to operational pressure.</li>
+        <li><strong>Hypothesis #2:</strong> Cities face immediate service demands, operate across dense networks of public and private actors, and contend with real implications and constraints that require equally pragmatic solutions.</li>
+        <li><strong>Hypothesis #3:</strong> Despite wide variation in competitive pressures and context, thousands of municipal governments and service providers worldwide face common operational needs, creating clear but currently underleveraged opportunities for experimentation and knowledge transfer.</li>
+        <li><strong>Hypothesis #4:</strong> Together these conditions make cities powerful levers for public sector innovation, offering a scalable pathway for modernizing civic and state capacity.</li>
+      </ul>
+
+      <img src="images/vc-landscape.png" alt="Verifiable Cities Use Case Landscape" style="width:100%;margin:2rem 0;">
+
+      <h3>Call for Implementations</h3>
+      <p><em>The Verifiable Cities landscape is intended to frame early areas of inquiry and surface concrete use cases with the potential to meaningfully improve city operations and outcomes.</em></p>
+      <p>As part of this work, the Ethereum Foundation Use Case Lab is issuing an open call for implementations. The work is oriented toward collaboration with city and regional governments, as well as other funders and organizations engaged in municipal innovation. Priority will be given to implementations that are narrowly scoped, aware of real-world constraints and considerations, and test approaches that can inform broader adoption over time.</p>
+      <p><strong>Implementations may take several forms, including:</strong></p>
+      <ul class="vc-list">
+        <li>Sandboxed/Focused Pilots</li>
+        <li>Policy Frameworks &amp; Regulatory Guidance</li>
+        <li>Technical Primitives &amp; Open Standards</li>
+      </ul>
+      <p><em>A non-exhaustive set of implementation focus areas:</em></p>
+
+      <img src="images/vc-usecases.png" alt="Implementation Focus Areas" style="width:100%;margin:2rem 0;">
+
+      <p>We anticipate supporting a select number of implementations through a combination of technical support, exploratory funding, and connections to relevant collaborators and ecosystems. The specific form and scope of resourcing will be determined through initial conversations as appropriate.</p>
+
+      <h3>Inspiration</h3>
+      <p class="vc-readings-intro">The following pieces have shaped our thinking around the Verifiable Cities track. The list serves as a non-exhaustive set of reference points for the space, providing both historical context and insights into the current state of the field.</p>
+
+      <div class="vc-readings">
+        <div class="vc-reading-group">
+          <h4>AI &amp; Programmability</h4>
+          <ul>
+            <li><a href="https://www.forbes.com/sites/tonyaevans/2024/10/29/how-ai-and-blockchain-are-solving-each-others-biggest-challenges/" target="_blank">How Blockchain &amp; AI are Solving Each other's Biggest Challenges</a> — Tonya M. Evans</li>
+            <li><a href="https://agenticstate.org/paper.html" target="_blank">The Agentic State: Rethinking Government for the Era of Agentic AI</a> — Ilves et al.</li>
+            <li><a href="https://law.mit.edu/pub/blawxrulesascodedemonstration/release/1" target="_blank">Rules as Code Demonstration</a> — MIT Law</li>
+            <li><a href="https://www.gap-map.org/gaps/policy-creation-and-evaluation-is-manual-and-suffers-from-low-efficiency-and-accountability/" target="_blank">Gap Map: Manual Policy Creation and Evaluation</a> — Convergent Research</li>
+          </ul>
+        </div>
+        <div class="vc-reading-group">
+          <h4>Trust &amp; Cryptographic Verifiability</h4>
+          <ul>
+            <li><a href="https://vitalik.eth.limo/general/2025/09/24/openness_and_verifiability.html" target="_blank">The Importance of Full-Stack Openness and Verifiability</a> — Vitalik Buterin</li>
+            <li><a href="https://files.acquia.undp.org/public/migration/oslo_governance_centre/Trust-in-Public-Institutions-Policy-Brief_FINAL.pdf" target="_blank">Trust in Public Institutions</a> — UNDP</li>
+            <li><a href="https://paragraph.com/@josh-stark/atoms-institutions-blockchains" target="_blank">Atoms, Institutions, and Blockchains</a> — Josh Stark</li>
+            <li><a href="https://www.aria.org.uk/opportunity-spaces/trust-everything-everywhere/" target="_blank">Trust Everything Everywhere Programme Opportunity Space</a> — ARIA</li>
+            <li><a href="https://medium.com/@Nothing_Research/technical-comparison-fhe-vs-zk-vs-mpc-b876c7266c14" target="_blank">A Primer to Cryptography Primitives</a> — Nothing Research</li>
+          </ul>
+        </div>
+        <div class="vc-reading-group">
+          <h4>City &amp; Policy Innovation</h4>
+          <ul>
+            <li><a href="https://ssir.org/articles/entry/can_cities_be_the_source_of_scalable_innovations" target="_blank">Can Cities Be the Source of Scalable Innovations?</a> — Christof Brandtner</li>
+            <li><a href="https://gravitylobby.club/administrationmarkets.html" target="_blank">Administration Markets</a> — Chris Beiser</li>
+            <li><a href="https://vitalik.eth.limo/general/2021/10/31/cities.html" target="_blank">Crypto Cities</a> — Vitalik Buterin</li>
+            <li><a href="https://www.columbia.edu/~mmt2033/state_capacity.pdf" target="_blank">An Organizational Theory of State Capacity</a> — Erik Snowberg &amp; Michael M. Ting</li>
+            <li><a href="https://ssir.org/articles/entry/city_government_problem_solving_skills" target="_blank">The New Problem-Solving Skills That All Cities Need</a> — James Anderson</li>
+          </ul>
+        </div>
+        <div class="vc-reading-group">
+          <h4>Government &amp; Digital Public Infrastructure</h4>
+          <ul>
+            <li><a href="https://medium.com/@joybonaguro/how-government-procurement-creates-tech-stack-chaos-f30608c63e65" target="_blank">How Government Procurement Creates Tech Stack Chaos</a> — Joy Bonaguro</li>
+            <li><a href="https://alastairparvin.medium.com/the-future-of-planning-8a1f93e17ae1" target="_blank">The Future of Planning</a> / <a href="https://alastairparvin.medium.com/rules-based-planning-a7343bc24546" target="_blank">Rules-Based Planning</a> — Alastair Parvin</li>
+            <li><a href="https://chiefdigitalofficer4london.medium.com/further-thoughts-on-a-new-local-government-digital-service-24fce01be865" target="_blank">Further Thoughts on a New Local Government Digital Service</a> — Theo Blackwell MBE</li>
+            <li><a href="https://www.techpolicy.press/the-path-to-a-sovereign-tech-stack-is-via-a-commodified-tech-stack/" target="_blank">The Path to a Sovereign Tech Stack Is via a Commodified Tech Stack</a> — David Eaves</li>
+            <li><a href="https://www.statecraft.pub/p/how-to-digitize-the-government" target="_blank">How to Digitize the Government</a> — Statecraft</li>
+          </ul>
+        </div>
+        <div class="vc-reading-group">
+          <h4>Use Case Radar</h4>
+          <ul>
+            <li><a href="https://www.reuters.com/technology/california-dmv-puts-42-million-car-titles-blockchain-fight-fraud-2024-07-30/" target="_blank">California DMV puts 42 million car titles on blockchain to fight fraud</a></li>
+            <li><a href="https://www.bhutanndi.com/article/bhutan-adopts-ethereum-for-national-identity-a-new-chapter-in-digital-sovereignty_2d0c7ec2-5605-4c42-b258-bd9361ae8878" target="_blank">Bhutan launches national digital identity on Ethereum</a></li>
+            <li><a href="https://nextcity.org/urbanist-news/how-blockchain-technology-could-make-zoning-work-for-people" target="_blank">How blockchain could make zoning work for people</a></li>
+            <li><a href="https://www.radicalxchange.org/projects/plural-voting-for-participatory-budgeting-in-nyc/" target="_blank">Plural voting for participatory budgeting in NYC</a></li>
+            <li><a href="https://www.jpmorganchase.com/about/technology/blog/first-live-municipal-blockchain-based-bond-issuance-in-US" target="_blank">Quincy, Massachusetts: First U.S. city to issue blockchain-based municipal bonds</a></li>
+            <li><a href="https://www.smartcitiesdive.com/news/how-shreveport-used-blockchain-technology-build-low-cost-public-wifi-network-crypto/637211/" target="_blank">How Shreveport, Louisiana, used blockchain technology to build a low-cost public WiFi network</a></li>
+            <li><a href="https://www.freightwaves.com/news/blockchain-unifying-public-transport-payments-across-madrid-spain" target="_blank">Blockchain unifying public transport payments across Madrid, Spain</a></li>
+            <li><a href="https://blockworks.co/news/buenos-aires-id-ethereum-zksync" target="_blank">Buenos Aires government rolls out digital ID on Ethereum</a></li>
+            <li><a href="https://www.researchsquare.com/article/rs-7567042/v1" target="_blank">Blockchain-enabled water metering &amp; management</a></li>
+            <li><a href="https://blog.vocdoni.io/referendum-bellpuig" target="_blank">Spanish town holds referendum on Ethereum</a></li>
+            <li><a href="https://www3.weforum.org/docs/WEF_Blockchain_Government_Transparency_Report_Supplementary%20Research.pdf" target="_blank">Blockchain-based public procurement to reduce corruption</a></li>
+            <li><a href="https://decrypt.co/20366/seoul-launches-blockchain-voting-system-march-1" target="_blank">Seoul launches blockchain voting system</a></li>
+            <li><a href="https://paragraph.com/%400xcity3/city3-gitcoin-pilot-better-community-governance-with-quadratic-funding-in-oakland" target="_blank">Seven Oakland non-profits will receive quadratically matched donor contributions</a></li>
+            <li><a href="https://gulfnews.com/business/markets/dubai-customs-launches-blockchain-platform-to-improve-commercial-transparency-1.1720431113485" target="_blank">Dubai Customs launches blockchain platform to improve supply chain and commercial shipping transparency</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- OPEN TELEMATICS -->
-<div class="thesis-page thesis-telematics" id="page-telematics">
-  <a class="thesis-back" href="/" onclick="showMain(); return false;">← Back</a>
-  <div class="thesis-page-header">
-    <h1>Open Telematics</h1>
-    <p class="thesis-hypothesis">Telematics data — from vehicles, sensors, devices — is captured by platforms that monetize it without user consent or compensation. An open, Ethereum-native standard can return data sovereignty to the people and communities generating it.</p>
-    
-  </div>
-  <div class="thesis-page-body">
-    <div class="thesis-flavor-bar"></div>
-
-    <div class="thesis-tensions">
-      <div class="tension-box tension-capture">
-        <h4>Capture risk</h4>
-        OEMs and fleet platforms treat telematics data as a proprietary asset. Once a device reports to a centralized backend, the user has lost control permanently — there is no "undo" for data exfiltration. New intermediaries (data brokers, aggregators) emerge to resell what users never consented to share.
-      </div>
-      <div class="tension-box tension-exit">
-        <h4>Exit story</h4>
-        The standard must be device-agnostic and platform-independent. A user switching vehicles, providers, or countries retains full control of their data history. No single node, company, or protocol upgrade can revoke access to data a user has already signed.
-      </div>
-    </div>
-
-    <div class="thesis-examples">
-      <h3>Example apps</h3>
-      <div class="example-chips">
-        <span class="example-chip">Driver-owned trip data that insurers bid to access</span>
-        <span class="example-chip">Community air quality meshes with token-gated data feeds</span>
-        <span class="example-chip">Permissionless fleet logistics across competing operators</span>
-        <span class="example-chip">Verifiable location proofs for delivery and compliance</span>
-        <span class="example-chip">Vehicle health attestations for peer-to-peer car sales</span>
-      </div>
-    </div>
-    <div class="thesis-content">
-      <h3>// data flow problem</h3>
-      <div class="signal-grid">
-        <div class="signal-item">
-          <span class="signal-val">3.2B</span>
-          <span class="signal-label">Connected vehicles by 2030</span>
-        </div>
-        <div class="signal-item">
-          <span class="signal-val">25TB</span>
-          <span class="signal-label">Data per vehicle / day</span>
-        </div>
-        <div class="signal-item">
-          <span class="signal-val">~0%</span>
-          <span class="signal-label">User-controlled</span>
-        </div>
-      </div>
-      <p>Every connected device is a data source. Vehicles alone generate terabytes daily — location, speed, diagnostics, environmental readings. This data flows upward to platform operators, insurers, advertisers, and governments. The people and communities producing it have no say in how it's used, no way to audit who sees it, and no mechanism to capture value from it.</p>
-
-
-      <h3>// the open standard</h3>
-      <p>We're working toward an Ethereum-native telematics data standard: a protocol-level specification for how sensor data gets signed, attested, stored, and permissioned — with user keys as the root of control. The goal is that any device implementing the standard produces data that is cryptographically owned by the user, selectively shareable via onchain permissions, and composable across applications without intermediary extraction.</p>
-      <p>This intersects directly with usage-based insurance (parametric coverage triggered by verified driving data), fleet coordination (permissionless logistics networks), and environmental monitoring (community-owned air quality or noise sensor meshes). Security at the device-signing layer is foundational — compromised attestations undermine everything downstream.</p>
-      <div class="thesis-open-note">All research, specifications, and reference implementations produced under this track are published openly under permissive licenses.</div>
-    </div>
-  </div>
-</div>
 
 <!-- COMPOSABLE COMMERCE -->
 <div class="thesis-page thesis-commerce" id="page-commerce">
   <a class="thesis-back" href="/" onclick="showMain(); return false;">← Back</a>
   <div class="thesis-page-header">
     <h1>Composable Commerce</h1>
-    <p class="thesis-hypothesis">Real-world trade still routes through intermediaries that extract at every layer — payment processors, marketplace platforms, supply chain clearinghouses. Ethereum can make commercial coordination composable, borderless, and self-sovereign.</p>
-    
+    <p class="thesis-hypothesis">Commerce today is bundled inside platforms that control payments, discovery, reputation, and dispute resolution as a package. Ethereum provides the primitives that could let participants coordinate directly and compose their own commerce experiences.</p>
+
   </div>
   <div class="thesis-page-body">
     <div class="thesis-flavor-bar"></div>
 
-    <div class="thesis-tensions">
-      <div class="tension-box tension-capture">
-        <h4>Capture risk</h4>
-        "Decentralized marketplaces" that introduce new gatekeepers at the indexing, reputation, or dispute layer. Protocol-level fee extraction that recreates the platform tax in a different form. Composability that works only within a single ecosystem.
-      </div>
-      <div class="tension-box tension-exit">
-        <h4>Exit story</h4>
-        A merchant using composable commerce primitives can switch to a different front-end, a different settlement layer, or a fully self-hosted setup — and take their reputation, transaction history, and customer relationships with them. The coordination layer is shared; the exit door is always open.
-      </div>
-    </div>
-
-    <div class="thesis-examples">
-      <h3>Example apps</h3>
-      <div class="example-chips">
-        <span class="example-chip">Portable seller reputation you take between marketplaces</span>
-        <span class="example-chip">Coffee bean provenance verified from farm to cup</span>
-        <span class="example-chip">Escrow that releases on verifiable delivery confirmation</span>
-        <span class="example-chip">Cross-border B2B settlement in minutes, not weeks</span>
-        <span class="example-chip">Buyer-seller dispute resolution without a platform arbiter</span>
-      </div>
-    </div>
     <div class="thesis-content">
-      <h3>The extraction stack</h3>
-      <table class="commerce-table">
-        <thead><tr><th>Layer</th><th>Intermediary</th><th>Typical extraction</th></tr></thead>
-        <tbody>
-          <tr><td>Payments</td><td>Processor / card network</td><td>1.5–3.5%</td></tr>
-          <tr><td>Marketplace</td><td>Platform (Amazon, Shopify)</td><td>6–20%</td></tr>
-          <tr><td>Logistics</td><td>Clearinghouse / broker</td><td>3–10%</td></tr>
-          <tr><td>Dispute resolution</td><td>Platform / chargeback system</td><td>1–2% + friction</td></tr>
-          <tr><td>Reputation</td><td>Platform-locked reviews</td><td>Lock-in (non-portable)</td></tr>
-        </tbody>
-      </table>
-      <p>Each layer in the traditional commerce stack introduces an intermediary that extracts value and creates lock-in. A seller on a major platform loses 20-30% of gross revenue to fees before accounting for their own costs. Worse, their reputation, customer relationships, and dispute history are trapped inside the platform — you can't take your Amazon reviews to a competitor.</p>
+      <h3>Why Commerce</h3>
+      <p>Commerce is a coordination problem between buyers, sellers, logistics providers, and payment processors who currently depend on platforms to mediate trust between them. A seller on a major marketplace can lose 20-40% of gross revenue to layered platform fees (payments, commissions, fulfillment, dispute handling) before accounting for their own costs, and their reputation, customer relationships, and transaction history remain locked inside the platform that collected them. The question is where Ethereum can give these participants the ability to coordinate directly, and where platform bundling still serves a legitimate function.</p>
+      <p>The path forward isn't replacing Amazon with a "decentralized Amazon." It's building composable primitives (programmable escrow, portable reputation attestations, verifiable supply chain proofs, peer-to-peer invoicing) that any builder can assemble into commerce experiences where participants set their own terms. The coordination layer is shared and permissionless; the applications on top compete on experience, not lock-in.</p>
+      <p>This track is scoped around three hypotheses about where the gap between platform-mediated commerce and self-sovereign coordination is widest.</p>
 
+      <hr class="thesis-rule">
 
-      <h3>Composable primitives</h3>
-      <p>The path forward isn't replacing Amazon with a "decentralized Amazon." It's building composable primitives — programmable escrow, portable reputation attestations, verifiable supply chain proofs, peer-to-peer invoicing — that any builder can assemble into commerce experiences where participants set their own terms. The coordination layer is shared and permissionless; the applications on top compete on experience, not on lock-in.</p>
-      <p>Censorship resistance is the quiet requirement: a commerce layer that can be shut down by a single jurisdiction or provider isn't an improvement over the status quo, it's a relabeling of it.</p>
-      <div class="thesis-open-note">All research, specifications, and reference implementations produced under this track are published openly under permissive licenses.</div>
+      <h3>Hypotheses</h3>
+      <div class="commerce-hypotheses">
+        <div class="commerce-hypothesis">
+          <div class="commerce-hyp-num">1</div>
+          <p>Platform-centric commerce bundles payments, discovery, logistics, and dispute resolution into a single package, suppressing competition at each layer. The growing wave of direct-to-consumer brands, creator commerce, and local production networks needs modular infrastructure that incumbents are structurally disincentivized to provide. Composable onchain primitives could let these participants assemble their own commerce stack from independent, interoperable services rather than renting a bundled one.</p>
+        </div>
+        <div class="commerce-hypothesis">
+          <div class="commerce-hyp-num">2</div>
+          <p>Autonomous AI agents acting on behalf of users could dramatically reduce the role of platform intermediaries, but only if the infrastructure they operate on is open and local-first. A user's local agent could query an open product registry, verify a seller's onchain reputation, and execute a purchase through programmable escrow, all without routing through a centralized platform. Without self-sovereign rails (portable identity, open order books, programmable escrow, non-captive reputation), agentic commerce simply shifts the intermediary from a platform to an AI provider, recreating the same extraction dynamics in a new form.</p>
+        </div>
+        <div class="commerce-hypothesis">
+          <div class="commerce-hyp-num">3</div>
+          <p>Stablecoins and real-world asset tokenization (physical goods, invoices, warranties, trade finance instruments) are reaching sufficient maturity for practical commerce applications, but lacks the standards and demonstrated use cases needed for adoption beyond crypto-native communities. The question is where tokenized commercial instruments deliver concrete advantages in supply chain transparency, trade finance, and consumer trust.</p>
+        </div>
+      </div>
+
+      <hr class="thesis-rule">
+
+      <h3>Initial Work</h3>
+      <div class="commerce-work">
+        <div class="commerce-work-item">
+          <h4>Ethereum Bazaar</h4>
+          <p>Marketplace infrastructure for peer-to-peer local commerce with onchain payments and EAS-verified reviews. Built with BuidlGuidl, piloted at Edge Patagonia.</p>
+          <div class="commerce-links">
+            <a href="https://ethereumbazaar.xyz/" target="_blank">Website ↗</a>
+            <a href="https://farcaster.xyz/?launchFrameUrl=https%3A%2F%2Fethereumbazaar.xyz%2F" target="_blank">Farcaster mini-app ↗</a>
+            <a href="https://github.com/BuidlGuidl/ethereum-bazaar/" target="_blank">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="commerce-work-item">
+          <h4>DeCom Research</h4>
+          <p>Exploring decentralized commerce as a design space.</p>
+          <p class="commerce-links-label">Three-part essay:</p>
+          <div class="commerce-links">
+            <a href="https://x.com/orishim/status/1882064487718777094" target="_blank">What is DeCom ↗</a>
+            <a href="https://x.com/orishim/status/1906804719676178626" target="_blank">Pre-history of DeCom ↗</a>
+            <a href="https://x.com/orishim/status/1929980877477445916" target="_blank">The Emerging DeCom Stack ↗</a>
+          </div>
+          <p class="commerce-links-label">Talks:</p>
+          <div class="commerce-links">
+            <a href="https://streameth.org/682f5f23c149844bac821bf0/watch?session=6852eaa890bd41297b138c0b" target="_blank">Protocol Berg ↗</a>
+            <a href="https://www.youtube.com/watch?v=5ltdesQQN1I" target="_blank">DappCon ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -279,105 +292,118 @@
   <a class="thesis-back" href="/" onclick="showMain(); return false;">← Back</a>
   <div class="thesis-page-header">
     <h1>Global Insurance</h1>
-    <p class="thesis-hypothesis">Traditional insurance pools risk through opaque institutions that profit from denying claims. Programmable, parametric models on Ethereum can create transparent safety nets that cross borders and serve their members rather than their shareholders.</p>
+    <p class="thesis-hypothesis">Every participant in the insurance lifecycle depends on intermediaries to coordinate with the others. Ethereum could provide the shared verification and execution layer that lets them deal directly.</p>
     
   </div>
   <div class="thesis-page-body">
     <div class="thesis-flavor-bar"></div>
 
-    <div class="thesis-tensions">
-      <div class="tension-box tension-capture">
-        <h4>Capture risk</h4>
-        On-chain insurance pools governed by token-weighted voting can reproduce the same dynamics as shareholder-controlled insurers — where the pool's governance optimizes for returns rather than coverage. Oracles become new chokepoints if payout triggers depend on a single data source.
-      </div>
-      <div class="tension-box tension-exit">
-        <h4>Exit story</h4>
-        Members can withdraw from any pool at any time, subject only to transparent, pre-committed lockup terms. Policy logic is auditable. No single oracle, governance token holder, or protocol upgrade can unilaterally block a valid claim.
-      </div>
-    </div>
-
-    <div class="thesis-examples">
-      <h3>Example apps</h3>
-      <div class="example-chips">
-        <span class="example-chip">Crop insurance that pays out automatically when rainfall drops below threshold</span>
-        <span class="example-chip">Mutual aid pools governed by members, not shareholders</span>
-        <span class="example-chip">$2/month microinsurance for unbanked communities</span>
-        <span class="example-chip">Cross-border climate disaster pools without reinsurer extraction</span>
-        <span class="example-chip">Health coverage with ZK-verified claims — no medical data exposed</span>
-      </div>
-    </div>
     <div class="thesis-content">
-      <h3>How claims could work</h3>
-      <div style="margin: 1.5rem 0;">
-        <div class="flow-step">
-          <div class="flow-num">1</div>
-          <div><strong>Trigger event occurs</strong><p>An oracle reports that rainfall in a region dropped below the policy threshold for 30 consecutive days.</p></div>
+      <h3>Why Insurance</h3>
+      <p>Insurance is a coordination problem between parties that don't fully trust each other: policyholders, carriers, brokers, reinsurers, regulators. Today that coordination is managed by inserting intermediaries at every layer: TPAs between employers and carriers, brokers between buyers and underwriters, reinsurance intermediaries between cedants and capital. Each intermediary exists because the parties on either side can't independently verify each other's data or enforce shared terms. The result is a system where no single participant has a complete, trustworthy view of the state, and everyone pays for that opacity.</p>
+      <p>Ethereum offers a different model: shared verifiable state, self-executing agreements, and permissionless participation in risk markets. This implementation track explores where those properties can return agency to participants versus where intermediation still serves a legitimate function. It is scoped around the areas where we think the intermediation tax is highest and the path to self-sovereign coordination is most concrete.</p>
+
+      <hr class="thesis-rule">
+
+      <h3>Areas of Exploration</h3>
+
+      <div class="insurance-grid">
+        <div class="insurance-area">
+          <h4>Parametric insurance and risk pricing</h4>
+          <p>Parametric products (where payouts trigger based on measurable events rather than adjuster assessment) remove one layer of intermediation by design. We're exploring how prediction markets and decentralized oracle networks could further disintermediate the pricing function, allowing risk to be priced by open market mechanisms rather than proprietary actuarial models controlled by a single carrier.</p>
         </div>
-        <div class="flow-step">
-          <div class="flow-num">2</div>
-          <div><strong>Smart contract verifies</strong><p>The policy contract checks the oracle data against the parametric condition. No human adjuster, no paperwork, no discretionary denial.</p></div>
+        <div class="insurance-area">
+          <h4>Reinsurance and decentralized capital pools</h4>
+          <p>Reinsurance today routes through a small number of brokers and carriers who control access to capacity. DeFi pool structures could open participation to a broader set of capital providers, each with direct visibility into reserves and exposure, rather than requiring trust in an intermediary's reported figures. We're looking at models where reinsurance capital can be deployed and managed through shared protocol logic rather than bilateral broker relationships.</p>
         </div>
-        <div class="flow-step">
-          <div class="flow-num">3</div>
-          <div><strong>Automatic payout</strong><p>Funds release from the pool to all qualifying policyholders. Settlement in minutes, not months.</p></div>
+        <div class="insurance-area">
+          <h4>Claims adjudication through decentralized arbitration</h4>
+          <p>Claims resolution today is controlled by the party that owes the payout, which is an inherent conflict. Decentralized arbitration protocols offer a model where adjudication is handled by neutral, incentive-aligned participants rather than a carrier's internal team. We're researching how these mechanisms could give policyholders a more direct voice in dispute resolution, particularly for standardized product types where adjudication criteria can be codified.</p>
         </div>
-        <div class="flow-step">
-          <div class="flow-num">4</div>
-          <div><strong>Pool rebalances</strong><p>The mutual pool recalculates premiums and reserves transparently. All members can verify the math.</p></div>
+        <div class="insurance-area">
+          <h4>Zero-knowledge attestations for claims verification</h4>
+          <p>Verifying a claim today means surrendering sensitive records to adjusters and third parties. The policyholder has no control over what's exposed or to whom. ZK attestation schemes (including zkTLS) could let policyholders prove claims-relevant facts (that a flight was delayed, that a procedure occurred, that a sensor reading crossed a threshold) on their own terms, without handing raw data to an intermediary. We're investigating where this is practical today and where the tooling still needs to mature.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Stablecoin premium collection and claims payouts</h4>
+          <p>Premium and claims payments today flow through banking intermediaries, correspondent networks, and currency conversion layers, each adding cost, delay, and counterparty risk. Stablecoin rails could allow direct settlement between policyholder and carrier, removing the financial middlemen from the payment loop. We're exploring both the practical benefits and the regulatory path.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Disintermediating third-party administrators</h4>
+          <p>TPAs sit between plan sponsors and the insurance system, handling claims processing, provider networks, and benefits administration. Much of this role is procedural and rules-based. Protocol-level automation could allow plan sponsors and participants to interact with coverage directly, without a TPA mediating every transaction. We're examining where this shift is viable and where the administrative complexity genuinely requires a human intermediary.</p>
         </div>
       </div>
-      <p>The global insurance gap — the difference between insured and actual economic losses — exceeds $1 trillion annually. Most of the world's population has no access to meaningful coverage. The industry's structure, built on extractive intermediation and adversarial claims processes, makes expansion into underserved markets unprofitable by design.</p>
-      <p>Ethereum changes the denominator. Programmable risk pools with automatic, verifiable payouts strip out the overhead that makes micro-coverage uneconomical. Mutual structures governed by smart contracts align the pool's incentives with its members. And interoperability means a farmer in Kenya and a shop owner in Colombia can participate in the same global risk pool without a reinsurer in London taking a cut.</p>
-      <p>Privacy matters acutely here: health data, location data, and financial exposure cannot be visible on-chain as a condition of coverage. Zero-knowledge proofs of eligibility and loss are essential, not optional.</p>
-      <div class="thesis-open-note">All research, specifications, and reference implementations produced under this track are published openly under permissive licenses.</div>
     </div>
   </div>
 </div>
 
-<!-- AUTOMATED SMEs -->
+<!-- AUTOMATED SMBs -->
 <div class="thesis-page thesis-sme" id="page-sme">
   <a class="thesis-back" href="/" onclick="showMain(); return false;">← Back</a>
   <div class="thesis-page-header">
-    <h1>Automated SMEs</h1>
-    <p class="thesis-hypothesis">Small and medium businesses drown in administrative overhead — invoicing, compliance, contract management, payroll. Self-executing workflows on Ethereum can automate the back office while keeping business owners in sovereign control of their operations.</p>
-    
+    <h1>Automated SMBs</h1>
+    <p class="thesis-hypothesis">Small businesses run on disconnected tools, manual reconciliation, and agreements that only humans can read. Ethereum could make their core operations (ownership, payments, contracts, compliance) verifiable and programmable by default, creating the foundation for AI to actually run them.</p>
+
   </div>
   <div class="thesis-page-body">
     <div class="thesis-flavor-bar"></div>
 
-    <div class="thesis-tensions">
-      <div class="tension-box tension-capture">
-        <h4>Capture risk</h4>
-        SaaS ERP platforms that "integrate with blockchain" while keeping data and workflow logic proprietary. Smart contract templates controlled by a single vendor. Automation tools that require ongoing subscriptions to maintain access to your own business logic.
-      </div>
-      <div class="tension-box tension-exit">
-        <h4>Exit story</h4>
-        A business running on self-executing contracts owns its workflow definitions, transaction history, and counterparty relationships outright. Switching providers means changing a front-end, not migrating your business. The contracts keep executing regardless.
-      </div>
-    </div>
-
-    <div class="thesis-examples">
-      <h3>Example apps</h3>
-      <div class="example-chips">
-        <span class="example-chip">Invoice auto-generated and settled when shipment GPS confirms delivery</span>
-        <span class="example-chip">Payroll that executes on-chain every two weeks — no processor needed</span>
-        <span class="example-chip">Freelancer contracts with milestone-triggered payments</span>
-        <span class="example-chip">Tax compliance docs generated from on-chain transaction state</span>
-        <span class="example-chip">Multi-party supply agreements that self-execute across jurisdictions</span>
-      </div>
-    </div>
     <div class="thesis-content">
-      <h3>A typical business workflow, on-chain</h3>
-      <div class="process-diagram">
-        <div class="process-node">Agreement signed</div>
-        <div class="process-node">Milestone delivered</div>
-        <div class="process-node">Verified on-chain</div>
-        <div class="process-node">Auto-settlement</div>
+      <h3>Why SMBs</h3>
+      <p>Small businesses manage procurement, payroll, treasury, equity, and contracts through a patchwork of disconnected tools that don't talk to each other. Every seam between systems requires manual reconciliation, introduces operational risk, and creates information that only the business owner can interpret. Cash flow visibility is limited. Access to credit is expensive and dependent on opaque underwriting. Agreements are written in natural language that no software can execute or enforce. Cross-border operations compound all of this with friction in payments, compliance, and document workflows.</p>
+      <p>The deeper problem is structural: SMBs lack the bargaining power to negotiate favorable terms with vendors, platforms, and financial institutions individually, and they have no infrastructure to coordinate effectively with one another. Large enterprises solve this with dedicated departments, custom integrations, and volume leverage. Small businesses absorb the cost or go without.</p>
+      <p>Onchain infrastructure offers an alternative: make ownership, liabilities, and cash flows verifiable by default; encode roles, limits, and triggers into programmable agreements; and bridge small firms into a shared economic layer where they can pay, sell, borrow, and invest on the same rails as everyone else. This is also a precondition for meaningful AI integration. An AI agent can't manage a business's operations if those operations aren't software-defined. Without verifiable, machine-readable state, automation hits a ceiling. This track explores where onchain primitives can make small businesses legible to software and where that legibility enables fundamentally new levels of autonomy.</p>
+
+      <hr class="thesis-rule">
+
+      <h3>Areas of Exploration</h3>
+      <div class="insurance-grid">
+        <div class="insurance-area">
+          <h4>Cap tables and equity</h4>
+          <p>Verifiable, onchain ownership records from day one: issuance, vesting, transfers. We're exploring how onchain cap table management could make equity transparent to investors, employees, and regulators without relying on a third-party platform to be the source of truth, and how this enables downstream automation (vesting schedules that execute automatically, transfers that enforce compliance constraints by default).</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Approval workflows and organizational identity</h4>
+          <p>Programmable, role-based permissioning that enforces who can move funds or sign agreements, with onchain identifiers representing employees and members. We're researching how these structures could replace the informal trust hierarchies that most small businesses rely on, giving them the operational controls of a larger organization without the overhead.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Treasury management</h4>
+          <p>Stablecoin-denominated treasury with yield strategies, automated reporting, and compliance hooks. We're looking at how onchain treasury tooling could give small businesses real-time visibility into their financial position and access to yield opportunities that are currently available only to firms with dedicated finance teams.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Payroll, invoicing, and revenue splits</h4>
+          <p>Instant, programmable global payouts with automated tax and compliance reporting. Automated distributions to partners, employees, and investors tied to income events. We're exploring how tokenized receivables, payables, and revenue shares could make the financial relationships within and between small businesses executable rather than just documented.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Commercial agreements</h4>
+          <p>Legal smart contracts that embed milestones, royalties, licensing terms, rebates, volume discounts, performance incentives, warranties, expiries, and dispute handling directly into execution logic. We're investigating where machine-readable, self-executing agreements can replace the cycle of drafting, interpreting, and manually enforcing contracts that consumes disproportionate resources for small businesses.</p>
+        </div>
+        <div class="insurance-area">
+          <h4>Bookkeeping and procurement</h4>
+          <p>Real-time, tamper-evident "triple-entry" ledgers providing auditable financial history, combined with smart contracts for purchase orders, RFQs, vendor agreements, and automatic replenishment. We're researching how collapsing the gap between transaction and record could eliminate the reconciliation burden that dominates small business back-office work, and how programmable procurement could give small firms access to structured purchasing workflows they currently can't afford to implement.</p>
+        </div>
       </div>
-      <p>An SME owner today manages a patchwork of SaaS tools for invoicing, contracts, payroll, and compliance — each one a separate vendor relationship, a separate data silo, a separate monthly fee. The administrative burden scales linearly with the business, consuming time and capital that should go to the actual work.</p>
-      <p>The core insight is that most business-to-business agreements are already structured as conditional logic: if X is delivered by Y date, then Z payment releases. Ethereum makes this logic executable. A contract between two businesses becomes a smart contract — not metaphorically, literally. Delivery milestones can trigger invoicing automatically. Payroll can execute on schedule without a processor. Compliance documentation can be generated from verifiable on-chain state rather than manually assembled for auditors.</p>
-      <p>The challenge isn't technical complexity — it's making these workflows accessible to business owners who don't think in terms of blockchains. The resident for this track will work at the intersection of ERP/accounting software and Ethereum primitives, building bridges that feel like better business tools rather than crypto products.</p>
-      <div class="thesis-open-note">All research, specifications, and reference implementations produced under this track are published openly under permissive licenses.</div>
+
+      <hr class="thesis-rule">
+
+      <h3>Initial Work</h3>
+      <div class="commerce-work">
+        <div class="commerce-work-item">
+          <h4>Onchain Organizations Townhall</h4>
+          <p>Community discussion on the design space for onchain organizational primitives, hosted at ETHBoulder.</p>
+          <div class="commerce-links">
+            <a href="https://x.com/orishim/status/2023459491459506427" target="_blank">Watch ↗</a>
+          </div>
+        </div>
+        <div class="commerce-work-item">
+          <h4>Academic RFPs</h4>
+          <p>Active research proposals for PhD candidates.</p>
+          <div class="commerce-links">
+            <a href="https://esp.ethereum.foundation/rounds/phdfp26/phdfp-rfpu2" target="_blank">Software-Defined Operations for Small Businesses ↗</a>
+            <a href="https://esp.ethereum.foundation/rounds/phdfp26/phdfp-rfpu3" target="_blank">Intelligent Capital Formation ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

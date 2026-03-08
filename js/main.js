@@ -42,6 +42,8 @@ function showThesis(id, animate) {
   const targetPage = document.getElementById('page-' + id);
   if (!targetPage) return;
 
+  window.scrollTo(0, 0);
+
   if (animate !== false) {
     mainPage.classList.add('fade-out');
     setTimeout(() => {
@@ -51,7 +53,6 @@ function showThesis(id, animate) {
         p.classList.remove('visible');
       });
       targetPage.classList.add('active');
-      window.scrollTo(0, 0);
       requestAnimationFrame(() => {
         targetPage.classList.add('visible');
       });
@@ -63,7 +64,6 @@ function showThesis(id, animate) {
       p.classList.remove('visible');
     });
     targetPage.classList.add('active');
-    window.scrollTo(0, 0);
     requestAnimationFrame(() => {
       targetPage.classList.add('visible');
     });

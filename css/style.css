@@ -353,10 +353,7 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 .thesis-sme .thesis-rule { border-top-color: var(--sme-accent-dim); }
 
 /* Verifiable Cities header actions */
-.vc-sidebar-header { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; }
-.vc-collaborate { display: flex; gap: 0.75rem; align-items: center; padding-left: 1.5rem; border-left: 1px solid var(--border); }
-.vc-collaborate .sidebar-label { margin-bottom: 0; margin-right: 0.25rem; }
-.vc-collaborate .sidebar-desc { margin-bottom: 0; }
+.vc-sidebar-header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; }
 .sidebar-box { padding: 1.25rem; border: 1px solid var(--border); border-radius: 4px; }
 .sidebar-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem; }
 .sidebar-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.75rem; }
@@ -556,7 +553,6 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   /* Contact & sidebar */
   .contact-methods { flex-direction: column; align-items: flex-start; }
   .vc-sidebar-header { flex-direction: column; align-items: flex-start; }
-  .vc-collaborate { border-left: none; padding-left: 0; padding-top: 0.75rem; border-top: 1px solid var(--border); flex-direction: column; align-items: flex-start; }
 
   /* Footer */
   .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }

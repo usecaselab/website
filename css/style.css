@@ -21,7 +21,7 @@ body {
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-  font-size: 15px;
+  font-size: 22px;
   line-height: 1.7;
 }
 
@@ -65,8 +65,9 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 .thesis-card:hover { border-color: var(--border-light); background: var(--bg-hover); text-decoration: none; }
 .thesis-card-img {
   width: 100%;
-  height: 140px;
+  height: 200px;
   object-fit: cover;
+  object-position: top;
   border-radius: 3px 3px 0 0;
   margin: -1.5rem -1.5rem 1rem -1.5rem;
   width: calc(100% + 3rem);
@@ -92,10 +93,10 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 
 /* SPRINTS */
 .sprints-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.sprint-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.25s; }
+.sprint-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.25s; display: flex; flex-direction: column; }
 .sprint-card:hover { border-color: var(--border-light); }
 .sprint-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-.sprint-body { padding: 1.25rem 1.5rem; }
+.sprint-body { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
 .sprint-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.03em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 2px; margin-bottom: 0.6rem; }
 .stag-past { background: rgba(90,158,159,0.1); color: var(--teal); border: 1px solid rgba(90,158,159,0.2); }
 .stag-upcoming { background: rgba(201,168,76,0.08); color: var(--accent); border: 1px solid rgba(201,168,76,0.15); }
@@ -111,6 +112,8 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
   border-radius: 3px;
   transition: all 0.2s;
   text-decoration: none;
+  margin-top: auto;
+  align-self: flex-start;
 }
 .sprint-cta:hover { background: rgba(201,168,76,0.08); border-color: var(--accent); text-decoration: none; }
 
@@ -141,8 +144,12 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   padding: 1.5rem 0; transition: color 0.2s;
 }
 .thesis-back:hover { color: var(--text); text-decoration: none; }
+.thesis-pdf-link {
+  font-size: 0.82rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;
+}
+.thesis-pdf-link:hover { color: var(--text); }
 
-.thesis-page-header { padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+.thesis-page-header { padding-bottom: 2.5rem; }
 .thesis-page-header h1 { font-size: 2rem; font-weight: 500; margin-bottom: 0.75rem; }
 
 .thesis-hypothesis {
@@ -258,34 +265,61 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 .thesis-content h3 { color: var(--text); font-size: 1.1rem; font-weight: 500; margin: 2rem 0 0.75rem; }
 .thesis-content img { max-width: 100%; border-radius: 4px; margin: 1.5rem 0; border: 1px solid var(--border); }
 
-/* ---- Per-thesis unique flavor ---- */
+/* ---- Flavor bar ---- */
+.thesis-flavor-bar { height: 1px; background: var(--border); margin-bottom: 2rem; }
 
-/* Cities: warm, civic */
-.thesis-cities .thesis-page-header { border-bottom-color: #3a6b4a; }
-.thesis-cities .thesis-flavor-bar { height: 3px; background: linear-gradient(to right, #3a8c5a, #5ab87a, #3a8c5a); margin-bottom: 2rem; border-radius: 2px; }
+/* Verifiable Cities header actions */
+.thesis-cities .thesis-page-header { position: relative; }
+.vc-sidebar-header { position: absolute; left: calc(100% + 2.5rem); top: 3.25rem; width: 200px; display: flex; flex-direction: column; gap: 1rem; }
+.vc-collaborate { border-top: 1px solid var(--border); padding-top: 1rem; }
+.sidebar-box { padding: 1.25rem; border: 1px solid var(--border); border-radius: 4px; }
+.sidebar-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem; }
+.sidebar-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0.75rem; }
+.sidebar-btn { display: inline-block; text-align: center; padding: 0.6rem 1.25rem; border: 1px solid var(--border); border-radius: 3px; font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+.sidebar-btn:hover { border-color: var(--text-secondary); color: var(--text); }
+.sidebar-btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+.sidebar-btn-primary:hover { opacity: 0.85; color: var(--bg); }
 
-/* Telematics: data, signals */
-.thesis-telematics .thesis-page-header { border-bottom-color: #4a5a8c; }
-.thesis-telematics .thesis-flavor-bar { height: 3px; background: linear-gradient(to right, #4a6aac, #6a8acc, #4a6aac); margin-bottom: 2rem; border-radius: 2px; }
-
-/* Commerce: clean, transactional */
-.thesis-commerce .thesis-page-header { border-bottom-color: #8c6a3a; }
-.thesis-commerce .thesis-flavor-bar { height: 3px; background: linear-gradient(to right, #c9a84c, #e4cc7a, #c9a84c); margin-bottom: 2rem; border-radius: 2px; }
-
-/* Insurance: protective, structured */
-.thesis-insurance .thesis-page-header { border-bottom-color: #5a3a6b; }
-.thesis-insurance .thesis-flavor-bar { height: 3px; background: linear-gradient(to right, #7a5a9c, #9a7abc, #7a5a9c); margin-bottom: 2rem; border-radius: 2px; }
-
-/* SMEs: workflow, mechanical */
-.thesis-sme .thesis-page-header { border-bottom-color: #6b5a3a; }
-.thesis-sme .thesis-flavor-bar { height: 3px; background: linear-gradient(to right, #9c7a5a, #bc9a7a, #9c7a5a); margin-bottom: 2rem; border-radius: 2px; }
+/* Verifiable Cities specific */
+.vc-hypotheses { padding-left: 1.25rem; margin: 1rem 0 1.5rem; }
+.vc-hypotheses li { margin-bottom: 0.75rem; }
+.vc-list { padding-left: 1.25rem; margin: 0.5rem 0 1rem; }
+.vc-list li { margin-bottom: 0.35rem; }
+.vc-link { color: var(--text); text-underline-offset: 3px; }
+.vc-link:hover { opacity: 0.75; }
+.vc-readings-intro { font-style: italic; margin-bottom: 1.5rem; }
+.vc-readings { display: flex; flex-direction: column; gap: 1.5rem; }
+.vc-reading-group h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; margin-bottom: 0.5rem; font-weight: 400; }
+.vc-reading-group ul { padding-left: 1.25rem; }
+.vc-reading-group li { margin-bottom: 0.3rem; }
+.vc-reading-group a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+.vc-reading-group a:hover { color: var(--text); }
 
 /* Unique typography per page */
 .thesis-cities .thesis-content { font-family: 'Libre Baskerville', serif; font-size: 0.9rem; }
-.thesis-telematics .thesis-content { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; letter-spacing: -0.01em; }
 .thesis-commerce .thesis-content { font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; }
 .thesis-insurance .thesis-content { font-family: 'Fraunces', serif; font-size: 0.92rem; }
 .thesis-sme .thesis-content { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; }
+
+/* Commerce hypotheses & work */
+.commerce-hypotheses { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
+.commerce-hypothesis { display: flex; gap: 1.25rem; align-items: flex-start; }
+.commerce-hyp-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); padding-top: 0.2rem; flex-shrink: 0; width: 1.5rem; }
+.commerce-work { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+.commerce-work-item { padding: 1.25rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-raised); }
+.commerce-work-item h4 { font-size: 0.95rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+.commerce-work-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+.commerce-links-label { font-size: 0.75rem !important; color: var(--text-muted) !important; margin-bottom: 0.25rem !important; }
+.commerce-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+.commerce-links a { font-size: 0.82rem; color: var(--accent); text-decoration: none; }
+.commerce-links a:hover { text-decoration: underline; }
+
+/* Insurance areas */
+.thesis-rule { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+.insurance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+.insurance-area { padding: 1.25rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-raised); }
+.insurance-area h4 { font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
+.insurance-area p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
 
 /* Interactive pieces */
 .signal-grid {

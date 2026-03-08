@@ -1,9 +1,9 @@
 // Route map: path <-> thesis ID
 const routes = {
-  '/open-telematics': 'telematics',
+  '/verifiable-cities': 'cities',
   '/composable-commerce': 'commerce',
   '/global-insurance': 'insurance',
-  '/automated-smes': 'sme'
+  '/automated-smbs': 'sme'
 };
 
 const idToPath = Object.fromEntries(

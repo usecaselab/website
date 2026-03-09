@@ -31,11 +31,11 @@ body {
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-  font-size: 17px;
+  font-size: 21px;
   line-height: 1.75;
 }
 
-.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -52,12 +52,12 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 .intro { padding: 6rem 0 4rem; border-bottom: 1px solid var(--border); }
 .intro-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2rem; }
 .intro h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 500; line-height: 1.25; color: var(--text); margin-bottom: 1.5rem; letter-spacing: -0.01em; }
-.intro-body { max-width: 620px; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; }
+.intro-body { max-width: 620px; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; }
 
 /* SHARED SECTION */
 .section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
 .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; padding-left: 0.75rem; border-left: 2px solid var(--accent-dim); }
-.section-desc { color: var(--text-secondary); max-width: 580px; margin-bottom: 2.5rem; font-size: 1rem; line-height: 1.75; }
+.section-desc { color: var(--text-secondary); max-width: 580px; margin-bottom: 2.5rem; font-size: 1.05rem; line-height: 1.75; }
 
 /* THESIS CARDS on main page */
 .thesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -76,7 +76,7 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 .thesis-card:hover { border-color: var(--border-light); border-bottom-color: var(--accent-dim); background: var(--bg-hover); text-decoration: none; transform: translateY(-2px); }
 .thesis-card-img {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 2.5 / 1;
   object-fit: cover;
   object-position: top;
   border-radius: 3px 3px 0 0;
@@ -86,8 +86,8 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
   transition: opacity 0.3s;
 }
 .thesis-card:hover .thesis-card-img { opacity: 1; }
-.thesis-card h3 { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
-.thesis-card .brief { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; }
+.thesis-card h3 { font-size: 1.15rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+.thesis-card .brief { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
 .thesis-card .card-arrow { float: right; color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; transition: color 0.2s; }
 .thesis-card:hover .card-arrow { color: var(--accent); }
 
@@ -118,17 +118,17 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 .sprints-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .sprint-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
 .sprint-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
-.sprint-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.sprint-img { width: 100%; aspect-ratio: 2.5/1; object-fit: cover; display: block; }
 .sprint-body { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
 .sprint-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.03em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 2px; margin-bottom: 0.6rem; }
 .stag-past { background: rgba(90,158,159,0.1); color: var(--teal); border: 1px solid rgba(90,158,159,0.2); }
 .stag-upcoming { background: rgba(201,168,76,0.08); color: var(--accent); border: 1px solid rgba(201,168,76,0.15); }
-.sprint-card h3 { font-size: 1.05rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
-.sprint-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem; }
-.sprint-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+.sprint-card h3 { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
+.sprint-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+.sprint-desc { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
 .sprint-cta {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--accent);
   padding: 0.4rem 1rem;
   border: 1px solid var(--accent-dim);
@@ -142,15 +142,15 @@ nav { padding: 1.5rem 0; border-bottom: 1px solid var(--border); position: stick
 
 /* CONTACT */
 .contact-box { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; }
-.contact-box p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 500px; }
+.contact-box p { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; max-width: 500px; }
 .contact-methods { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
 .contact-methods a.cta-btn {
-  font-size: 0.85rem; color: var(--accent); padding: 0.5rem 1.25rem;
+  font-size: 0.92rem; color: var(--accent); padding: 0.5rem 1.25rem;
   border: 1px solid var(--accent-dim); border-radius: 3px; transition: all 0.2s; text-decoration: none;
 }
 .contact-methods a.cta-btn:hover { background: rgba(201,168,76,0.08); border-color: var(--accent); text-decoration: none; }
-.contact-methods .or { color: var(--text-muted); font-size: 0.8rem; }
-.contact-methods a.email-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--text-secondary); }
+.contact-methods .or { color: var(--text-muted); font-size: 0.85rem; }
+.contact-methods a.email-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: var(--text-secondary); }
 
 /* FOOTER */
 footer { padding: 2rem 0; border-top: 1px solid var(--border); }
@@ -293,9 +293,9 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   color: var(--text-secondary);
 }
 
-.thesis-content { color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; }
+.thesis-content { color: var(--text-secondary); line-height: 1.85; font-size: 1.05rem; }
 .thesis-content p + p { margin-top: 1.25rem; }
-.thesis-content h3 { color: var(--text); font-size: 1.1rem; font-weight: 500; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.thesis-content h3 { color: var(--text); font-size: 1.2rem; font-weight: 500; margin: 2.5rem 0 1rem; display: flex; align-items: center; gap: 0.75rem; }
 .thesis-content h3 .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
 .thesis-content img { max-width: 100%; border-radius: 4px; margin: 1.5rem 0; border: 1px solid var(--border); }
 
@@ -305,7 +305,7 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   padding: 0.75rem 0 0.75rem 1.25rem;
   margin: 1.75rem 0;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text);
   line-height: 1.65;
   font-style: normal;
@@ -323,9 +323,9 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
   margin-bottom: 0.5rem;
 }
 .vc-reading-card:hover { border-color: var(--border-light); text-decoration: none; }
-.vc-reading-card-title { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 0.15rem; }
+.vc-reading-card-title { font-size: 0.92rem; color: var(--text-secondary); display: block; margin-bottom: 0.15rem; }
 .vc-reading-card:hover .vc-reading-card-title { color: var(--text); }
-.vc-reading-card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--text-muted); }
+.vc-reading-card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
 
 /* ---- Flavor bar ---- */
 .thesis-flavor-bar { height: 2px; margin-bottom: 2rem; }
@@ -378,10 +378,10 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 .vc-reading-group a:hover { color: var(--text); }
 
 /* Unique typography per page */
-.thesis-cities .thesis-content { font-family: 'Libre Baskerville', serif; font-size: 0.9rem; }
-.thesis-commerce .thesis-content { font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; }
-.thesis-insurance .thesis-content { font-family: 'Fraunces', serif; font-size: 0.92rem; }
-.thesis-sme .thesis-content { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; }
+.thesis-cities .thesis-content { font-family: 'Libre Baskerville', serif; font-size: 1rem; }
+.thesis-commerce .thesis-content { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.thesis-insurance .thesis-content { font-family: 'Fraunces', serif; font-size: 1.05rem; }
+.thesis-sme .thesis-content { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; }
 
 /* Commerce hypotheses & work */
 .commerce-hypotheses { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
@@ -389,11 +389,11 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 .commerce-hyp-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); padding-top: 0.2rem; flex-shrink: 0; width: 1.5rem; }
 .commerce-work { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
 .commerce-work-item { padding: 1.25rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-raised); }
-.commerce-work-item h4 { font-size: 0.95rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
-.commerce-work-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+.commerce-work-item h4 { font-size: 1.02rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+.commerce-work-item p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
 .commerce-links-label { font-size: 0.75rem !important; color: var(--text-muted) !important; margin-bottom: 0.25rem !important; }
 .commerce-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
-.commerce-links a { font-size: 0.82rem; color: var(--accent); text-decoration: none; }
+.commerce-links a { font-size: 0.92rem; color: var(--accent); text-decoration: none; }
 .commerce-links a:hover { text-decoration: underline; }
 
 /* Insurance areas */
@@ -401,8 +401,8 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 .insurance-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem; }
 .insurance-area { padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-raised); transition: border-color 0.2s; }
 .insurance-area:hover { border-color: var(--border-light); }
-.insurance-area h4 { font-size: 0.92rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
-.insurance-area p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+.insurance-area h4 { font-size: 1.02rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
+.insurance-area p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65; }
 
 /* Per-thesis area card top accent */
 .thesis-insurance .insurance-area { border-top: 2px solid var(--insurance-accent-dim); }
@@ -520,6 +520,67 @@ footer { padding: 2rem 0; border-top: 1px solid var(--border); }
 }
 
 .commerce-table td:first-child { color: var(--text); font-weight: 500; }
+
+/* ============ LARGE SCREENS ============ */
+@media (min-width: 1400px) {
+  .container { max-width: 1280px; }
+  body { font-size: 22px; }
+  .intro h1 { font-size: clamp(2.4rem, 4vw, 3.6rem); }
+  .intro-body { font-size: 1.15rem; max-width: 720px; }
+  .section-desc { font-size: 1.1rem; max-width: 680px; }
+  .thesis-card h3 { font-size: 1.25rem; }
+  .thesis-card .brief { font-size: 0.92rem; }
+  .sprint-card h3 { font-size: 1.15rem; }
+  .sprint-desc { font-size: 0.92rem; }
+  .sprint-meta { font-size: 0.8rem; }
+  .sprint-cta { font-size: 0.9rem; }
+  .thesis-page-header h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+  .thesis-hypothesis { font-size: 1.15rem; max-width: 760px; }
+  .thesis-content { font-size: 1.05rem; }
+  .thesis-content h3 { font-size: 1.25rem; }
+  .thesis-content blockquote { font-size: 0.95rem; }
+  .insurance-area h4 { font-size: 1.05rem; }
+  .insurance-area p { font-size: 0.92rem; }
+  .commerce-work-item h4 { font-size: 1.05rem; }
+  .commerce-work-item p { font-size: 0.92rem; }
+  .vc-reading-card-title { font-size: 0.92rem; }
+  .vc-reading-card-meta { font-size: 0.75rem; }
+  .contact-box p { font-size: 1rem; }
+  .contact-methods a.cta-btn { font-size: 0.92rem; padding: 0.55rem 1.4rem; }
+  .nav-logo { height: 42px; }
+}
+
+@media (min-width: 1800px) {
+  .container { max-width: 1440px; }
+  body { font-size: 24px; }
+  .intro { padding: 7rem 0 5rem; }
+  .intro h1 { font-size: 3.8rem; }
+  .intro-body { font-size: 1.25rem; max-width: 800px; }
+  .section { padding: 5rem 0; }
+  .section-label { font-size: 0.8rem; }
+  .section-desc { font-size: 1.15rem; max-width: 740px; }
+  .thesis-grid { gap: 1.25rem; }
+  .thesis-card { padding: 1.75rem; }
+  .thesis-card h3 { font-size: 1.35rem; }
+  .thesis-card .brief { font-size: 0.95rem; }
+  .thesis-card-img { margin: -1.75rem -1.75rem 1.5rem -1.75rem; width: calc(100% + 3.5rem); }
+  .sprints-grid { gap: 1.25rem; }
+  .sprint-body { padding: 1.5rem 1.75rem; }
+  .sprint-card h3 { font-size: 1.25rem; }
+  .sprint-desc { font-size: 0.95rem; }
+  .thesis-page-header h1 { font-size: 3.4rem; }
+  .thesis-hypothesis { font-size: 1.2rem; max-width: 840px; }
+  .thesis-content { font-size: 1.1rem; }
+  .thesis-content h3 { font-size: 1.35rem; }
+  .thesis-content blockquote { font-size: 1rem; }
+  .insurance-grid { gap: 1.25rem; }
+  .insurance-area { padding: 1.75rem; }
+  .insurance-area h4 { font-size: 1.1rem; }
+  .insurance-area p { font-size: 0.95rem; }
+  .nav-logo { height: 48px; }
+  nav { padding: 1.75rem 0; }
+  .contact-box { padding: 2.5rem; }
+}
 
 @media (max-width: 700px) {
   body { font-size: 16px; }

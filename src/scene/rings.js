@@ -1,8 +1,15 @@
 import * as THREE from 'three';
 
 const DISC_THICKNESS = 0.12;
-const HOLE_RADIUS = 0.8;
-const DISC_RADII = [2.5, 4, 5.5];
+const HOLE_RADIUS = 0.5;
+
+// Three solid discs, each with just a center hole
+// Proportions based on golden ratio (~1.6x each step)
+const DISC_SPECS = [
+  { inner: HOLE_RADIUS, outer: 2.0 },    // small (top)
+  { inner: HOLE_RADIUS, outer: 3.3 },    // medium
+  { inner: HOLE_RADIUS, outer: 5.3 },    // large (bottom)
+];
 
 function createRingGeo(innerR, outerR, thickness) {
   const halfT = thickness / 2;
@@ -12,7 +19,7 @@ function createRingGeo(innerR, outerR, thickness) {
     new THREE.Vector2(outerR, halfT),
     new THREE.Vector2(innerR, halfT),
   ];
-  return new THREE.LatheGeometry(points, 128);
+  return new THREE.LatheGeometry(points, 512);
 }
 
 function randomDiscPoint(innerR, outerR) {
@@ -39,7 +46,7 @@ function createResidentsLayer(innerR, outerR) {
 
   // Place nodes in a structured hex-ish grid within the disc
   const midR = (innerR + outerR) / 2;
-  const step = 0.38;
+  const step = 0.6;
   for (let x = -outerR; x <= outerR; x += step) {
     for (let z = -outerR; z <= outerR; z += step * 0.866) {
       const offsetX = (Math.round(z / (step * 0.866)) % 2) * step * 0.5;
@@ -52,7 +59,7 @@ function createResidentsLayer(innerR, outerR) {
   }
 
   // Core nodes — brighter, slightly larger, represent key researchers
-  const coreCount = 6;
+  const coreCount = 3;
   const coreIndices = new Set();
   while (coreIndices.size < Math.min(coreCount, nodes.length)) {
     coreIndices.add(Math.floor(Math.random() * nodes.length));
@@ -108,11 +115,17 @@ function createResidentsLayer(innerR, outerR) {
 function createPartnersLayer(innerR, outerR) {
   const group = new THREE.Group();
 
-  // Three cluster centers, evenly spaced
-  const clusterAngles = [0, (Math.PI * 2) / 3, (Math.PI * 2 * 2) / 3];
+  // Four clusters at diamond vertices (top, right, bottom, left)
   const clusterR = (innerR + outerR) / 2;
-  const clusters = clusterAngles.map(a => ({
-    center: new THREE.Vector3(Math.cos(a) * clusterR, 0, Math.sin(a) * clusterR),
+  const ratio = 0.6; // ETH diamond width ratio
+  const diamondPositions = [
+    new THREE.Vector3(0, 0, -clusterR),            // top
+    new THREE.Vector3(clusterR * ratio, 0, 0),      // right
+    new THREE.Vector3(0, 0, clusterR),               // bottom
+    new THREE.Vector3(-clusterR * ratio, 0, 0),      // left
+  ];
+  const clusters = diamondPositions.map(pos => ({
+    center: pos,
     nodes: [],
   }));
 
@@ -156,52 +169,12 @@ function createPartnersLayer(innerR, outerR) {
       group.add(new THREE.Line(geo, lineMat));
     }
 
-    // Geometric identity ring
-    if (ci === 0) {
-      // VCs: triangle
-      const triR = 0.9;
-      const triPts = [];
-      for (let i = 0; i <= 3; i++) {
-        const a = (i / 3) * Math.PI * 2 - Math.PI / 2;
-        triPts.push(new THREE.Vector3(center.x + Math.cos(a) * triR, 0, center.z + Math.sin(a) * triR));
-      }
-      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(triPts), strongLine));
-    } else if (ci === 1) {
-      // Startups: double circle (growth)
-      [0.6, 0.85].forEach(r => {
-        const pts = makeCirclePoints(center.x, center.z, r, 48);
-        group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lineMat));
-      });
-    } else {
-      // Hubs: square
-      const sqR = 0.75;
-      const sqPts = [];
-      for (let i = 0; i <= 4; i++) {
-        const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
-        sqPts.push(new THREE.Vector3(center.x + Math.cos(a) * sqR, 0, center.z + Math.sin(a) * sqR));
-      }
-      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(sqPts), strongLine));
-    }
+    // No per-cluster shape — the diamond is formed by the cluster connections
   });
 
-  // Cross-cluster bridges — thicker, partnership links
-  for (let i = 0; i < clusters.length; i++) {
-    const j = (i + 1) % clusters.length;
-    const a = clusters[i].nodes[0];
-    const b = clusters[j].nodes[0];
-    // Curved arc between cluster hubs
-    const mid = new THREE.Vector3().addVectors(a, b).multiplyScalar(0.5);
-    mid.y = 0;
-    const dist = Math.sqrt(mid.x * mid.x + mid.z * mid.z);
-    // Push midpoint slightly outward for arc feel
-    if (dist > 0.1) {
-      mid.multiplyScalar((dist + 0.3) / dist);
-    }
-    const curve = new THREE.QuadraticBezierCurve3(a, mid, b);
-    const pts = curve.getPoints(24);
-    pts.forEach(p => { p.y = 0; });
-    group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), strongLine));
-  }
+  // Connect clusters as a diamond outline: top→right→bottom→left→top
+  const diamondPath = [...clusters.map(c => c.nodes[0]), clusters[0].nodes[0]];
+  group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(diamondPath), strongLine));
 
   group.position.y = DISC_THICKNESS / 2 + 0.005;
   return group;
@@ -288,27 +261,29 @@ export function createRings(scene) {
   const layers = [createResidentsLayer, createPartnersLayer, createCommunityLayer];
 
   const material = new THREE.MeshPhysicalMaterial({
-    color: 0xeae6e2,
-    roughness: 0.25,
-    metalness: 0.0,
+    color: 0x0a0a0a,
+    roughness: 0.05,
+    metalness: 0.1,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.05,
-    reflectivity: 0.8,
-    sheen: 0.4,
-    sheenRoughness: 0.3,
-    sheenColor: new THREE.Color(0xfaf5f0),
-    envMapIntensity: 1.2,
+    clearcoatRoughness: 0.02,
+    reflectivity: 1.0,
+    transmission: 0.3,
+    thickness: 0.5,
+    ior: 2.4,
+    envMapIntensity: 1.5,
+    transparent: true,
+    opacity: 0.85,
   });
 
   for (let i = 0; i < 3; i++) {
-    const radius = DISC_RADII[i];
+    const { inner, outer } = DISC_SPECS[i];
     const group = new THREE.Group();
 
-    const geo = createRingGeo(HOLE_RADIUS, radius, DISC_THICKNESS);
+    const geo = createRingGeo(inner, outer, DISC_THICKNESS);
     const disc = new THREE.Mesh(geo, material.clone());
     group.add(disc);
 
-    const layer = layers[i](HOLE_RADIUS, radius);
+    const layer = layers[i](inner, outer);
     group.add(layer);
 
     group.position.y = positions[i];

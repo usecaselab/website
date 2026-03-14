@@ -5,6 +5,7 @@ import { updateCamera } from './animation/cameraPath.js';
 import { updateRings } from './animation/ringAnimator.js';
 import { createRings } from './scene/rings.js';
 import { createBeam, updateBeam } from './scene/beam.js';
+import { createEnvironment, updateEnvironment } from './scene/environment.js';
 import { setupPostProcessing } from './postprocessing/bloom.js';
 
 // Renderer
@@ -78,6 +79,7 @@ scene.add(ambient);
 // Scene objects
 const rings = createRings(scene);
 const beam = createBeam(scene);
+const env = createEnvironment(scene);
 
 // Post-processing
 const { composer } = setupPostProcessing(renderer, scene, camera);
@@ -96,15 +98,80 @@ function onResize() {
 }
 window.addEventListener('resize', onResize);
 
+// Auto-play: smoothly scroll through the animation
+const playBtn = document.getElementById('play-btn');
+let autoPlaying = false;
+let autoStart = 0;
+let autoDirection = 1; // 1 = down, -1 = up
+let autoFromScroll = 0;
+const AUTO_DURATION = 10000;
+
+playBtn.addEventListener('click', () => {
+  if (autoPlaying) return;
+  autoPlaying = true;
+  autoStart = Date.now();
+  playBtn.classList.add('playing');
+
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const currentScroll = window.scrollY;
+
+  // If near bottom, scroll back to top; otherwise scroll to bottom
+  if (currentScroll > maxScroll * 0.8) {
+    autoDirection = -1;
+    autoFromScroll = currentScroll;
+  } else {
+    autoDirection = 1;
+    autoFromScroll = currentScroll;
+  }
+});
+
+function updateAutoPlay() {
+  if (!autoPlaying) return;
+  const elapsed = Date.now() - autoStart;
+  const t = Math.min(elapsed / AUTO_DURATION, 1);
+  const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+
+  const target = autoDirection === 1 ? maxScroll : 0;
+  const scrollPos = autoFromScroll + (target - autoFromScroll) * eased;
+  window.scrollTo(0, scrollPos);
+
+  if (t >= 1) {
+    autoPlaying = false;
+    playBtn.classList.remove('playing');
+  }
+}
+
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
 
+  updateAutoPlay();
   const progress = scrollManager.update();
 
   updateRings(progress, rings);
   updateBeam(beam);
+  updateEnvironment(env, progress);
   updateCamera(progress, camera);
+
+  // Debug: show scroll progress and current phase
+  let phase = 'INTRO';
+  // Flip play button direction when near bottom
+  if (progress > 0.8) {
+    playBtn.style.transform = 'rotate(180deg)';
+  } else {
+    playBtn.style.transform = 'rotate(0deg)';
+  }
+
+  if (progress > 0.86) phase = 'LANDING';
+  else if (progress > 0.78) phase = 'THROUGH';
+  else if (progress > 0.58) phase = 'DESCEND';
+  else if (progress > 0.40) phase = 'ENTER';
+  else if (progress > 0.36) phase = 'HOLD';
+  else if (progress > 0.16) phase = 'COMPACT';
+  else if (progress > 0.10) phase = 'IDLE';
+  const debugEl = document.getElementById('debug');
+  if (debugEl) debugEl.textContent = `${(progress * 100).toFixed(1)}% — ${phase}`;
 
   composer.render();
 }

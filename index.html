@@ -8,6 +8,30 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <div id="debug" style="position:fixed;top:1rem;left:1rem;color:#fff;font-size:14px;font-family:monospace;z-index:99;opacity:0.6;pointer-events:none;"></div>
+
+  <div id="intro-overlay">
+    <div class="landing-content">
+      <h1 class="landing-title">Usecase Lab</h1>
+      <p class="landing-subtitle">An Ethereum Foundation initiative exploring the frontier of onchain use cases</p>
+      <span class="scroll-hint">Scroll to explore</span>
+    </div>
+  </div>
+
+  <div id="landing-overlay">
+    <div class="landing-content">
+      <h1 class="landing-title">Usecase Lab</h1>
+      <p class="landing-subtitle">An Ethereum Foundation initiative exploring the frontier of onchain use cases</p>
+      <a href="mailto:hello@usecaselab.eth" class="landing-btn">Get in touch</a>
+    </div>
+  </div>
+
+  <button id="play-btn" aria-label="Play animation">
+    <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+      <path d="M1 1L15 9L1 17V1Z" stroke="white" stroke-width="1.5" fill="none"/>
+    </svg>
+  </button>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

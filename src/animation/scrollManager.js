@@ -1,8 +1,12 @@
 export const PHASES = {
-  IDLE:     { start: 0.00, end: 0.15 },
-  COMPACT:  { start: 0.15, end: 0.40 },
-  ENTER:    { start: 0.40, end: 0.55 },
-  DESCEND:  { start: 0.55, end: 1.00 },
+  INTRO:    { start: 0.00, end: 0.10 },
+  IDLE:     { start: 0.10, end: 0.16 },
+  COMPACT:  { start: 0.16, end: 0.36 },
+  HOLD:     { start: 0.36, end: 0.40 },
+  ENTER:    { start: 0.40, end: 0.58 },
+  DESCEND:  { start: 0.58, end: 0.78 },
+  THROUGH:  { start: 0.78, end: 0.86 },
+  LANDING:  { start: 0.86, end: 0.95 },
 };
 
 export function phaseProgress(progress, phase) {
@@ -32,7 +36,6 @@ export function createScrollManager() {
 
   return {
     update() {
-      // Smooth out scroll input
       displayProgress += (targetProgress - displayProgress) * 0.08;
       return displayProgress;
     },

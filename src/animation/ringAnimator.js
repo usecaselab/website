@@ -1,10 +1,14 @@
 import { PHASES, phaseProgress, smoothstep, lerp } from './scrollManager.js';
 
-const INITIAL_SPACING = 4;
+const INITIAL_SPACING = 2.5;
 const COMPACT_SPACING = 0;
 
 export function updateRings(progress, rings) {
-  const pCompact = smoothstep(phaseProgress(progress, PHASES.COMPACT));
+  // Ease-in-out quint: matches camera, slow at both ends
+  const rawCompact = phaseProgress(progress, PHASES.COMPACT);
+  const pCompact = rawCompact < 0.5
+    ? 16 * Math.pow(rawCompact, 5)
+    : 1 - Math.pow(-2 * rawCompact + 2, 5) / 2;
   const pEnter = smoothstep(phaseProgress(progress, PHASES.ENTER));
 
   const spacing = lerp(INITIAL_SPACING, COMPACT_SPACING, pCompact);
@@ -13,13 +17,13 @@ export function updateRings(progress, rings) {
   rings[1].position.y = 0;
   rings[2].position.y = -spacing;
 
-  // Gentle slow rotation around Y axis
+  // Gentle slow rotation
   const time = Date.now() * 0.00015;
   rings.forEach((ring, i) => {
     ring.rotation.y = time + i * 0.3;
   });
 
-  // Fade out as we enter the cylinder
+  // Fade out as we enter
   const opacity = lerp(1, 0, pEnter);
   rings.forEach(ring => {
     ring.visible = opacity > 0.01;

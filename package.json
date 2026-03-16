@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "serve dist -s -l 3000",
     "preview": "vite preview"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "serve": "^14.2.6",
     "three": "^0.183.2"
   },
   "devDependencies": {

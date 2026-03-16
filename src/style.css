@@ -172,6 +172,26 @@ canvas {
   will-change: transform, opacity;
 }
 
+/* Character-by-character reveal */
+.char-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+  transition-delay: calc(var(--i) * 0.03s);
+}
+
+.char-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.char-reveal.glow {
+  text-shadow: 0 0 8px rgba(100, 200, 255, 0.6);
+}
+
 #play-btn {
   position: fixed;
   bottom: 2rem;

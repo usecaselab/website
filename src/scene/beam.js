@@ -1,30 +1,18 @@
 import * as THREE from 'three';
 
 const BEAM_HEIGHT = 14;
-const PARTICLE_COUNT = 50;
-const PARTICLE_SPREAD = 0.5;
-
-// Pyrefly-style colors
-const PYREFLY_COLORS = [
-  0xffcc44, // warm amber
-  0x88ff66, // green
-  0x66ddff, // light blue
-  0xffaa22, // orange
-  0xaaffaa, // pale green
-  0x44aaff, // sky blue
-];
+const PARTICLE_COUNT = 40;
+const PARTICLE_SPREAD = 0.4;
 
 function createEthDiamond(scale) {
   const geo = new THREE.OctahedronGeometry(scale, 0);
   geo.scale(0.6, 1, 0.6);
-  const color = PYREFLY_COLORS[Math.floor(Math.random() * PYREFLY_COLORS.length)];
   const mat = new THREE.MeshBasicMaterial({
-    color,
+    color: 0xffffff,
     wireframe: true,
     transparent: true,
-    opacity: 0.35 + Math.random() * 0.35,
+    opacity: 0.3 + Math.random() * 0.3,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
   });
   return new THREE.Mesh(geo, mat);
 }
@@ -36,7 +24,7 @@ export function createBeam(scene) {
   const speeds = [];
 
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const size = 0.03 + Math.random() * 0.07;
+    const size = 0.03 + Math.random() * 0.06;
     const diamond = createEthDiamond(size);
 
     const angle = Math.random() * Math.PI * 2;
@@ -52,7 +40,6 @@ export function createBeam(scene) {
       0,
     );
     diamond.userData.rotSpeed = (Math.random() - 0.5) * 0.02;
-    diamond.userData.wobblePhase = Math.random() * Math.PI * 2;
 
     speeds.push(0.5 + Math.random() * 1.5);
     diamonds.push(diamond);
@@ -66,19 +53,10 @@ export function createBeam(scene) {
 
 export function updateBeam(beam) {
   const halfH = 7;
-  const t = Date.now() * 0.001;
 
   beam.diamonds.forEach((d, i) => {
     d.position.y -= beam.speeds[i] * 0.02;
     d.rotation.y += d.userData.rotSpeed;
-
-    // Gentle lateral wobble like pyreflies
-    const wobble = d.userData.wobblePhase;
-    d.position.x += Math.sin(t * 0.8 + wobble) * 0.001;
-    d.position.z += Math.cos(t * 0.6 + wobble) * 0.001;
-
-    // Pulse opacity
-    d.material.opacity = (0.35 + Math.sin(t * 1.5 + wobble) * 0.15);
 
     if (d.position.y < -halfH) {
       d.position.y = halfH;

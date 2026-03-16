@@ -48,8 +48,8 @@ export function createEnvironment(scene) {
   const groundRings = [];
   const glowMat = { opacity: 0 };
 
-  // --- PYREFLIES (warm amber/green floating particles) ---
-  const pyreflies = createPyreflySystem(120, 30, 20);
+  // --- PYREFLIES ---
+  const pyreflies = createPyreflySystem(150, 30, 20);
   group.add(pyreflies.points);
 
   // Distant blue dust
@@ -58,7 +58,7 @@ export function createEnvironment(scene) {
   const dust2 = createParticleSystem(150, 50, 30, 0.04, 0.05, 0x4090cc);
   group.add(dust2.points);
 
-  // --- VERTICAL LIGHT PILLARS (blue-tinted) ---
+  // --- VERTICAL LIGHT PILLARS ---
   const pillars = [];
   const pillarMat = new THREE.MeshBasicMaterial({
     color: 0x3088cc,
@@ -85,25 +85,23 @@ export function createEnvironment(scene) {
     group.add(pillar);
   }
 
-  // Deep blue fog
   scene.fog = new THREE.FogExp2(0x010a14, 0.016);
   scene.add(group);
 
   return { group, groundMat, gridLines, groundRings, glowMat, pillars, pyreflies };
 }
 
-// Pyreflies — the iconic FFX floating lights
 function createPyreflySystem(count, spread, height) {
   const geo = new THREE.BufferGeometry();
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
 
   const pyreflyColors = [
-    new THREE.Color(0xffcc44), // warm amber
-    new THREE.Color(0x88ff66), // green
-    new THREE.Color(0x66ddff), // light blue
-    new THREE.Color(0xffaa22), // orange
-    new THREE.Color(0xaaffaa), // pale green
+    new THREE.Color(0xffcc44),
+    new THREE.Color(0x88ff66),
+    new THREE.Color(0x66ddff),
+    new THREE.Color(0xffaa22),
+    new THREE.Color(0xaaffaa),
   ];
 
   for (let i = 0; i < count; i++) {
@@ -153,7 +151,7 @@ function createParticleSystem(count, spread, height, size, opacity, color) {
   return { points: new THREE.Points(geo, mat) };
 }
 
-export function updateEnvironment(env, progress) {
+export function updateEnvironment(env, progress, mouse) {
   const pEnter = smoothstep(phaseProgress(progress, PHASES.ENTER));
   const fade = 1 - pEnter;
 
@@ -172,17 +170,33 @@ export function updateEnvironment(env, progress) {
     p.material.opacity = p.userData.baseOpacity * fade;
   });
 
-  // Animate pyreflies — gentle upward drift
+  // Animate pyreflies with mouse attraction
   if (env.pyreflies) {
     const pos = env.pyreflies.points.geometry.attributes.position;
     const t = Date.now() * 0.001;
+
+    // Mouse world-space approximation (project onto xz plane near camera)
+    const mx = mouse ? mouse.smoothX * 15 : 0;
+    const mz = mouse ? -mouse.smoothY * 15 : 0;
+
     for (let i = 0; i < env.pyreflies.count; i++) {
       const idx = i * 3;
+
+      // Base drift
       pos.array[idx + 1] += 0.003 + Math.sin(t + i * 1.7) * 0.002;
       pos.array[idx] += Math.sin(t * 0.5 + i * 2.3) * 0.001;
       pos.array[idx + 2] += Math.cos(t * 0.4 + i * 1.9) * 0.001;
 
-      // Wrap around
+      // Mouse attraction — gentle pull toward cursor
+      const dx = mx - pos.array[idx];
+      const dz = mz - pos.array[idx + 2];
+      const dist = Math.sqrt(dx * dx + dz * dz);
+      if (dist < 12) {
+        const force = 0.0008 * (1 - dist / 12);
+        pos.array[idx] += dx * force;
+        pos.array[idx + 2] += dz * force;
+      }
+
       if (pos.array[idx + 1] > 10) pos.array[idx + 1] = -12;
     }
     pos.needsUpdate = true;

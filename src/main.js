@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { createScrollManager } from './animation/scrollManager.js';
 import { updateCamera } from './animation/cameraPath.js';
 import { updateRings } from './animation/ringAnimator.js';
@@ -22,11 +21,10 @@ renderer.shadowMap.enabled = false;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x010a14);
 
-// Generate a soft gradient environment map procedurally
+// Procedural environment map
 const envScene = new THREE.Scene();
 const envCam = new THREE.CubeCamera(0.1, 100, new THREE.WebGLCubeRenderTarget(256));
 
-// Soft studio lighting via gradient sphere
 const envGeo = new THREE.SphereGeometry(50, 32, 32);
 const envMat = new THREE.ShaderMaterial({
   side: THREE.BackSide,
@@ -55,9 +53,6 @@ const envMat = new THREE.ShaderMaterial({
   `,
 });
 envScene.add(new THREE.Mesh(envGeo, envMat));
-
-// No bright spots — keep env map even and soft
-
 envCam.update(renderer, envScene);
 scene.environment = envCam.renderTarget.texture;
 
@@ -71,11 +66,9 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(14, 3, 14);
 camera.lookAt(0, 0, 0);
 
-// Subtle lighting to complement the env map
+// Lighting
 const ambient = new THREE.AmbientLight(0x4488cc, 0.5);
 scene.add(ambient);
-
-// Subtle blue-tinted directional for depth
 const dirLight = new THREE.DirectionalLight(0x3366aa, 0.3);
 dirLight.position.set(5, 10, 5);
 scene.add(dirLight);
@@ -85,15 +78,38 @@ const rings = createRings(scene);
 const beam = createBeam(scene);
 const env = createEnvironment(scene);
 
-// Get disc material from the first ring for the floor showcases
 const discMaterial = rings[0].children[0].material;
 const floors = createFloors(scene, discMaterial);
 
 // Post-processing
-const { composer } = setupPostProcessing(renderer, scene, camera);
+const { composer, bloomPass, fxPass } = setupPostProcessing(renderer, scene, camera);
 
 // Scroll
 const scrollManager = createScrollManager();
+
+// --- Mouse tracking ---
+const mouse = { x: 0, y: 0, smoothX: 0, smoothY: 0 };
+window.addEventListener('mousemove', (e) => {
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
+}, { passive: true });
+
+// --- Color drift palette per section ---
+// deep blue → teal → violet as you scroll deeper
+const colorStops = [
+  new THREE.Vector3(0, 0, 0),       // intro: neutral
+  new THREE.Vector3(0, 0.05, 0.1),  // floors: teal push
+  new THREE.Vector3(0.06, 0, 0.1),  // landing: violet push
+];
+
+function getColorShift(progress) {
+  if (progress < 0.35) return colorStops[0];
+  if (progress > 0.90) return colorStops[2];
+  const t = (progress - 0.35) / (0.90 - 0.35);
+  const out = new THREE.Vector3();
+  out.lerpVectors(colorStops[1], colorStops[2], t);
+  return out;
+}
 
 // Resize
 function onResize() {
@@ -106,11 +122,11 @@ function onResize() {
 }
 window.addEventListener('resize', onResize);
 
-// Auto-play: smoothly scroll through the animation
+// Auto-play
 const playBtn = document.getElementById('play-btn');
 let autoPlaying = false;
 let autoStart = 0;
-let autoDirection = 1; // 1 = down, -1 = up
+let autoDirection = 1;
 let autoFromScroll = 0;
 const AUTO_DURATION = 10000;
 
@@ -119,11 +135,8 @@ playBtn.addEventListener('click', () => {
   autoPlaying = true;
   autoStart = Date.now();
   playBtn.classList.add('playing');
-
   const maxScroll = document.body.scrollHeight - window.innerHeight;
   const currentScroll = window.scrollY;
-
-  // If near bottom, scroll back to top; otherwise scroll to bottom
   if (currentScroll > maxScroll * 0.8) {
     autoDirection = -1;
     autoFromScroll = currentScroll;
@@ -139,16 +152,31 @@ function updateAutoPlay() {
   const t = Math.min(elapsed / AUTO_DURATION, 1);
   const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   const maxScroll = document.body.scrollHeight - window.innerHeight;
-
   const target = autoDirection === 1 ? maxScroll : 0;
-  const scrollPos = autoFromScroll + (target - autoFromScroll) * eased;
-  window.scrollTo(0, scrollPos);
-
+  window.scrollTo(0, autoFromScroll + (target - autoFromScroll) * eased);
   if (t >= 1) {
     autoPlaying = false;
     playBtn.classList.remove('playing');
   }
 }
+
+// --- Text character reveal system ---
+function initCharReveal() {
+  document.querySelectorAll('.floor-title, .landing-title').forEach(el => {
+    if (el.dataset.charReady) return;
+    const text = el.textContent;
+    el.innerHTML = '';
+    [...text].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00a0' : char;
+      span.className = 'char-reveal';
+      span.style.setProperty('--i', i);
+      el.appendChild(span);
+    });
+    el.dataset.charReady = 'true';
+  });
+}
+initCharReveal();
 
 // Animation loop
 function animate() {
@@ -156,33 +184,51 @@ function animate() {
 
   updateAutoPlay();
   const progress = scrollManager.update();
+  const vel = scrollManager.velocity;
+
+  // Smooth mouse
+  mouse.smoothX += (mouse.x - mouse.smoothX) * 0.05;
+  mouse.smoothY += (mouse.y - mouse.smoothY) * 0.05;
 
   updateRings(progress, rings);
   updateBeam(beam);
-  updateEnvironment(env, progress);
+  updateEnvironment(env, progress, mouse);
   updateCamera(progress, camera, floors);
 
-  // Debug: show scroll progress and current phase
-  let phase = 'INTRO';
-  // Flip play button direction when near bottom
+  // Mouse parallax — subtle camera offset
+  camera.position.x += mouse.smoothX * 0.3;
+  camera.position.y += -mouse.smoothY * 0.15;
+
+  // --- Velocity-driven FX ---
+  const fxUniforms = fxPass.uniforms;
+
+  // Chromatic aberration: scales with scroll speed
+  const targetChromatic = Math.min(vel * 80, 0.015);
+  fxUniforms.chromaticStrength.value += (targetChromatic - fxUniforms.chromaticStrength.value) * 0.1;
+
+  // Film grain
+  fxUniforms.time.value = performance.now();
+  fxUniforms.grainIntensity.value = 0.03;
+
+  // Color drift
+  const shift = getColorShift(progress);
+  fxUniforms.colorShift.value.lerp(shift, 0.05);
+
+  // Reactive bloom: swells when scrolling
+  const baseBloom = 0.9;
+  const targetBloom = baseBloom + Math.min(vel * 200, 0.6);
+  bloomPass.strength += (targetBloom - bloomPass.strength) * 0.08;
+
+  // Play button
   if (progress > 0.8) {
     playBtn.style.transform = 'rotate(180deg)';
   } else {
     playBtn.style.transform = 'rotate(0deg)';
   }
 
-  if (progress > 0.90) phase = 'LANDING';
-  else if (progress > 0.75) phase = 'FLOOR3';
-  else if (progress > 0.55) phase = 'FLOOR2';
-  else if (progress > 0.35) phase = 'FLOOR1';
-  else if (progress > 0.30) phase = 'THROUGH';
-  else if (progress > 0.24) phase = 'DESCEND';
-  else if (progress > 0.18) phase = 'ENTER';
-  else if (progress > 0.16) phase = 'HOLD';
-  else if (progress > 0.07) phase = 'COMPACT';
-  else if (progress > 0.04) phase = 'IDLE';
+  // Debug
   const debugEl = document.getElementById('debug');
-  if (debugEl) debugEl.textContent = `${(progress * 100).toFixed(1)}% — ${phase}`;
+  if (debugEl) debugEl.textContent = `${(progress * 100).toFixed(1)}% v:${vel.toFixed(5)}`;
 
   composer.render();
 }

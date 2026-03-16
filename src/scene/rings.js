@@ -45,7 +45,7 @@ export function createResidentsLayer(innerR, outerR) {
   const nodes = [];
 
   // Tight hex grid — step scaled to disc size so it's always dense
-  const step = 0.25;
+  const step = 0.4;
   for (let x = -outerR; x <= outerR; x += step) {
     for (let z = -outerR; z <= outerR; z += step * 0.866) {
       const offsetX = (Math.round(z / (step * 0.866)) % 2) * step * 0.5;
@@ -139,7 +139,7 @@ export function createPartnersLayer(innerR, outerR) {
     cluster.nodes.push(center.clone());
 
     // Satellites — varied sizes, spread out
-    const satCount = 8 + Math.floor(Math.random() * 3);
+    const satCount = 12 + Math.floor(Math.random() * 4);
     for (let i = 0; i < satCount; i++) {
       const a = (i / satCount) * Math.PI * 2 + Math.random() * 0.3;
       const r = 0.25 + Math.random() * ((outerR - innerR) * 0.5);

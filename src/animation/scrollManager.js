@@ -28,6 +28,8 @@ export function lerp(a, b, t) {
 export function createScrollManager() {
   let targetProgress = 0;
   let displayProgress = 0;
+  let velocity = 0;
+  let prevProgress = 0;
 
   function onScroll() {
     const scrollHeight = document.body.scrollHeight - window.innerHeight;
@@ -39,11 +41,18 @@ export function createScrollManager() {
 
   return {
     update() {
+      prevProgress = displayProgress;
       displayProgress += (targetProgress - displayProgress) * 0.08;
+      // Velocity: absolute rate of change, smoothed
+      const rawVel = Math.abs(displayProgress - prevProgress);
+      velocity += (rawVel - velocity) * 0.1;
       return displayProgress;
     },
     get progress() {
       return displayProgress;
+    },
+    get velocity() {
+      return velocity;
     },
   };
 }

@@ -146,6 +146,10 @@ function updateOverlays(progress) {
     const introOpacity = 1 - smoothstep(pIntro);
     intro.style.opacity = introOpacity;
     intro.style.display = introOpacity < 0.01 ? 'none' : 'flex';
+    // Reveal intro chars on load
+    if (introOpacity > 0.5) {
+      intro.querySelectorAll('.char-reveal').forEach(ch => ch.classList.add('visible'));
+    }
   }
 
   // --- FLOOR INFO OVERLAYS ---
@@ -167,12 +171,21 @@ function updateOverlays(progress) {
       const title = el.querySelector('.floor-title');
       const desc = el.querySelector('.floor-desc');
       if (title) {
-        const fadeIn = smoothstep(Math.min(p / 0.2, 1));
-        title.style.opacity = Math.min(opacity, fadeIn);
-        title.style.transform = `translateY(${lerp(15, 0, fadeIn)}px)`;
+        title.style.opacity = 1;
+        // Trigger character reveal
+        const chars = title.querySelectorAll('.char-reveal');
+        chars.forEach(ch => {
+          if (p > 0.05) ch.classList.add('visible');
+          else ch.classList.remove('visible');
+          // Remove glow after sweep
+          if (p > 0.3) ch.classList.remove('glow');
+          else if (p > 0.05) ch.classList.add('glow');
+        });
+        // Fade out the whole title near end
+        if (p > 0.8) title.style.opacity = smoothstep((1 - p) / 0.2);
       }
       if (desc) {
-        const fadeIn = smoothstep(Math.min(Math.max(0, (p - 0.1)) / 0.2, 1));
+        const fadeIn = smoothstep(Math.min(Math.max(0, (p - 0.15)) / 0.2, 1));
         desc.style.opacity = Math.min(opacity, fadeIn);
         desc.style.transform = `translateY(${lerp(10, 0, fadeIn)}px)`;
       }
@@ -197,8 +210,12 @@ function updateOverlays(progress) {
     const btn = overlay.querySelector('.landing-btn');
 
     if (title) {
-      title.style.opacity = smoothstep(Math.min(pLanding * 2, 1));
+      title.style.opacity = 1;
       title.style.transform = `scale(${lerp(1.1, 1, smoothstep(pLanding))})`;
+      title.querySelectorAll('.char-reveal').forEach(ch => {
+        if (pLanding > 0.1) ch.classList.add('visible');
+        else ch.classList.remove('visible');
+      });
     }
     if (subtitle) {
       const d = Math.max(0, pLanding - 0.3) / 0.7;

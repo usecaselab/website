@@ -1,6 +1,6 @@
 import { PHASES, phaseProgress, smoothstep, lerp } from './scrollManager.js';
 
-const INITIAL_SPACING = 2.5;
+const INITIAL_SPACING = 1.2;
 const COMPACT_SPACING = 0;
 
 export function updateRings(progress, rings) {

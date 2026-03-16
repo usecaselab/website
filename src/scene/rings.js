@@ -6,9 +6,9 @@ const HOLE_RADIUS = 0.5;
 // Three solid discs, each with just a center hole
 // Proportions based on golden ratio (~1.6x each step)
 const DISC_SPECS = [
-  { inner: HOLE_RADIUS, outer: 2.0 },    // small (top)
-  { inner: HOLE_RADIUS, outer: 3.3 },    // medium
-  { inner: HOLE_RADIUS, outer: 5.3 },    // large (bottom)
+  { inner: HOLE_RADIUS, outer: 1.8 },    // small (top)
+  { inner: HOLE_RADIUS, outer: 3.0 },    // medium
+  { inner: HOLE_RADIUS, outer: 3.6 },    // large (bottom)
 ];
 
 function createRingGeo(innerR, outerR, thickness) {
@@ -40,66 +40,66 @@ function makeCirclePoints(cx, cz, radius, segments) {
 // --- SMALL DISC: Residents & Researchers ---
 // An intimate neural network — brains firing together
 // Dense hexagonal mesh with pulsing core nodes and orbital knowledge rings
-function createResidentsLayer(innerR, outerR) {
+export function createResidentsLayer(innerR, outerR) {
   const group = new THREE.Group();
   const nodes = [];
 
-  // Place nodes in a structured hex-ish grid within the disc
-  const midR = (innerR + outerR) / 2;
-  const step = 0.6;
+  // Tight hex grid — step scaled to disc size so it's always dense
+  const step = 0.25;
   for (let x = -outerR; x <= outerR; x += step) {
     for (let z = -outerR; z <= outerR; z += step * 0.866) {
       const offsetX = (Math.round(z / (step * 0.866)) % 2) * step * 0.5;
       const px = x + offsetX;
       const dist = Math.sqrt(px * px + z * z);
-      if (dist > innerR + 0.15 && dist < outerR - 0.1) {
+      if (dist > innerR + 0.1 && dist < outerR - 0.05) {
         nodes.push(new THREE.Vector3(px, 0, z));
       }
     }
   }
 
-  // Core nodes — brighter, slightly larger, represent key researchers
-  const coreCount = 3;
+  // 5 core nodes — bright anchor points
+  const coreCount = 5;
   const coreIndices = new Set();
   while (coreIndices.size < Math.min(coreCount, nodes.length)) {
     coreIndices.add(Math.floor(Math.random() * nodes.length));
   }
 
-  const smallDot = new THREE.SphereGeometry(0.025, 6, 6);
-  const coreDot = new THREE.SphereGeometry(0.05, 8, 8);
-
   nodes.forEach((pos, i) => {
     const isCore = coreIndices.has(i);
-    const geo = isCore ? coreDot : smallDot;
+    const size = isCore ? 0.06 + Math.random() * 0.03 : 0.02 + Math.random() * 0.02;
     const mat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: isCore ? 0x66ddff : 0x5599bb,
       transparent: true,
-      opacity: isCore ? 0.9 : 0.45,
+      opacity: isCore ? 0.7 : 0.35,
     });
-    const dot = new THREE.Mesh(geo, mat);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(size, 8, 8), mat);
     dot.position.copy(pos);
-    if (isCore) dot.userData.pulse = true;
     group.add(dot);
   });
 
-  // Dense synaptic connections — only short range
-  const lineMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.08 });
+  // Dense web — connect everything within range
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
+  const strongLineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       const d = nodes[i].distanceTo(nodes[j]);
-      if (d < 0.55) {
+      const bothCore = coreIndices.has(i) && coreIndices.has(j);
+      if (bothCore && d < 1.5) {
+        const geo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[j]]);
+        group.add(new THREE.Line(geo, strongLineMat));
+      } else if (d < 0.35) {
         const geo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[j]]);
         group.add(new THREE.Line(geo, lineMat));
       }
     }
   }
 
-  // Knowledge orbit rings around core nodes
-  const orbitMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.06 });
+  // Orbit rings around cores
+  const orbitMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
   coreIndices.forEach(idx => {
     const c = nodes[idx];
-    [0.2, 0.35].forEach(r => {
-      const pts = makeCirclePoints(c.x, c.z, r, 32);
+    [0.15, 0.28, 0.4].forEach(r => {
+      const pts = makeCirclePoints(c.x, c.z, r, 48);
       const geo = new THREE.BufferGeometry().setFromPoints(pts);
       group.add(new THREE.Line(geo, orbitMat));
     });
@@ -110,71 +110,62 @@ function createResidentsLayer(innerR, outerR) {
 }
 
 // --- MEDIUM DISC: Partners (VCs, startups, hubs) ---
-// Three ecosystems orbiting each other — structured yet interconnected
-// Each cluster has its own geometry language: triangles (VCs), squares (hubs), circles (startups)
-function createPartnersLayer(innerR, outerR) {
+// Four clusters in a diamond — cleaned up, subtler
+export function createPartnersLayer(innerR, outerR) {
   const group = new THREE.Group();
 
-  // Four clusters at diamond vertices (top, right, bottom, left)
   const clusterR = (innerR + outerR) / 2;
-  const ratio = 0.6; // ETH diamond width ratio
+  const ratio = 0.6;
   const diamondPositions = [
-    new THREE.Vector3(0, 0, -clusterR),            // top
-    new THREE.Vector3(clusterR * ratio, 0, 0),      // right
-    new THREE.Vector3(0, 0, clusterR),               // bottom
-    new THREE.Vector3(-clusterR * ratio, 0, 0),      // left
+    new THREE.Vector3(0, 0, -clusterR),
+    new THREE.Vector3(clusterR * ratio, 0, 0),
+    new THREE.Vector3(0, 0, clusterR),
+    new THREE.Vector3(-clusterR * ratio, 0, 0),
   ];
-  const clusters = diamondPositions.map(pos => ({
-    center: pos,
-    nodes: [],
-  }));
+  const clusters = diamondPositions.map(pos => ({ center: pos, nodes: [] }));
 
-  const dotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
-  const dimDotMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 });
-  const lineMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.07 });
-  const strongLine = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.14 });
+  const hubMat = new THREE.MeshBasicMaterial({ color: 0x66ddff, transparent: true, opacity: 0.7 });
+  const dotMat = new THREE.MeshBasicMaterial({ color: 0x5599bb, transparent: true, opacity: 0.35 });
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
+  const bridgeMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
 
-  clusters.forEach((cluster, ci) => {
+  clusters.forEach((cluster) => {
     const { center } = cluster;
 
-    // Hub node
-    const hubGeo = new THREE.SphereGeometry(0.07, 10, 10);
-    const hub = new THREE.Mesh(hubGeo, dotMat);
+    // Hub
+    const hub = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 10), hubMat);
     hub.position.copy(center);
-    hub.userData.pulse = true;
     group.add(hub);
     cluster.nodes.push(center.clone());
 
-    // Satellite nodes in geometric patterns
-    const satCount = 7 + Math.floor(Math.random() * 4);
+    // Satellites — varied sizes, spread out
+    const satCount = 8 + Math.floor(Math.random() * 3);
     for (let i = 0; i < satCount; i++) {
       const a = (i / satCount) * Math.PI * 2 + Math.random() * 0.3;
-      const r = 0.4 + Math.random() * 0.7;
-      const pos = new THREE.Vector3(
-        center.x + Math.cos(a) * r,
-        0,
-        center.z + Math.sin(a) * r,
-      );
+      const r = 0.25 + Math.random() * ((outerR - innerR) * 0.5);
+      const pos = new THREE.Vector3(center.x + Math.cos(a) * r, 0, center.z + Math.sin(a) * r);
       const dist = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
       if (dist < innerR + 0.1 || dist > outerR - 0.1) continue;
 
-      const size = 0.025 + Math.random() * 0.025;
-      const dot = new THREE.Mesh(new THREE.SphereGeometry(size, 6, 6), dimDotMat);
+      const size = 0.015 + Math.random() * 0.035;
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(size, 6, 6), dotMat.clone());
+      dot.material.opacity = 0.35;
       dot.position.copy(pos);
       group.add(dot);
       cluster.nodes.push(pos);
 
-      // Spoke to hub
+      // Spoke to hub — thin
       const geo = new THREE.BufferGeometry().setFromPoints([center, pos]);
       group.add(new THREE.Line(geo, lineMat));
     }
-
-    // No per-cluster shape — the diamond is formed by the cluster connections
   });
 
-  // Connect clusters as a diamond outline: top→right→bottom→left→top
-  const diamondPath = [...clusters.map(c => c.nodes[0]), clusters[0].nodes[0]];
-  group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(diamondPath), strongLine));
+  // Diamond bridges between hubs
+  for (let a = 0; a < clusters.length; a++) {
+    const b = (a + 1) % clusters.length;
+    const geo = new THREE.BufferGeometry().setFromPoints([clusters[a].nodes[0], clusters[b].nodes[0]]);
+    group.add(new THREE.Line(geo, bridgeMat));
+  }
 
   group.position.y = DISC_THICKNESS / 2 + 0.005;
   return group;
@@ -183,7 +174,7 @@ function createPartnersLayer(innerR, outerR) {
 // --- LARGE DISC: Extended Community ---
 // A galaxy — scattered stars of varying brightness with faint constellation arcs
 // Denser near the inner edge (closer to the core community), sparser at the rim
-function createCommunityLayer(innerR, outerR) {
+export function createCommunityLayer(innerR, outerR) {
   const group = new THREE.Group();
   const nodes = [];
   const nodeCount = 120;
@@ -200,50 +191,44 @@ function createCommunityLayer(innerR, outerR) {
     const dist = Math.sqrt(pos.x * pos.x + pos.z * pos.z);
     const normalized = (dist - innerR) / (outerR - innerR);
 
-    // Closer to center = brighter and bigger
-    const brightness = 0.2 + (1 - normalized) * 0.6;
-    const size = 0.015 + (1 - normalized) * 0.025;
+    const isCompany = i < 15;
+    const isMid = i >= 15 && i < 40;
 
-    // Some "company" nodes are bigger
-    const isCompany = i < 12;
-    const finalSize = isCompany ? size * 2 : size;
-    const finalBright = isCompany ? Math.min(brightness + 0.2, 0.9) : brightness;
+    let size;
+    if (isCompany) size = 0.04 + Math.random() * 0.03;
+    else if (isMid) size = 0.02 + Math.random() * 0.02;
+    else size = 0.01 + Math.random() * 0.015;
 
-    const dotGeo = new THREE.SphereGeometry(finalSize, 6, 6);
+    const dotGeo = new THREE.SphereGeometry(size, 6, 6);
     const dotMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: isCompany ? 0x66ddff : 0x5599bb,
       transparent: true,
-      opacity: finalBright,
+      opacity: isCompany ? 0.7 : 0.35,
     });
     const dot = new THREE.Mesh(dotGeo, dotMat);
     dot.position.copy(pos);
     group.add(dot);
   });
 
-  // Constellation arcs — curved connections between nearby nodes
-  const arcMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.035 });
-  const connected = new Set();
+  // Connections — every node connects to its 2 nearest neighbors
+  const arcMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
   for (let i = 0; i < nodes.length; i++) {
-    if (connected.has(i)) continue;
-    // Find nearest neighbor
-    let minD = Infinity;
-    let minJ = -1;
-    for (let j = i + 1; j < nodes.length; j++) {
-      const d = nodes[i].distanceTo(nodes[j]);
-      if (d < minD && d < 1.5) {
-        minD = d;
-        minJ = j;
-      }
+    const dists = [];
+    for (let j = 0; j < nodes.length; j++) {
+      if (i === j) continue;
+      dists.push({ j, d: nodes[i].distanceTo(nodes[j]) });
     }
-    if (minJ >= 0) {
-      const geo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[minJ]]);
-      group.add(new THREE.Line(geo, arcMat));
-      connected.add(minJ);
+    dists.sort((a, b) => a.d - b.d);
+    for (let k = 0; k < 2 && k < dists.length; k++) {
+      if (dists[k].d < 2.0) {
+        const geo = new THREE.BufferGeometry().setFromPoints([nodes[i], nodes[dists[k].j]]);
+        group.add(new THREE.Line(geo, arcMat));
+      }
     }
   }
 
   // Faint concentric ripple rings — community radiating outward
-  const rippleMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.025 });
+  const rippleMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
   const rippleCount = 4;
   for (let i = 0; i < rippleCount; i++) {
     const r = innerR + 0.5 + (i / rippleCount) * (outerR - innerR - 0.8);
@@ -261,18 +246,18 @@ export function createRings(scene) {
   const layers = [createResidentsLayer, createPartnersLayer, createCommunityLayer];
 
   const material = new THREE.MeshPhysicalMaterial({
-    color: 0x0a0a0a,
-    roughness: 0.05,
-    metalness: 0.1,
+    color: 0x0a1e35,
+    roughness: 0.03,
+    metalness: 0.15,
     clearcoat: 1.0,
-    clearcoatRoughness: 0.02,
+    clearcoatRoughness: 0.01,
     reflectivity: 1.0,
-    transmission: 0.3,
+    transmission: 0.4,
     thickness: 0.5,
     ior: 2.4,
-    envMapIntensity: 1.5,
+    envMapIntensity: 2.0,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.8,
   });
 
   for (let i = 0; i < 3; i++) {

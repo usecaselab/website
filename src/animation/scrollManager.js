@@ -1,12 +1,15 @@
 export const PHASES = {
-  INTRO:    { start: 0.00, end: 0.10 },
-  IDLE:     { start: 0.10, end: 0.16 },
-  COMPACT:  { start: 0.16, end: 0.36 },
-  HOLD:     { start: 0.36, end: 0.40 },
-  ENTER:    { start: 0.40, end: 0.58 },
-  DESCEND:  { start: 0.58, end: 0.78 },
-  THROUGH:  { start: 0.78, end: 0.86 },
-  LANDING:  { start: 0.86, end: 0.95 },
+  INTRO:    { start: 0.00, end: 0.04 },
+  IDLE:     { start: 0.04, end: 0.07 },
+  COMPACT:  { start: 0.07, end: 0.16 },
+  HOLD:     { start: 0.16, end: 0.18 },
+  ENTER:    { start: 0.18, end: 0.24 },
+  DESCEND:  { start: 0.24, end: 0.30 },
+  THROUGH:  { start: 0.30, end: 0.35 },
+  FLOOR1:   { start: 0.35, end: 0.55 },
+  FLOOR2:   { start: 0.55, end: 0.75 },
+  FLOOR3:   { start: 0.75, end: 0.90 },
+  LANDING:  { start: 0.90, end: 0.97 },
 };
 
 export function phaseProgress(progress, phase) {

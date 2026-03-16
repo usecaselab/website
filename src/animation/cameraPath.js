@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { PHASES, phaseProgress, smoothstep, lerp } from './scrollManager.js';
+import { FLOOR_START_Y, FLOOR_SPACING } from '../scene/floors.js';
 
 const _pos = new THREE.Vector3();
 const _look = new THREE.Vector3();
@@ -11,22 +12,23 @@ const TOP_POS = new THREE.Vector3(0, 22, 0.01);
 const TOP_LOOK = new THREE.Vector3(0, 0, 0);
 
 const ENTER_POS = new THREE.Vector3(0, 6, 0.01);
-const ENTER_LOOK = new THREE.Vector3(0, 0, 0);
 
 const GROUND_Y = -7;
-const BELOW_Y = -30;
 
-export function updateCamera(progress, camera) {
+// Camera views each platform from above at an angle
+const CAM_ABOVE = 5;
+const CAM_Z = 7;
+
+export function updateCamera(progress, camera, floors) {
   const rawCompact = phaseProgress(progress, PHASES.COMPACT);
   const pCompact = rawCompact < 0.5
     ? 16 * Math.pow(rawCompact, 5)
     : 1 - Math.pow(-2 * rawCompact + 2, 5) / 2;
   const pEnter = smoothstep(phaseProgress(progress, PHASES.ENTER));
   const pDescend = smoothstep(phaseProgress(progress, PHASES.DESCEND));
-  const pThrough = phaseProgress(progress, PHASES.THROUGH); // linear — slow and steady
+  const pThrough = smoothstep(phaseProgress(progress, PHASES.THROUGH));
 
   if (progress <= PHASES.IDLE.end) {
-    // Intro + Idle: floating side view
     const t = Date.now() * 0.0004;
     const floatY = Math.sin(t) * 0.4;
     const floatX = Math.cos(t * 0.7) * 0.3;
@@ -47,22 +49,97 @@ export function updateCamera(progress, camera) {
     _pos.set(0, y, 0.01);
     _look.set(0, y - 10, 0);
   } else if (progress <= PHASES.THROUGH.end) {
-    const y = lerp(GROUND_Y, BELOW_Y, pThrough);
-    _pos.set(0, y, 0.01);
-    _look.set(0, y - 10, 0);
+    // Transition from ground down to first platform
+    const firstY = FLOOR_START_Y;
+    const y = lerp(GROUND_Y, firstY + CAM_ABOVE, pThrough);
+    const z = lerp(0.01, CAM_Z, pThrough);
+    _pos.set(0, y, z);
+    _look.set(0, lerp(GROUND_Y - 10, firstY, pThrough), 0);
+  } else if (progress <= PHASES.FLOOR3.end) {
+    const floorPhases = [PHASES.FLOOR1, PHASES.FLOOR2, PHASES.FLOOR3];
+    let fi = 0;
+    if (progress > PHASES.FLOOR3.start) fi = 2;
+    else if (progress > PHASES.FLOOR2.start) fi = 1;
+
+    const p = phaseProgress(progress, floorPhases[fi]);
+
+    const curY = FLOOR_START_Y - fi * FLOOR_SPACING;
+    const nextY = FLOOR_START_Y - Math.min(fi + 1, 2) * FLOOR_SPACING;
+
+    // Stay at current floor for 80%, transition to next in last 20%
+    let y, lookY;
+    if (p < 0.8 || fi === 2) {
+      y = curY + CAM_ABOVE;
+      lookY = curY;
+    } else {
+      const t = smoothstep((p - 0.8) / 0.2);
+      y = lerp(curY + CAM_ABOVE, nextY + CAM_ABOVE, t);
+      lookY = lerp(curY, nextY, t);
+    }
+
+    const t = Date.now() * 0.0003;
+    const sway = Math.sin(t) * 0.4;
+
+    _pos.set(sway, y, CAM_Z);
+    _look.set(0, lookY, 0);
   } else {
-    _pos.set(0, BELOW_Y, 0.01);
-    _look.set(0, BELOW_Y - 10, 0);
+    // Landing
+    const lastY = FLOOR_START_Y - 2 * FLOOR_SPACING;
+    const t = Date.now() * 0.0003;
+    _pos.set(Math.sin(t) * 0.3, lastY + CAM_ABOVE, CAM_Z);
+    _look.set(0, lastY, 0);
   }
 
   camera.position.copy(_pos);
   camera.lookAt(_look);
 
+  if (floors) {
+    updateFloorVisibility(progress, floors);
+  }
+
   updateOverlays(progress);
 }
 
+function updateFloorVisibility(progress, floors) {
+  const floorPhases = [PHASES.FLOOR1, PHASES.FLOOR2, PHASES.FLOOR3];
+  const t = Date.now() * 0.002;
+
+  floors.forEach((floor, i) => {
+    const prevEnd = i > 0 ? floorPhases[i - 1].end : PHASES.THROUGH.start;
+    const visible = progress > prevEnd - 0.02 && progress < PHASES.LANDING.end;
+    floor.group.visible = visible;
+
+    if (!visible) return;
+
+    const p = phaseProgress(progress, floorPhases[i]);
+    const active = p > 0 && p < 1;
+
+    // Per-floor glow intensity — small disc needs more, medium less
+    const glowMultiplier = 0.6;
+    const glowStrength = active ? (0.5 + Math.sin(t + i) * 0.3) * glowMultiplier : 0;
+
+    floor.group.traverse(child => {
+      if (!child.material) return;
+      if (!child.userData._baseOpacity) {
+        child.userData._baseOpacity = child.material.opacity;
+        child.userData._baseColor = child.material.color.getHex();
+      }
+      if (active) {
+        child.material.opacity = Math.min(1, child.userData._baseOpacity + glowStrength * 0.5);
+        const base = new THREE.Color(child.userData._baseColor);
+        const glow = new THREE.Color(0x66eeff);
+        base.lerp(glow, glowStrength * 0.5);
+        child.material.color.copy(base);
+      } else {
+        child.material.opacity = child.userData._baseOpacity;
+        child.material.color.setHex(child.userData._baseColor);
+      }
+    });
+  });
+}
+
 function updateOverlays(progress) {
-  // --- INTRO OVERLAY: visible at start, fades out during INTRO phase ---
+  // --- INTRO ---
   const intro = document.getElementById('intro-overlay');
   if (intro) {
     const pIntro = phaseProgress(progress, PHASES.INTRO);
@@ -71,40 +148,67 @@ function updateOverlays(progress) {
     intro.style.display = introOpacity < 0.01 ? 'none' : 'flex';
   }
 
-  // --- LANDING OVERLAY: fades in during THROUGH, fully visible at LANDING ---
+  // --- FLOOR INFO OVERLAYS ---
+  const floorPhases = [PHASES.FLOOR1, PHASES.FLOOR2, PHASES.FLOOR3];
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById(`floor-info-${i}`);
+    if (!el) continue;
+
+    const p = phaseProgress(progress, floorPhases[i]);
+
+    if (p > 0 && p < 1) {
+      el.style.display = 'flex';
+      let opacity;
+      if (p < 0.3) opacity = smoothstep(p / 0.3);
+      else if (p > 0.8) opacity = smoothstep((1 - p) / 0.2);
+      else opacity = 1;
+      el.style.opacity = opacity;
+
+      const title = el.querySelector('.floor-title');
+      const desc = el.querySelector('.floor-desc');
+      if (title) {
+        const fadeIn = smoothstep(Math.min(p / 0.2, 1));
+        title.style.opacity = Math.min(opacity, fadeIn);
+        title.style.transform = `translateY(${lerp(15, 0, fadeIn)}px)`;
+      }
+      if (desc) {
+        const fadeIn = smoothstep(Math.min(Math.max(0, (p - 0.1)) / 0.2, 1));
+        desc.style.opacity = Math.min(opacity, fadeIn);
+        desc.style.transform = `translateY(${lerp(10, 0, fadeIn)}px)`;
+      }
+    } else {
+      el.style.display = 'none';
+      el.style.opacity = 0;
+    }
+  }
+
+  // --- LANDING ---
   const overlay = document.getElementById('landing-overlay');
   if (!overlay) return;
 
-  const pThrough = phaseProgress(progress, PHASES.THROUGH);
   const pLanding = phaseProgress(progress, PHASES.LANDING);
 
-  // Only start showing overlay in the last 20% of THROUGH
-  const overlayStart = Math.max(0, (pThrough - 0.8) / 0.2);
-
-  if (overlayStart > 0) {
+  if (pLanding > 0) {
     overlay.style.display = 'flex';
-    const opacity = smoothstep(overlayStart);
-    overlay.style.opacity = opacity;
+    overlay.style.opacity = smoothstep(pLanding);
 
     const title = overlay.querySelector('.landing-title');
     const subtitle = overlay.querySelector('.landing-subtitle');
     const btn = overlay.querySelector('.landing-btn');
 
     if (title) {
-      const scale = lerp(1.2, 1, smoothstep(pLanding));
-      const translateY = lerp(20, 0, smoothstep(pLanding));
-      title.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-      title.style.opacity = smoothstep(overlayStart);
+      title.style.opacity = smoothstep(Math.min(pLanding * 2, 1));
+      title.style.transform = `scale(${lerp(1.1, 1, smoothstep(pLanding))})`;
     }
     if (subtitle) {
-      const delay = Math.max(0, pLanding - 0.2) / 0.8;
-      subtitle.style.opacity = smoothstep(delay);
-      subtitle.style.transform = `translateY(${lerp(15, 0, smoothstep(delay))}px)`;
+      const d = Math.max(0, pLanding - 0.3) / 0.7;
+      subtitle.style.opacity = smoothstep(d);
+      subtitle.style.transform = `translateY(${lerp(10, 0, smoothstep(d))}px)`;
     }
     if (btn) {
-      const delay = Math.max(0, pLanding - 0.4) / 0.6;
-      btn.style.opacity = smoothstep(delay);
-      btn.style.transform = `translateY(${lerp(15, 0, smoothstep(delay))}px)`;
+      const d = Math.max(0, pLanding - 0.5) / 0.5;
+      btn.style.opacity = smoothstep(d);
+      btn.style.transform = `translateY(${lerp(10, 0, smoothstep(d))}px)`;
     }
   } else {
     overlay.style.display = 'none';

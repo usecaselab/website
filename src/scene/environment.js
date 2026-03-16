@@ -4,13 +4,13 @@ import { PHASES, phaseProgress, smoothstep } from '../animation/scrollManager.js
 export function createEnvironment(scene) {
   const group = new THREE.Group();
 
-  // --- GROUND ---
+  // --- GROUND (deep ocean floor) ---
   const groundGeo = new THREE.PlaneGeometry(100, 100);
   const groundMat = new THREE.MeshPhysicalMaterial({
-    color: 0x020202,
-    roughness: 0.3,
-    metalness: 0.8,
-    envMapIntensity: 0.5,
+    color: 0x021a2e,
+    roughness: 0.2,
+    metalness: 0.9,
+    envMapIntensity: 0.6,
     transparent: true,
     opacity: 1,
   });
@@ -19,14 +19,14 @@ export function createEnvironment(scene) {
   ground.position.y = -7;
   group.add(ground);
 
-  // Grid lines
+  // Grid lines (faint blue)
   const gridLines = [];
   const gridSize = 60;
   const gridStep = 2;
   const gridMat = new THREE.LineBasicMaterial({
-    color: 0xffffff,
+    color: 0x3088cc,
     transparent: true,
-    opacity: 0.03,
+    opacity: 0.04,
   });
   for (let i = -gridSize / 2; i <= gridSize / 2; i += gridStep) {
     const xPts = [
@@ -45,51 +45,25 @@ export function createEnvironment(scene) {
     group.add(zLine);
   }
 
-  // Light rings on ground
   const groundRings = [];
-  [2.0, 3.3, 5.3].forEach((r, i) => {
-    const ringGeo = new THREE.RingGeometry(r - 0.05, r + 0.05, 128);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.04 - i * 0.01,
-      side: THREE.DoubleSide,
-      depthWrite: false,
-    });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = -Math.PI / 2;
-    ring.position.y = -6.98;
-    groundRings.push(ring);
-    group.add(ring);
-  });
+  const glowMat = { opacity: 0 };
 
-  // Central glow
-  const glowGeo = new THREE.CircleGeometry(3, 64);
-  const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    transparent: true,
-    opacity: 0.02,
-    depthWrite: false,
-  });
-  const glow = new THREE.Mesh(glowGeo, glowMat);
-  glow.rotation.x = -Math.PI / 2;
-  glow.position.y = -6.97;
-  group.add(glow);
+  // --- PYREFLIES (warm amber/green floating particles) ---
+  const pyreflies = createPyreflySystem(120, 30, 20);
+  group.add(pyreflies.points);
 
-  // --- ATMOSPHERIC PARTICLES ---
-  const dust1 = createParticleSystem(400, 25, 15, 0.025, 0.12);
+  // Distant blue dust
+  const dust1 = createParticleSystem(300, 25, 15, 0.025, 0.1, 0x60c0ff);
   group.add(dust1.points);
-  const dust2 = createParticleSystem(200, 50, 30, 0.04, 0.06);
+  const dust2 = createParticleSystem(150, 50, 30, 0.04, 0.05, 0x4090cc);
   group.add(dust2.points);
-  const dust3 = createParticleSystem(60, 80, 40, 0.08, 0.03);
-  group.add(dust3.points);
 
-  // --- VERTICAL LIGHT PILLARS ---
+  // --- VERTICAL LIGHT PILLARS (blue-tinted) ---
   const pillars = [];
   const pillarMat = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
+    color: 0x3088cc,
     transparent: true,
-    opacity: 0.008,
+    opacity: 0.012,
     side: THREE.DoubleSide,
     depthWrite: false,
   });
@@ -97,9 +71,9 @@ export function createEnvironment(scene) {
     const angle = (i / 6) * Math.PI * 2;
     const dist = 15 + Math.random() * 10;
     const height = 20 + Math.random() * 15;
-    const pillarGeo = new THREE.PlaneGeometry(0.03, height);
+    const pillarGeo = new THREE.PlaneGeometry(0.04, height);
     const pillar = new THREE.Mesh(pillarGeo, pillarMat.clone());
-    pillar.userData.baseOpacity = 0.005 + Math.random() * 0.008;
+    pillar.userData.baseOpacity = 0.008 + Math.random() * 0.012;
     pillar.material.opacity = pillar.userData.baseOpacity;
     pillar.position.set(
       Math.cos(angle) * dist,
@@ -111,13 +85,54 @@ export function createEnvironment(scene) {
     group.add(pillar);
   }
 
-  scene.fog = new THREE.FogExp2(0x000000, 0.018);
+  // Deep blue fog
+  scene.fog = new THREE.FogExp2(0x010a14, 0.016);
   scene.add(group);
 
-  return { group, groundMat, gridLines, groundRings, glowMat, pillars };
+  return { group, groundMat, gridLines, groundRings, glowMat, pillars, pyreflies };
 }
 
-function createParticleSystem(count, spread, height, size, opacity) {
+// Pyreflies — the iconic FFX floating lights
+function createPyreflySystem(count, spread, height) {
+  const geo = new THREE.BufferGeometry();
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+
+  const pyreflyColors = [
+    new THREE.Color(0xffcc44), // warm amber
+    new THREE.Color(0x88ff66), // green
+    new THREE.Color(0x66ddff), // light blue
+    new THREE.Color(0xffaa22), // orange
+    new THREE.Color(0xaaffaa), // pale green
+  ];
+
+  for (let i = 0; i < count; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * spread;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * height - 2;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * spread;
+
+    const c = pyreflyColors[Math.floor(Math.random() * pyreflyColors.length)];
+    colors[i * 3] = c.r;
+    colors[i * 3 + 1] = c.g;
+    colors[i * 3 + 2] = c.b;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  const mat = new THREE.PointsMaterial({
+    size: 0.08,
+    transparent: true,
+    opacity: 0.35,
+    depthWrite: false,
+    sizeAttenuation: true,
+    vertexColors: true,
+    blending: THREE.AdditiveBlending,
+  });
+  const points = new THREE.Points(geo, mat);
+  return { points, positions, count };
+}
+
+function createParticleSystem(count, spread, height, size, opacity, color) {
   const geo = new THREE.BufferGeometry();
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
@@ -127,33 +142,49 @@ function createParticleSystem(count, spread, height, size, opacity) {
   }
   geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   const mat = new THREE.PointsMaterial({
-    color: 0xffffff,
+    color,
     size,
     transparent: true,
     opacity,
     depthWrite: false,
     sizeAttenuation: true,
+    blending: THREE.AdditiveBlending,
   });
   return { points: new THREE.Points(geo, mat) };
 }
 
 export function updateEnvironment(env, progress) {
-  // Fade out ground/grid as we enter the cylinder
   const pEnter = smoothstep(phaseProgress(progress, PHASES.ENTER));
   const fade = 1 - pEnter;
 
   env.groundMat.opacity = fade;
-  env.glowMat.opacity = 0.02 * fade;
+  env.glowMat.opacity = 0.04 * fade;
 
   env.gridLines.forEach(line => {
-    line.material.opacity = 0.03 * fade;
+    line.material.opacity = 0.04 * fade;
   });
 
   env.groundRings.forEach((ring, i) => {
-    ring.material.opacity = (0.04 - i * 0.01) * fade;
+    ring.material.opacity = (0.06 - i * 0.015) * fade;
   });
 
   env.pillars.forEach(p => {
     p.material.opacity = p.userData.baseOpacity * fade;
   });
+
+  // Animate pyreflies — gentle upward drift
+  if (env.pyreflies) {
+    const pos = env.pyreflies.points.geometry.attributes.position;
+    const t = Date.now() * 0.001;
+    for (let i = 0; i < env.pyreflies.count; i++) {
+      const idx = i * 3;
+      pos.array[idx + 1] += 0.003 + Math.sin(t + i * 1.7) * 0.002;
+      pos.array[idx] += Math.sin(t * 0.5 + i * 2.3) * 0.001;
+      pos.array[idx + 2] += Math.cos(t * 0.4 + i * 1.9) * 0.001;
+
+      // Wrap around
+      if (pos.array[idx + 1] > 10) pos.array[idx + 1] = -12;
+    }
+    pos.needsUpdate = true;
+  }
 }

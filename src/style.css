@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Raleway:wght@200;300;400&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -6,12 +8,12 @@
 
 html, body {
   overflow-x: hidden;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
   height: 1000vh;
-  background: #000;
+  background: #010a14;
 }
 
 canvas {
@@ -33,7 +35,7 @@ canvas {
   justify-content: center;
   z-index: 10;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 70%);
+  background: radial-gradient(ellipse at center, rgba(2,15,30,0.5) 0%, rgba(1,10,20,0.85) 70%);
 }
 
 #intro-overlay .landing-title,
@@ -47,13 +49,13 @@ canvas {
   font-weight: 300;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-  animation: pulse 2s ease-in-out infinite;
+  color: rgba(100, 200, 255, 0.4);
+  animation: pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
 #landing-overlay {
@@ -68,7 +70,7 @@ canvas {
   justify-content: center;
   z-index: 10;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.95) 70%);
+  background: radial-gradient(ellipse at center, rgba(2,15,30,0.6) 0%, rgba(1,10,20,0.92) 70%);
 }
 
 .landing-content {
@@ -79,20 +81,25 @@ canvas {
 }
 
 .landing-title {
+  font-family: 'Cinzel', serif;
   font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 200;
-  letter-spacing: 0.15em;
+  font-weight: 300;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   opacity: 0;
   will-change: transform, opacity;
+  color: #c8e8ff;
+  text-shadow:
+    0 0 20px rgba(80, 180, 255, 0.4),
+    0 0 60px rgba(80, 180, 255, 0.15);
 }
 
 .landing-subtitle {
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   font-weight: 300;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(150, 210, 255, 0.55);
   margin-bottom: 2.5rem;
   opacity: 0;
   will-change: transform, opacity;
@@ -101,22 +108,68 @@ canvas {
 .landing-btn {
   display: inline-block;
   padding: 0.9rem 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
+  border: 1px solid rgba(80, 180, 255, 0.3);
+  color: #a0d8ff;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   pointer-events: auto;
   opacity: 0;
   will-change: transform, opacity;
 }
 
 .landing-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(80, 180, 255, 0.1);
+  border-color: rgba(80, 180, 255, 0.6);
+  text-shadow: 0 0 12px rgba(80, 180, 255, 0.5);
+}
+
+.floor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: 0;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.floor-content {
+  color: #fff;
+  max-width: 380px;
+  padding: 0 3rem;
+}
+
+.floor-content--right {
+  margin-right: 5vw;
+}
+
+.floor-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  will-change: transform, opacity;
+  color: #c8e8ff;
+  text-shadow: 0 0 15px rgba(80, 180, 255, 0.3);
+}
+
+.floor-desc {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(150, 210, 255, 0.5);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 #play-btn {
@@ -125,7 +178,7 @@ canvas {
   right: 2rem;
   z-index: 20;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(80, 180, 255, 0.2);
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -133,13 +186,18 @@ canvas {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   padding-left: 3px;
 }
 
+#play-btn svg path {
+  stroke: rgba(150, 210, 255, 0.7);
+}
+
 #play-btn:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(80, 180, 255, 0.5);
+  background: rgba(80, 180, 255, 0.05);
+  box-shadow: 0 0 20px rgba(80, 180, 255, 0.1);
 }
 
 #play-btn.playing {

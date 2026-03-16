@@ -6,6 +6,7 @@ import { updateRings } from './animation/ringAnimator.js';
 import { createRings } from './scene/rings.js';
 import { createBeam, updateBeam } from './scene/beam.js';
 import { createEnvironment, updateEnvironment } from './scene/environment.js';
+import { createFloors } from './scene/floors.js';
 import { setupPostProcessing } from './postprocessing/bloom.js';
 
 // Renderer
@@ -14,12 +15,12 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure = 1.1;
 renderer.shadowMap.enabled = false;
 
 // Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000);
+scene.background = new THREE.Color(0x010a14);
 
 // Generate a soft gradient environment map procedurally
 const envScene = new THREE.Scene();
@@ -30,9 +31,9 @@ const envGeo = new THREE.SphereGeometry(50, 32, 32);
 const envMat = new THREE.ShaderMaterial({
   side: THREE.BackSide,
   uniforms: {
-    colorTop: { value: new THREE.Color(0x333333) },
-    colorMid: { value: new THREE.Color(0x1a1a1a) },
-    colorBot: { value: new THREE.Color(0x0a0a0a) },
+    colorTop: { value: new THREE.Color(0x0a2040) },
+    colorMid: { value: new THREE.Color(0x051525) },
+    colorBot: { value: new THREE.Color(0x010810) },
   },
   vertexShader: `
     varying vec3 vWorldPos;
@@ -71,15 +72,22 @@ camera.position.set(14, 3, 14);
 camera.lookAt(0, 0, 0);
 
 // Subtle lighting to complement the env map
-const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+const ambient = new THREE.AmbientLight(0x4488cc, 0.5);
 scene.add(ambient);
 
-// No directional lights — env map only
+// Subtle blue-tinted directional for depth
+const dirLight = new THREE.DirectionalLight(0x3366aa, 0.3);
+dirLight.position.set(5, 10, 5);
+scene.add(dirLight);
 
 // Scene objects
 const rings = createRings(scene);
 const beam = createBeam(scene);
 const env = createEnvironment(scene);
+
+// Get disc material from the first ring for the floor showcases
+const discMaterial = rings[0].children[0].material;
+const floors = createFloors(scene, discMaterial);
 
 // Post-processing
 const { composer } = setupPostProcessing(renderer, scene, camera);
@@ -152,7 +160,7 @@ function animate() {
   updateRings(progress, rings);
   updateBeam(beam);
   updateEnvironment(env, progress);
-  updateCamera(progress, camera);
+  updateCamera(progress, camera, floors);
 
   // Debug: show scroll progress and current phase
   let phase = 'INTRO';
@@ -163,13 +171,16 @@ function animate() {
     playBtn.style.transform = 'rotate(0deg)';
   }
 
-  if (progress > 0.86) phase = 'LANDING';
-  else if (progress > 0.78) phase = 'THROUGH';
-  else if (progress > 0.58) phase = 'DESCEND';
-  else if (progress > 0.40) phase = 'ENTER';
-  else if (progress > 0.36) phase = 'HOLD';
-  else if (progress > 0.16) phase = 'COMPACT';
-  else if (progress > 0.10) phase = 'IDLE';
+  if (progress > 0.90) phase = 'LANDING';
+  else if (progress > 0.75) phase = 'FLOOR3';
+  else if (progress > 0.55) phase = 'FLOOR2';
+  else if (progress > 0.35) phase = 'FLOOR1';
+  else if (progress > 0.30) phase = 'THROUGH';
+  else if (progress > 0.24) phase = 'DESCEND';
+  else if (progress > 0.18) phase = 'ENTER';
+  else if (progress > 0.16) phase = 'HOLD';
+  else if (progress > 0.07) phase = 'COMPACT';
+  else if (progress > 0.04) phase = 'IDLE';
   const debugEl = document.getElementById('debug');
   if (debugEl) debugEl.textContent = `${(progress * 100).toFixed(1)}% — ${phase}`;
 

@@ -22,21 +22,21 @@
   </div>
 
   <div id="floor-info-0" class="floor-overlay">
-    <div class="floor-content floor-content--right">
+    <div class="floor-content">
       <h2 class="floor-title">Execution Layer</h2>
       <p class="floor-desc">Individuals and teams with deep domain expertise, actively advancing specific use cases</p>
     </div>
   </div>
 
   <div id="floor-info-1" class="floor-overlay">
-    <div class="floor-content floor-content--right">
+    <div class="floor-content">
       <h2 class="floor-title">Design Sprints</h2>
       <p class="floor-desc">Convening around specific blockers to generate new insights, primitives, and the working relationships to carry them forward</p>
     </div>
   </div>
 
   <div id="floor-info-2" class="floor-overlay">
-    <div class="floor-content floor-content--right">
+    <div class="floor-content">
       <h2 class="floor-title">Ecosystem</h2>
       <p class="floor-desc">Institutions and physical hubs that provide infrastructure to validate, develop, and scale new use cases</p>
     </div>
@@ -46,7 +46,23 @@
     <div class="landing-content">
       <h1 class="landing-title">Use Case Lab</h1>
       <p class="landing-subtitle">Advancing underexplored use cases for Ethereum</p>
-      <a href="mailto:hello@usecaselab.eth" class="landing-btn">Get in touch</a>
+      <a href="https://forms.gle/7Mrh3ZSL1scRw15j7" target="_blank" rel="noopener" class="landing-btn">Get in touch</a>
+    </div>
+  </div>
+
+  <!-- Sprint node labels (positioned via JS to track 3D nodes) -->
+  <div id="sprint-label-0" class="sprint-node-label" data-sprint="0">Argentina Onchain</div>
+  <div id="sprint-label-1" class="sprint-node-label" data-sprint="1">Unblock SF</div>
+
+  <!-- Video modal -->
+  <div id="video-modal" class="video-modal">
+    <div class="video-modal-backdrop"></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" aria-label="Close">&times;</button>
+      <div class="video-modal-player">
+        <video id="video-player" controls playsinline></video>
+      </div>
+      <h3 class="video-modal-title"></h3>
     </div>
   </div>
 

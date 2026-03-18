@@ -6,6 +6,7 @@ import { createRings } from './scene/rings.js';
 import { createBeam, updateBeam } from './scene/beam.js';
 import { createEnvironment, updateEnvironment } from './scene/environment.js';
 import { createFloors } from './scene/floors.js';
+import { projectSprintLabels } from './scene/videoPortals.js';
 import { setupPostProcessing } from './postprocessing/bloom.js';
 
 // Renderer
@@ -83,6 +84,95 @@ const floors = createFloors(scene, discMaterial);
 
 // Post-processing
 const { composer, bloomPass, fxPass } = setupPostProcessing(renderer, scene, camera);
+
+// --- Sprint node interaction ---
+const sprintLabels = [
+  document.getElementById('sprint-label-0'),
+  document.getElementById('sprint-label-1'),
+];
+const sprintFloor = floors[1];
+const sprintNodes = sprintFloor ? sprintFloor.sprintNodes : null;
+
+const videoModal = document.getElementById('video-modal');
+const videoModalTitle = videoModal.querySelector('.video-modal-title');
+const videoPlayer = videoModal.querySelector('#video-player');
+let currentSprintIndex = -1;
+
+function openSprint(index) {
+  if (!sprintNodes || index < 0 || index >= sprintNodes.length) return;
+  currentSprintIndex = index;
+  const node = sprintNodes[index];
+  videoModalTitle.textContent = node.name;
+  if (node.videoUrl) {
+    videoPlayer.src = node.videoUrl;
+    videoPlayer.play();
+  }
+  // Force reflow then activate for CSS transition
+  videoModal.style.display = 'flex';
+  videoModal.offsetHeight; // reflow
+  videoModal.classList.add('active');
+}
+
+function closeSprint() {
+  videoModal.classList.remove('active');
+  currentSprintIndex = -1;
+  videoPlayer.pause();
+  videoPlayer.removeAttribute('src');
+  setTimeout(() => {
+    if (!videoModal.classList.contains('active')) {
+      videoModal.style.display = 'none';
+    }
+  }, 350);
+}
+
+sprintLabels.forEach((label, i) => {
+  label.addEventListener('click', () => {
+    if (currentSprintIndex === i) {
+      closeSprint();
+    } else {
+      if (currentSprintIndex >= 0) closeSprint();
+      setTimeout(() => openSprint(i), currentSprintIndex >= 0 ? 100 : 0);
+    }
+  });
+});
+
+videoModal.querySelector('.video-modal-close').addEventListener('click', closeSprint);
+videoModal.querySelector('.video-modal-backdrop').addEventListener('click', closeSprint);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && currentSprintIndex >= 0) closeSprint();
+});
+
+// Raycaster — click on the 3D hub spheres
+const raycaster = new THREE.Raycaster();
+const _clickNDC = new THREE.Vector2();
+
+const sprintHubMeshes = sprintNodes ? sprintNodes.map(n => n.hub) : [];
+
+canvas.addEventListener('click', (e) => {
+  if (!sprintNodes || videoModal.classList.contains('active')) return;
+  _clickNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+  _clickNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(_clickNDC, camera);
+
+  const hits = raycaster.intersectObjects(sprintHubMeshes);
+  if (hits.length > 0) {
+    const idx = sprintHubMeshes.indexOf(hits[0].object);
+    if (idx >= 0) {
+      if (currentSprintIndex === idx) closeSprint();
+      else openSprint(idx);
+    }
+  }
+});
+
+// Pointer cursor when hovering over sprint hub spheres
+canvas.addEventListener('mousemove', (e) => {
+  if (!sprintNodes || videoModal.classList.contains('active')) return;
+  _clickNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+  _clickNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(_clickNDC, camera);
+  const hits = raycaster.intersectObjects(sprintHubMeshes);
+  canvas.style.cursor = hits.length > 0 ? 'pointer' : '';
+});
 
 // Scroll
 const scrollManager = createScrollManager();
@@ -239,6 +329,16 @@ function animate() {
     playBtn.style.transform = 'rotate(180deg)';
   } else {
     playBtn.style.transform = 'rotate(0deg)';
+  }
+
+  // Sprint label projection
+  if (sprintNodes) {
+    projectSprintLabels(sprintNodes, camera, sprintLabels);
+    // Auto-close modal if floor scrolled away
+    if (currentSprintIndex >= 0) {
+      const intensity = sprintNodes[0]._intensity || 0;
+      if (intensity < 0.05) closeSprint();
+    }
   }
 
   // Debug

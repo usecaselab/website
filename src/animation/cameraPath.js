@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { PHASES, phaseProgress, smoothstep, lerp } from './scrollManager.js';
 import { FLOOR_START_Y, FLOOR_SPACING } from '../scene/floors.js';
+import { updateSprintNodes } from '../scene/videoPortals.js';
 
 const _pos = new THREE.Vector3();
 const _look = new THREE.Vector3();
@@ -114,12 +115,17 @@ function updateFloorVisibility(progress, floors) {
     const p = phaseProgress(progress, floorPhases[i]);
     const active = p > 0 && p < 1;
 
+    // Animate sprint node blinking on Design Sprints floor
+    if (floor.sprintNodes) {
+      updateSprintNodes(floor.sprintNodes, p, t * 0.5);
+    }
+
     // Per-floor glow intensity — small disc needs more, medium less
     const glowMultiplier = 0.6;
     const glowStrength = active ? (0.5 + Math.sin(t + i) * 0.3) * glowMultiplier : 0;
 
     floor.group.traverse(child => {
-      if (!child.material) return;
+      if (!child.material || !child.material.color) return;
       if (!child.userData._baseOpacity) {
         child.userData._baseOpacity = child.material.opacity;
         child.userData._baseColor = child.material.color.getHex();

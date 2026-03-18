@@ -35,6 +35,7 @@ export function createFloors(scene, discMaterial) {
 
     const geo = createRingGeo(inner, outer, DISC_THICKNESS);
     const disc = new THREE.Mesh(geo, discMaterial.clone());
+    disc.visible = false;
     group.add(disc);
 
     const layer = layerFns[i](inner, outer);

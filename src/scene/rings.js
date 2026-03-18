@@ -78,8 +78,8 @@ export function createResidentsLayer(innerR, outerR) {
   });
 
   // Dense web — connect everything within range
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
-  const strongLineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
+  const strongLineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.25 });
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       const d = nodes[i].distanceTo(nodes[j]);
@@ -95,7 +95,7 @@ export function createResidentsLayer(innerR, outerR) {
   }
 
   // Orbit rings around cores
-  const orbitMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
+  const orbitMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
   coreIndices.forEach(idx => {
     const c = nodes[idx];
     [0.15, 0.28, 0.4].forEach(r => {
@@ -135,8 +135,8 @@ export function createPartnersLayer(innerR, outerR) {
   const sprintHubMat = new THREE.MeshBasicMaterial({ color: 0x66ddff, transparent: true, opacity: 0.8 });
   const staticHubMat = new THREE.MeshBasicMaterial({ color: 0x3a7799, transparent: true, opacity: 0.25 });
   const dotMat = new THREE.MeshBasicMaterial({ color: 0x5599bb, transparent: true, opacity: 0.35 });
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
-  const bridgeMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
+  const bridgeMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.25 });
 
   clusters.forEach((cluster, ci) => {
     const { center } = cluster;
@@ -243,7 +243,7 @@ export function createCommunityLayer(innerR, outerR) {
   });
 
   // Connections — every node connects to its 2 nearest neighbors
-  const arcMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
+  const arcMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
   for (let i = 0; i < nodes.length; i++) {
     const dists = [];
     for (let j = 0; j < nodes.length; j++) {
@@ -260,7 +260,7 @@ export function createCommunityLayer(innerR, outerR) {
   }
 
   // Faint concentric ripple rings — community radiating outward
-  const rippleMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
+  const rippleMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
   const rippleCount = 4;
   for (let i = 0; i < rippleCount; i++) {
     const r = innerR + 0.5 + (i / rippleCount) * (outerR - innerR - 0.8);
@@ -296,8 +296,10 @@ export function createRings(scene) {
     const { inner, outer } = DISC_SPECS[i];
     const group = new THREE.Group();
 
+    // Disc geometry — invisible, just defines the space
     const geo = createRingGeo(inner, outer, DISC_THICKNESS);
     const disc = new THREE.Mesh(geo, material.clone());
+    disc.visible = false;
     group.add(disc);
 
     const layer = layers[i](inner, outer);

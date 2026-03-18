@@ -313,7 +313,7 @@ function animate() {
 
   // Film grain
   fxUniforms.time.value = performance.now();
-  fxUniforms.grainIntensity.value = 0.03;
+  fxUniforms.grainIntensity.value = 0.015;
 
   // Color drift
   const shift = getColorShift(progress);

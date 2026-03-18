@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Raleway:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 
 * {
   margin: 0;
@@ -8,7 +8,7 @@
 
 html, body {
   overflow-x: hidden;
-  font-family: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 body {
@@ -44,8 +44,11 @@ canvas {
 }
 
 .scroll-hint {
-  display: inline-block;
-  font-size: 0.75rem;
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.125rem;
   font-weight: 300;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -76,16 +79,23 @@ canvas {
 .landing-content {
   text-align: center;
   color: #fff;
-  max-width: 600px;
   padding: 0 2rem;
 }
 
+.landing-logo {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 20;
+}
+
 .landing-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  white-space: nowrap;
   margin-bottom: 1.5rem;
   opacity: 0;
   will-change: transform, opacity;
@@ -96,7 +106,7 @@ canvas {
 }
 
 .landing-subtitle {
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-size: clamp(1.35rem, 2.25vw, 1.65rem);
   font-weight: 300;
   line-height: 1.7;
   color: rgba(150, 210, 255, 0.55);
@@ -111,7 +121,7 @@ canvas {
   border: 1px solid rgba(80, 180, 255, 0.3);
   color: #a0d8ff;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 1.275rem;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -143,7 +153,7 @@ canvas {
 
 .floor-content {
   color: #fff;
-  max-width: 380px;
+  max-width: 480px;
   padding: 0 3rem;
 }
 
@@ -151,8 +161,16 @@ canvas {
   margin-right: 5vw;
 }
 
+#floor-info-0 .floor-content--right {
+  margin-right: 9vw;
+}
+
+#floor-info-2 .floor-content--right {
+  margin-right: 1vw;
+}
+
 .floor-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
   font-size: clamp(1.4rem, 3vw, 2rem);
   font-weight: 300;
   letter-spacing: 0.1em;
@@ -164,7 +182,7 @@ canvas {
 }
 
 .floor-desc {
-  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-size: clamp(1.275rem, 1.8vw, 1.5rem);
   font-weight: 300;
   line-height: 1.8;
   color: rgba(150, 210, 255, 0.5);
@@ -174,7 +192,7 @@ canvas {
 
 /* Character-by-character reveal */
 .char-reveal {
-  display: inline-block;
+  display: inline;
   opacity: 0;
   transform: translateY(8px);
   filter: blur(4px);

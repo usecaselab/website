@@ -166,12 +166,27 @@ function initCharReveal() {
     if (el.dataset.charReady) return;
     const text = el.textContent;
     el.innerHTML = '';
-    [...text].forEach((char, i) => {
-      const span = document.createElement('span');
-      span.textContent = char === ' ' ? '\u00a0' : char;
-      span.className = 'char-reveal';
-      span.style.setProperty('--i', i);
-      el.appendChild(span);
+    let charIndex = 0;
+    text.split(' ').forEach((word, wi) => {
+      if (wi > 0) {
+        const space = document.createElement('span');
+        space.textContent = ' ';
+        space.className = 'char-reveal';
+        space.style.setProperty('--i', charIndex);
+        el.appendChild(space);
+        charIndex++;
+      }
+      const wordSpan = document.createElement('span');
+      wordSpan.style.display = 'inline-block';
+      [...word].forEach((char) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'char-reveal';
+        span.style.setProperty('--i', charIndex);
+        wordSpan.appendChild(span);
+        charIndex++;
+      });
+      el.appendChild(wordSpan);
     });
     el.dataset.charReady = 'true';
   });

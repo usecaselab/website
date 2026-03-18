@@ -146,35 +146,24 @@ canvas {
   display: none;
   opacity: 0;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   z-index: 10;
   pointer-events: none;
 }
 
 .floor-content {
   color: #fff;
-  max-width: 480px;
-  padding: 0 3rem;
-}
-
-.floor-content--right {
-  margin-right: 5vw;
-}
-
-#floor-info-0 .floor-content--right {
-  margin-right: 9vw;
-}
-
-#floor-info-2 .floor-content--right {
-  margin-right: 1vw;
+  max-width: 320px;
+  padding: 0 1.5rem;
+  margin-left: 5vw;
 }
 
 .floor-title {
   font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 300;
   letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   opacity: 0;
   will-change: transform, opacity;
   color: #c8e8ff;
@@ -182,9 +171,9 @@ canvas {
 }
 
 .floor-desc {
-  font-size: clamp(1.275rem, 1.8vw, 1.5rem);
+  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.7;
   color: rgba(150, 210, 255, 0.5);
   opacity: 0;
   will-change: transform, opacity;

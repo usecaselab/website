@@ -50,6 +50,22 @@
     </div>
   </div>
 
+  <!-- Sprint node labels (positioned via JS to track 3D nodes) -->
+  <div id="sprint-label-0" class="sprint-node-label" data-sprint="0">Argentina Onchain</div>
+  <div id="sprint-label-1" class="sprint-node-label" data-sprint="1">Unblock SF</div>
+
+  <!-- Video modal -->
+  <div id="video-modal" class="video-modal">
+    <div class="video-modal-backdrop"></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" aria-label="Close">&times;</button>
+      <div class="video-modal-player">
+        <video id="video-player" controls playsinline></video>
+      </div>
+      <h3 class="video-modal-title"></h3>
+    </div>
+  </div>
+
   <button id="play-btn" aria-label="Play animation">
     <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
       <path d="M1 1L15 9L1 17V1Z" stroke="white" stroke-width="1.5" fill="none"/>

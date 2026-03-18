@@ -110,9 +110,10 @@ export function createResidentsLayer(innerR, outerR) {
 }
 
 // --- MEDIUM DISC: Partners (VCs, startups, hubs) ---
-// Four clusters in a diamond — cleaned up, subtler
+// Four clusters in a diamond — two are interactive sprint nodes
 export function createPartnersLayer(innerR, outerR) {
   const group = new THREE.Group();
+  const sprintNodes = [];
 
   const clusterR = (innerR + outerR) / 2;
   const ratio = 0.6;
@@ -122,21 +123,50 @@ export function createPartnersLayer(innerR, outerR) {
     new THREE.Vector3(0, 0, clusterR),
     new THREE.Vector3(-clusterR * ratio, 0, 0),
   ];
+
+  // Sprint hubs: top and bottom of diamond
+  const sprintConfig = new Map([
+    [0, { name: 'Argentina Onchain', videoUrl: '' }],
+    [2, { name: 'Unblock SF', videoUrl: '' }],
+  ]);
+
   const clusters = diamondPositions.map(pos => ({ center: pos, nodes: [] }));
 
-  const hubMat = new THREE.MeshBasicMaterial({ color: 0x66ddff, transparent: true, opacity: 0.7 });
+  const sprintHubMat = new THREE.MeshBasicMaterial({ color: 0x66ddff, transparent: true, opacity: 0.8 });
+  const staticHubMat = new THREE.MeshBasicMaterial({ color: 0x3a7799, transparent: true, opacity: 0.25 });
   const dotMat = new THREE.MeshBasicMaterial({ color: 0x5599bb, transparent: true, opacity: 0.35 });
   const lineMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.08 });
   const bridgeMat = new THREE.LineBasicMaterial({ color: 0x4499aa, transparent: true, opacity: 0.15 });
 
-  clusters.forEach((cluster) => {
+  clusters.forEach((cluster, ci) => {
     const { center } = cluster;
+    const isSprint = sprintConfig.has(ci);
 
     // Hub
-    const hub = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 10), hubMat);
+    const hubSize = isSprint ? 0.08 : 0.04;
+    const mat = isSprint ? sprintHubMat.clone() : staticHubMat.clone();
+    const hub = new THREE.Mesh(new THREE.SphereGeometry(hubSize, 12, 12), mat);
     hub.position.copy(center);
     group.add(hub);
     cluster.nodes.push(center.clone());
+
+    if (isSprint) {
+      const cfg = sprintConfig.get(ci);
+      hub.userData.isSprint = true;
+      hub.userData.sprintName = cfg.name;
+
+      // Glow ring around sprint hub
+      const ringGeo = new THREE.RingGeometry(0.12, 0.15, 32);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0x66ddff, transparent: true, opacity: 0.4, side: THREE.DoubleSide,
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.position.copy(center);
+      ring.rotation.x = -Math.PI / 2;
+      group.add(ring);
+
+      sprintNodes.push({ hub, ring, name: cfg.name, videoUrl: cfg.videoUrl });
+    }
 
     // Satellites — varied sizes, spread out
     const satCount = 12 + Math.floor(Math.random() * 4);
@@ -166,6 +196,8 @@ export function createPartnersLayer(innerR, outerR) {
     const geo = new THREE.BufferGeometry().setFromPoints([clusters[a].nodes[0], clusters[b].nodes[0]]);
     group.add(new THREE.Line(geo, bridgeMat));
   }
+
+  group.userData.sprintNodes = sprintNodes;
 
   group.position.y = DISC_THICKNESS / 2 + 0.005;
   return group;

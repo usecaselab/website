@@ -46,10 +46,16 @@ export function createFloors(scene, discMaterial) {
     const y = FLOOR_START_Y - i * FLOOR_SPACING;
     group.position.set(0, y, 0);
 
+    // Extract sprint nodes from Design Sprints floor (floor index 1)
+    let sprintNodes = null;
+    if (i === 1) {
+      sprintNodes = layer.userData.sprintNodes || null;
+    }
+
     group.visible = false;
 
     scene.add(group);
-    floors.push({ group, y });
+    floors.push({ group, y, sprintNodes });
   }
 
   return floors;

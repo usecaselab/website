@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&family=Source+Sans+3:wght@200;300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'IBM Plex Mono', monospace;
+  background: #ffffff;
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-logo img {
+  filter: brightness(0) saturate(100%);
+  height: auto;
+}
+
+.nav-back {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(30, 30, 60, 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-back:hover {
+  color: #1a1a2e;
+}
+
+/* Page */
+.initiative-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8rem 2.5rem 6rem;
+}
+
+/* Header */
+.initiative-header {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(30, 30, 60, 0.06);
+}
+
+.initiative-title {
+  font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+.initiative-hypothesis {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(40, 40, 70, 0.6);
+  margin-bottom: 2rem;
+}
+
+.initiative-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.init-btn {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border: 1px solid rgba(30, 30, 60, 0.18);
+  color: #1a1a2e;
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.init-btn:hover {
+  background: rgba(30, 30, 60, 0.04);
+  border-color: rgba(30, 30, 60, 0.35);
+}
+
+.init-btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.init-btn:hover .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Sections */
+.initiative-section {
+  margin-bottom: 3.5rem;
+}
+
+.initiative-section .section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: rgba(100, 100, 140, 0.3);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.initiative-section h2 {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.25rem;
+}
+
+.initiative-section p {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(40, 40, 70, 0.65);
+  margin-bottom: 1.25rem;
+}
+
+.initiative-section blockquote {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  color: rgba(40, 40, 70, 0.5);
+  padding-left: 1.5rem;
+  border-left: 2px solid rgba(30, 30, 60, 0.08);
+  margin: 2rem 0;
+}
+
+/* Lists */
+.hypotheses,
+.impl-list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.hypotheses li {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(40, 40, 70, 0.6);
+  padding: 0.75rem 0;
+  padding-left: 1.25rem;
+  border-bottom: 1px solid rgba(30, 30, 60, 0.04);
+  position: relative;
+}
+
+.hypotheses li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.1rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(30, 30, 60, 0.15);
+}
+
+.impl-list li {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(40, 40, 70, 0.6);
+  padding: 0.4rem 0 0.4rem 1.25rem;
+  position: relative;
+}
+
+.impl-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(30, 30, 60, 0.15);
+}
+
+/* Readings */
+.readings-intro {
+  font-style: italic;
+}
+
+.readings {
+  margin-top: 1.5rem;
+}
+
+.reading-group {
+  margin-bottom: 2rem;
+}
+
+.reading-group h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(100, 100, 140, 0.4);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(30, 30, 60, 0.04);
+}
+
+.reading-card {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.reading-card:hover {
+  border-left-color: rgba(30, 30, 60, 0.15);
+  background: rgba(30, 30, 60, 0.015);
+}
+
+.reading-title {
+  display: block;
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1a1a2e;
+  margin-bottom: 0.2rem;
+}
+
+.reading-meta {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: rgba(40, 40, 70, 0.35);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-logo img {
+    max-width: 120px;
+  }
+
+  .initiative-page {
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  .initiative-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .initiative-actions {
+    flex-direction: column;
+  }
+
+  .init-btn {
+    text-align: center;
+  }
+}

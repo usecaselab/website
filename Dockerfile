@@ -1,8 +1,13 @@
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html /usr/share/nginx/html/
-COPY css/ /usr/share/nginx/html/css/
-COPY js/ /usr/share/nginx/html/js/
-COPY images/ /usr/share/nginx/html/images/
+COPY --from=build /app/dist/ /usr/share/nginx/html/
 COPY Verifiable_Cities.pdf /usr/share/nginx/html/Verifiable_Cities.pdf
+COPY images/ /usr/share/nginx/html/images/
 EXPOSE 80

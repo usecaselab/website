@@ -9,79 +9,168 @@
   <meta property="og:title" content="Composable Commerce — Use Case Lab" />
   <meta property="og:description" content="Composable primitives for self-sovereign commerce on Ethereum." />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="/src/initiative.css" />
+  <link rel="stylesheet" href="/src/vc-style.css" />
+  <style>
+    .hypothesis {
+      padding: 20px 0 20px 32px;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .hypothesis:last-child {
+      border-bottom: none;
+    }
+
+    .hypothesis-num {
+      position: absolute;
+      left: 0;
+      top: 22px;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--faint);
+    }
+
+    .hypothesis p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--body);
+    }
+
+    .work-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .work-item:last-child {
+      border-bottom: none;
+    }
+
+    .work-item h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .work-item p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--body);
+      margin-bottom: 12px;
+    }
+
+    .work-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 8px;
+    }
+
+    .work-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .work-links a {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .work-links a:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+  </style>
 </head>
 <body>
   <nav class="nav">
     <a href="/#bottom" class="nav-logo">
       <img src="/src/assets/initiative.svg" alt="Use Case Lab" />
     </a>
-    <a href="/#bottom" class="nav-back">Back</a>
+    <a href="/#bottom" class="nav-back">&larr; Back</a>
   </nav>
 
-  <main class="initiative-page">
-    <header class="initiative-header">
-      <h1 class="initiative-title">Composable Commerce</h1>
-      <p class="initiative-hypothesis">Commerce today is bundled inside platforms that control payments, discovery, reputation, and dispute resolution as a package. Ethereum provides the primitives that could let participants coordinate directly and compose their own commerce experiences.</p>
-    </header>
+  <div class="page">
+    <div class="header">
+      <div class="header-label">Composable Commerce</div>
+      <h1>Self-Sovereign Commerce on Ethereum</h1>
+      <p class="header-intro">Commerce today is bundled inside platforms that control payments, discovery, reputation, and dispute resolution as a package. Ethereum provides the primitives that could let participants coordinate directly and compose their own commerce experiences.</p>
+    </div>
 
-    <section class="initiative-section">
-      <div class="section-num">01</div>
+    <hr class="section-rule" />
+
+    <section class="landscape-section">
+      <div class="landscape-section-num">01</div>
       <h2>Why Commerce</h2>
       <p>Commerce is a coordination problem between buyers, sellers, logistics providers, and payment processors who currently depend on platforms to mediate trust between them. A seller on a major marketplace can lose 20-40% of gross revenue to layered platform fees (payments, commissions, fulfillment, dispute handling) before accounting for their own costs, and their reputation, customer relationships, and transaction history remain locked inside the platform that collected them. The question is where Ethereum can give these participants the ability to coordinate directly, and where platform bundling still serves a legitimate function.</p>
       <blockquote>The path forward isn't replacing Amazon with a "decentralized Amazon." It's building composable primitives that any builder can assemble into commerce experiences where participants set their own terms.</blockquote>
       <p>This track is scoped around three hypotheses about where the gap between platform-mediated commerce and self-sovereign coordination is widest.</p>
     </section>
 
-    <section class="initiative-section">
-      <div class="section-num">02</div>
+    <section class="landscape-section">
+      <div class="landscape-section-num">02</div>
       <h2>Hypotheses</h2>
-      <div class="commerce-hypotheses">
-        <div class="commerce-hypothesis">
-          <div class="commerce-hyp-num">1</div>
-          <p>Platform-centric commerce bundles payments, discovery, logistics, and dispute resolution into a single package, suppressing competition at each layer. The growing wave of direct-to-consumer brands, creator commerce, and local production networks needs modular infrastructure that incumbents are structurally disincentivized to provide. Composable onchain primitives could let these participants assemble their own commerce stack from independent, interoperable services rather than renting a bundled one.</p>
+      <div class="hypothesis">
+        <div class="hypothesis-num">1</div>
+        <p>Platform-centric commerce bundles payments, discovery, logistics, and dispute resolution into a single package, suppressing competition at each layer. The growing wave of direct-to-consumer brands, creator commerce, and local production networks needs modular infrastructure that incumbents are structurally disincentivized to provide. Composable onchain primitives could let these participants assemble their own commerce stack from independent, interoperable services rather than renting a bundled one.</p>
+      </div>
+      <div class="hypothesis">
+        <div class="hypothesis-num">2</div>
+        <p>Autonomous AI agents acting on behalf of users could dramatically reduce the role of platform intermediaries, but only if the infrastructure they operate on is open and local-first. A user's local agent could query an open product registry, verify a seller's onchain reputation, and execute a purchase through programmable escrow, all without routing through a centralized platform. Without self-sovereign rails (portable identity, open order books, programmable escrow, non-captive reputation), agentic commerce simply shifts the intermediary from a platform to an AI provider, recreating the same extraction dynamics in a new form.</p>
+      </div>
+      <div class="hypothesis">
+        <div class="hypothesis-num">3</div>
+        <p>Stablecoins and real-world asset tokenization (physical goods, invoices, warranties, trade finance instruments) are reaching sufficient maturity for practical commerce applications, but lacks the standards and demonstrated use cases needed for adoption beyond crypto-native communities. The question is where tokenized commercial instruments deliver concrete advantages in supply chain transparency, trade finance, and consumer trust.</p>
+      </div>
+    </section>
+
+    <section class="landscape-section">
+      <div class="landscape-section-num">03</div>
+      <h2>Initial Work</h2>
+      <div class="work-item">
+        <h3>Ethereum Bazaar</h3>
+        <p>Marketplace infrastructure for peer-to-peer local commerce with onchain payments and EAS-verified reviews. Built with BuidlGuidl, piloted at Edge Patagonia.</p>
+        <div class="work-links">
+          <a href="https://ethereumbazaar.xyz/" target="_blank" rel="noopener">Website &#8599;</a>
+          <a href="https://farcaster.xyz/?launchFrameUrl=https%3A%2F%2Fethereumbazaar.xyz%2F" target="_blank" rel="noopener">Farcaster mini-app &#8599;</a>
+          <a href="https://github.com/BuidlGuidl/ethereum-bazaar/" target="_blank" rel="noopener">GitHub &#8599;</a>
         </div>
-        <div class="commerce-hypothesis">
-          <div class="commerce-hyp-num">2</div>
-          <p>Autonomous AI agents acting on behalf of users could dramatically reduce the role of platform intermediaries, but only if the infrastructure they operate on is open and local-first. A user's local agent could query an open product registry, verify a seller's onchain reputation, and execute a purchase through programmable escrow, all without routing through a centralized platform. Without self-sovereign rails (portable identity, open order books, programmable escrow, non-captive reputation), agentic commerce simply shifts the intermediary from a platform to an AI provider, recreating the same extraction dynamics in a new form.</p>
+      </div>
+      <div class="work-item">
+        <h3>DeCom Research</h3>
+        <p>Exploring decentralized commerce as a design space.</p>
+        <div class="work-label">Three-part essay</div>
+        <div class="work-links">
+          <a href="https://x.com/orishim/status/1882064487718777094" target="_blank" rel="noopener">What is DeCom &#8599;</a>
+          <a href="https://x.com/orishim/status/1906804719676178626" target="_blank" rel="noopener">Pre-history of DeCom &#8599;</a>
+          <a href="https://x.com/orishim/status/1929980877477445916" target="_blank" rel="noopener">The Emerging DeCom Stack &#8599;</a>
         </div>
-        <div class="commerce-hypothesis">
-          <div class="commerce-hyp-num">3</div>
-          <p>Stablecoins and real-world asset tokenization (physical goods, invoices, warranties, trade finance instruments) are reaching sufficient maturity for practical commerce applications, but lacks the standards and demonstrated use cases needed for adoption beyond crypto-native communities. The question is where tokenized commercial instruments deliver concrete advantages in supply chain transparency, trade finance, and consumer trust.</p>
+        <div class="work-label">Talks</div>
+        <div class="work-links">
+          <a href="https://streameth.org/682f5f23c149844bac821bf0/watch?session=6852eaa890bd41297b138c0b" target="_blank" rel="noopener">Protocol Berg &#8599;</a>
+          <a href="https://www.youtube.com/watch?v=5ltdesQQN1I" target="_blank" rel="noopener">DappCon &#8599;</a>
         </div>
       </div>
     </section>
 
-    <section class="initiative-section">
-      <div class="section-num">03</div>
-      <h2>Initial Work</h2>
-      <div class="commerce-work">
-        <div class="commerce-work-item">
-          <h4>Ethereum Bazaar</h4>
-          <p>Marketplace infrastructure for peer-to-peer local commerce with onchain payments and EAS-verified reviews. Built with BuidlGuidl, piloted at Edge Patagonia.</p>
-          <div class="commerce-links">
-            <a href="https://ethereumbazaar.xyz/" target="_blank" rel="noopener">Website <span class="arrow">&#8599;</span></a>
-            <a href="https://farcaster.xyz/?launchFrameUrl=https%3A%2F%2Fethereumbazaar.xyz%2F" target="_blank" rel="noopener">Farcaster mini-app <span class="arrow">&#8599;</span></a>
-            <a href="https://github.com/BuidlGuidl/ethereum-bazaar/" target="_blank" rel="noopener">GitHub <span class="arrow">&#8599;</span></a>
-          </div>
-        </div>
-        <div class="commerce-work-item">
-          <h4>DeCom Research</h4>
-          <p>Exploring decentralized commerce as a design space.</p>
-          <p class="commerce-links-label">Three-part essay:</p>
-          <div class="commerce-links">
-            <a href="https://x.com/orishim/status/1882064487718777094" target="_blank" rel="noopener">What is DeCom <span class="arrow">&#8599;</span></a>
-            <a href="https://x.com/orishim/status/1906804719676178626" target="_blank" rel="noopener">Pre-history of DeCom <span class="arrow">&#8599;</span></a>
-            <a href="https://x.com/orishim/status/1929980877477445916" target="_blank" rel="noopener">The Emerging DeCom Stack <span class="arrow">&#8599;</span></a>
-          </div>
-          <p class="commerce-links-label">Talks:</p>
-          <div class="commerce-links">
-            <a href="https://streameth.org/682f5f23c149844bac821bf0/watch?session=6852eaa890bd41297b138c0b" target="_blank" rel="noopener">Protocol Berg <span class="arrow">&#8599;</span></a>
-            <a href="https://www.youtube.com/watch?v=5ltdesQQN1I" target="_blank" rel="noopener">DappCon <span class="arrow">&#8599;</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    <div class="cta-block">
+      <h3>Interested in collaborating?</h3>
+      <p>We're looking for builders, researchers, and partners exploring composable commerce on Ethereum.</p>
+      <span class="contact"><a href="mailto:usecaselab@ethereum.org">usecaselab@ethereum.org</a></span>
+    </div>
+  </div>
 </body>
 </html>

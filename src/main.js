@@ -219,7 +219,7 @@ function updateOverlays(progress, faceProgresses) {
     const nextLanded = i < 4 && faceProgresses[i + 1] >= 0.9;
 
     // Last story (index 4) dismisses when landing overlay starts
-    const dismissed = i < 4 ? nextLanded : progress > 0.72;
+    const dismissed = i < 4 ? nextLanded : progress > 0.74;
 
     if (landed && !dismissed) {
       el.style.display = 'flex';
@@ -248,9 +248,10 @@ function updateOverlays(progress, faceProgresses) {
   // Landing — after cube is complete
   const landing = document.getElementById('landing-overlay');
   if (landing) {
-    const landingStart = 0.72;
+    const landingStart = 0.74;
+    const landingFadeDuration = 0.06; // fade in over ~60vh, similar to story transitions
     if (progress > landingStart) {
-      const p = (progress - landingStart) / (1 - landingStart);
+      const p = Math.min(1, (progress - landingStart) / landingFadeDuration);
       const s = smoothstep(p);
       landing.style.display = 'flex';
       landing.style.opacity = s;
@@ -259,7 +260,7 @@ function updateOverlays(progress, faceProgresses) {
       if (title) {
         title.style.opacity = 1;
         title.querySelectorAll('.char-reveal').forEach(ch => {
-          if (p > 0.1) ch.classList.add('visible');
+          if (p > 0.3) ch.classList.add('visible');
         });
       }
       const subtitle = landing.querySelector('.landing-subtitle');
@@ -279,9 +280,9 @@ function updateOverlays(progress, faceProgresses) {
   // Floating initiative labels with wire connections
   const initOverlay = document.getElementById('initiatives-overlay');
   if (initOverlay) {
-    const initStart = 0.76;
+    const initStart = 0.78;
     if (progress > initStart) {
-      const p = (progress - initStart) / (1 - initStart);
+      const p = Math.min(1, (progress - initStart) / 0.08);
       initOverlay.style.display = 'block';
       initOverlay.style.opacity = 1;
 
@@ -336,7 +337,7 @@ function animate() {
   if (newActiveFace >= 0 && newActiveFace < 5 && faceProgresses[newActiveFace + 1] >= 0.9) {
     newActiveFace = newActiveFace + 1;
   }
-  if (progress > 0.72) newActiveFace = -1; // landing takes over
+  if (progress > 0.74) newActiveFace = -1; // landing takes over
   activeFace = newActiveFace;
 
   // Base angles for each face's outward normal (before cube rotation)
@@ -370,8 +371,8 @@ function animate() {
 
   // Zoom: in during assembly, pull back for reveal, hold wide for landing
   let camDist, camYBase;
-  const revealStart = 0.60;
-  const revealEnd = 0.72;
+  const revealStart = 0.62;
+  const revealEnd = 0.74;
 
   if (progress < revealStart) {
     const zoomT = Math.max(0, Math.min(1, progress / revealStart));

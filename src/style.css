@@ -341,15 +341,34 @@ canvas {
     text-align: center;
   }
 
+  #landing-overlay {
+    align-items: flex-start;
+    padding-top: 3vh;
+  }
+
+  .landing-content {
+    padding: 0 1.5rem;
+  }
+
   .landing-title {
-    font-size: clamp(1.8rem, 10vw, 3.5rem);
-    letter-spacing: 0.1em;
+    font-size: clamp(1.6rem, 8vw, 2.5rem);
+    letter-spacing: 0.08em;
     white-space: normal;
+    margin-bottom: 0.75rem;
   }
 
   .landing-subtitle {
-    font-size: clamp(1rem, 4vw, 1.3rem);
-    margin-bottom: 1.5rem;
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .landing-contact {
+    margin-top: 2rem;
+  }
+
+  .contact-heading {
+    font-size: 0.8rem;
   }
 
   .contact-links {
@@ -405,7 +424,11 @@ canvas {
 
 @media (max-width: 480px) {
   .landing-title {
-    font-size: clamp(1.5rem, 9vw, 2.5rem);
+    font-size: clamp(1.4rem, 7.5vw, 2rem);
+  }
+
+  .landing-subtitle {
+    font-size: 0.85rem;
   }
 
   .reveal-title {

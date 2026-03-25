@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
+  <title>Pilot Concepts — Verifiable Cities — Use Case Lab</title>
+  <meta name="description" content="Six pilot concepts demonstrating how cryptographic and blockchain-based technologies can address structural challenges in city operations." />
+  <meta property="og:title" content="Pilot Concepts — Verifiable Cities — Use Case Lab" />
+  <meta property="og:description" content="Trust infrastructure pilot concepts for cities, developed by the Ethereum Foundation Use Case Lab." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/src/vc-style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a href="/#bottom" class="nav-logo">
+      <img src="/src/assets/initiative.svg" alt="Use Case Lab" />
+    </a>
+    <a href="/verifiable-cities" class="nav-back">&larr; Back</a>
+  </nav>
+
+  <div class="page">
+    <header class="header">
+      <div class="header-label">Verifiable Cities</div>
+      <h1>Trust Infrastructure for Cities</h1>
+      <p class="header-intro">This document outlines six pilot concepts designed to demonstrate how cryptographic and blockchain-based technologies can address structural challenges in city operations. Each concept targets a specific municipal pain point — from climate programme compliance to cross-agency data sharing — and describes a practical, scoped implementation that could be co-designed with a city partner.</p>
+      <p class="header-org">Developed by the Ethereum Foundation Use Case Lab. These pilot concepts are intended as starting points for structured co-design with city partners and relevant stakeholders. Each concept can be adapted to local priorities, constraints, and technical environments.</p>
+    </header>
+
+    <hr class="section-rule" />
+
+    <section>
+      <h2 class="programme-title">Programme Support</h2>
+      <p class="programme-intro">The Use Case Lab can offer any or all of the following in support of a pilot:</p>
+      <div class="support-grid">
+        <div class="support-item">
+          <h3>Technical Architecture & Integration</h3>
+          <p>Assistance with system design, integration planning, and technical documentation to connect pilot components with existing city infrastructure.</p>
+        </div>
+        <div class="support-item">
+          <h3>Exploratory Funding</h3>
+          <p>Financial support to cover development, testing, and deployment costs for scoped pilot implementations.</p>
+        </div>
+        <div class="support-item">
+          <h3>Ecosystem Connections</h3>
+          <p>Introductions to relevant builders, researchers, and institutions across the Ethereum and public sector innovation ecosystems.</p>
+        </div>
+        <div class="support-item">
+          <h3>Knowledge Sharing</h3>
+          <p>Documentation of pilot design, implementation process, and outcomes to support replication and adaptation by other cities.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-rule" />
+
+    <section>
+      <h2 class="need-title">What We Need From a City Partner</h2>
+      <div class="need-grid">
+        <div class="need-item">
+          <h3>A Real Problem</h3>
+          <p>A specific operational pain point that a city department is actively trying to address — not a theoretical interest in blockchain.</p>
+        </div>
+        <div class="need-item">
+          <h3>A Willing Team</h3>
+          <p>A department or team that can dedicate time to co-design sessions, provide workflow documentation, and test early implementations.</p>
+        </div>
+        <div class="need-item">
+          <h3>Institutional Access</h3>
+          <p>The ability to work within or alongside existing systems — access to relevant data flows, processes, and decision-makers.</p>
+        </div>
+      </div>
+      <p class="need-note">Interested? <a href="mailto:usecaselab@ethereum.org">usecaselab@ethereum.org</a></p>
+    </section>
+
+    <hr class="section-rule" />
+
+    <section>
+      <h2 class="concepts-title">Pilot Concepts</h2>
+      <p class="concepts-intro">The following six concepts represent areas where cryptographic technologies can address concrete municipal challenges. Each is designed to be scoped, testable, and adaptable to local context.</p>
+
+      <!-- Concept 1 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-1)">01</div>
+          <div class="concept-title">Climate & Sustainability Programme Compliance</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Programmable Compliance</span>
+            <span class="concept-tag">Environmental</span>
+            <span class="concept-tag">Reporting</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>Cities administer climate and sustainability programs — tree planting, building retrofits, fleet electrification, waste diversion — where compliance is tracked manually through spreadsheets, periodic inspections, and self-reported data. Verification lags behind activity by months, errors compound silently, and when programs are audited, the city often cannot produce a clear, time-stamped record of what was done, by whom, and whether it met the program's criteria. The result is low-confidence data that weakens both internal decision-making and external credibility, and leaves programs that are genuinely working unable to prove it.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>Programme rules — eligibility criteria, reporting thresholds, verification requirements — are encoded as transparent, auditable logic. When a participant submits compliance data (sensor readings, inspection results, contractor reports), the system checks it against the programme's rules and records the result. If conditions are met, the system can trigger downstream actions (e.g., credit issuance, payment authorisation). If not, it flags gaps for human review. Every submission, check, and outcome is time-stamped and publicly verifiable — creating an audit trail that doesn't depend on any single department's record-keeping.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>A city runs a building retrofit programme offering tax credits for energy efficiency improvements. Today, a building owner submits paper receipts and a contractor's letter; a city employee manually reviews the file months later. With programmable compliance, the contractor submits verified completion data, the system checks it against programme criteria (e.g., insulation R-value, window rating), and if compliant, automatically queues the credit for issuance — with every step logged and auditable.</p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>An existing climate, sustainability, or environmental programme with defined compliance requirements.</li>
+            <li>Access to or documentation of the current reporting, verification, and audit workflow.</li>
+            <li>A department or team with knowledge on climate programs, data management and sensor systems that can map the current policy or program workflow.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="thin-rule" />
+
+      <!-- Concept 2 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-2)">02</div>
+          <div class="concept-title">Outcomes-Based Vendor Contracts</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Programmable Compliance</span>
+            <span class="concept-tag">Public Spending & Service Delivery</span>
+            <span class="concept-tag">Vendor Management</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>Cities are increasingly tying vendor payment to measurable outcomes and performance metrics to strengthen accountability for public spending. However, this approach introduces significant compliance burdens on city staff who must now collect evidence, reconcile milestones against documentation, prepare approval packages, chase incomplete or incorrect submissions, and route multiple payment deliveries over the course of a contract. This delays payments to vendors who have already delivered, discourages smaller providers from applying to performance-based contracts due to the uncertainty and delays in receiving payment, and requires extra staff time and compliance effort.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>Contract milestones and financial conditions are first encoded as measurable checks against vendor-submitted data. If these checks pass, they unlock milestone-based payment to the provider for delivery of services. When documentation is submitted, the system validates it against contract-defined criteria and either routes payment for authorisation or flags gaps for human review. The provider's outcome data is verified against contract-defined metrics automatically: a milestone met triggers payment authorisation, a milestone missed triggers review, and the full attestation chain is audit-ready.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>Denver spent $274M on homelessness services over four years, but found that some providers were achieving permanent housing outcomes for as few as 2–4% of clients exiting their programmes. The city has since moved away from flat-fee contracts toward performance-based models, paying providers for specific outcomes like housing retention and reduced jail days. With programmable compliance, every submission, verification, and payment action is time-stamped and logged — creating a transparent, publicly inspectable record that the city, the vendor themselves, and the public can independently verify and track over time.</p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>An existing performance-based vendor contract, or willingness to develop a trial contract with an existing or new vendor.</li>
+            <li>Access to or description of the current verification and payment authorisation workflow.</li>
+            <li>A procurement, finance, or contract management team willing to co-design the automated verification layer.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="thin-rule" />
+
+      <!-- Concept 3 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-3)">03</div>
+          <div class="concept-title">Privacy-Preserving Digital IDs</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Cybersecurity</span>
+            <span class="concept-tag">Resident Services</span>
+            <span class="concept-tag">Digital Identity</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>Every interaction between a resident and their city requires proving something such as residency, eligibility, enrolment status, age, address, qualifications, etc. Today, proving any one of these facts means over-sharing: handing over a full document that contains far more personal information than the interaction requires, and repeating the same process with every department, programme and service. The city must also spend time and develop processes to collect and store this data and perform the relevant checks, along with the legal burden and data protection obligations that come with it. The result is friction for residents, liability for the city, and a growing attack surface as AI-generated synthetic identities and deepfake documents become harder to detect and much more ubiquitous.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>A simple city-issued digital credential that verifies specific facts about a resident: "lives in this jurisdiction," "is over 18," "is enrolled in programme X/Y/Z", without revealing any information beyond what is needed for that specific interaction. The resident experience will remain familiar: sign up once through a standard city portal, verify identity through existing processes, and from that point forward, every city service can confirm what it needs to know without collecting data on what it doesn't need to know. The underlying cryptography (zero-knowledge proofs) enables selective disclosure — the ability to prove a fact without exposing the data behind it to make data minimisation enforced at the technical level rather than just a policy goal.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>If a resident applies for a district bus pass requiring proof of residency, then the system verifies "this person is a resident of this district" (verification) without the transit office ever seeing their full address (privacy preservation), and the verification result is logged instead of recording the personal data collected (compliance). <span class="also-applies">This concept also applies to benefits eligibility across departments, age-gated service access, civic voting and participation verification, programme enrolment confirmation, and cross-jurisdictional service portability.</span></p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>A service or set of services where residents currently prove identity by submitting full documents.</li>
+            <li>Understanding of what specific facts each service actually needs to verify versus what it currently collects.</li>
+            <li>A department willing to pilot selective disclosure for a specific resident interaction.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="thin-rule" />
+
+      <!-- Concept 4 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-4)">04</div>
+          <div class="concept-title">Cross-Agency Data Sharing</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Privacy-Preserving Verification</span>
+            <span class="concept-tag">Resident Access</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>City departments hold critical information about residents pertaining to health, housing, income, benefits, education, etc, but this data is siloed across agencies with different systems and legal frameworks created to prevent the creation of centralized databases due to privacy concerns. Because of these precautions, data sharing agreements can take months or years to negotiate, often for a single data element, and residents need to re-prove identity and eligibility from scratch with every agency and programme. Many give up the process of accessing support and oftentimes the people who need the most help bear the heaviest documentation burden.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>Zero-knowledge cryptography allows one agency to verify a specific fact from another's records, such as whether someone's income is below a threshold, without either agency seeing the underlying data. A proof is generated that proves a certain fact, however the raw data never has to leave an organization's database. As a result, no data sharing agreements are required because no data is ever shared. Combined with a portable, resident-held credential (see Digital ID pilot concept), a person can verify eligibility once and carry that status across every agency they interact with.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>A single parent working two jobs qualifies for reduced-rate transit, subsidised childcare, and rental assistance. Today, they take time off work to visit three separate offices, fill out three separate applications, and provide the same proof of income documents to three separate intake workers, each of whom enters the information into a different system. The process takes weeks and requires multiple follow-up visits. With a portable verified credential, the parent proves income eligibility once at the first office. At the second and third, they present the credential and the system confirms eligibility instantly without the agency ever seeing their pay stubs, tax returns, or employer details. No data leaves any database. No data sharing agreement is needed. The parent accesses all three programmes in a single week instead of three months. <span class="also-applies">This concept also applies to benefits navigation, refugee and newcomer coordination, cross-departmental case management, and multi-provider coordination for vulnerable populations.</span></p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>Two or more departments or providers that serve an overlapping set of residents but cannot easily share resident data.</li>
+            <li>A description of specific eligibility or verification checks that are currently repeated across providers.</li>
+            <li>A team willing to map the current intake workflow and co-design the credential-based verification layer.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="thin-rule" />
+
+      <!-- Concept 5 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-5)">05</div>
+          <div class="concept-title">Verifiable Permits, Licences & Certifications</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Credentialing</span>
+            <span class="concept-tag">Cross-Jurisdiction</span>
+            <span class="concept-tag">Public Trust</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>Cities issue thousands of permits, licences, and certifications every year in the form of paper documents or entries in local databases. These formats make it difficult to verify documents outside the issuing body, requiring manual contact to confirm authenticity.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>Every permit, licence, or certification issued by a city becomes a verifiable digital credential. Anyone — whether another department, jurisdiction, or member of the public—can verify authenticity instantly without contacting the issuing body. Revocation or expiry invalidates all copies simultaneously. Privacy-preserving cryptography ensures that no personal data can be extracted from the verification process, only the relevant fact ("this credential is valid") is confirmed.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>A family moves to a new district and needs to enrol their child in a new school. Today this means manually requesting and transferring transcripts and proof of enrolment from the previous school. With verifiable credentials, the parent carries digital records issued by the previous school that the new school can verify instantly and independently. <span class="also-applies">This concept also applies to health inspection certificates, building and occupancy permits, professional and trade licences, and vendor qualification certifications.</span></p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>A permit, licence, or certification that the city currently issues in paper or digital form.</li>
+            <li>Understanding of how that credential is currently verified by third parties.</li>
+            <li>A department willing to pilot verifiable issuance for a specific credential type.</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="thin-rule" />
+
+      <!-- Concept 6 -->
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-number" style="color: var(--concept-6)">06</div>
+          <div class="concept-title">Public Works Investment</div>
+          <div class="concept-tags">
+            <span class="concept-tag">Public Works</span>
+            <span class="concept-tag">Municipal Finance Mechanisms</span>
+            <span class="concept-tag">Open Source City</span>
+          </div>
+        </div>
+        <div class="concept-body">
+          <div class="concept-section">
+            <div class="concept-section-label">The Problem</div>
+            <p>Investment and maintenance of public infrastructure like parks, libraries and urban green canopy is funded through municipal budgets that are increasingly constrained and often the first line item cut. When cities contract maintenance out, coverage is frequently incomplete with contractors not servicing every neighbourhood equally or leaving work unfinished. Residents who derive direct value from these assets have no mechanism to invest in their upkeep, and those who already informally maintain public spaces have no official framework to coordinate within or be compensated for that contribution.</p>
+          </div>
+          <div class="concept-section">
+            <div class="concept-section-label">The Approach</div>
+            <p>A democratized investment mechanism and maintenance scheme, structured as a sidecar alongside existing municipal financing avenues, that allows residents and local businesses to directly fund specific local infrastructure. Returns can be structured through well known avenues like carbon credits or usage-based revenue. Residents can take on upkeep work that the city cannot afford to contract or that contractors are not covering, with visible coordination of contributions, asset condition, and work needed.</p>
+          </div>
+        </div>
+        <div class="concept-example">
+          <div class="concept-section-label">Example</div>
+          <p>A city identifies a neighbourhood park where the maintenance contract covers structural repairs and routine seasonal upkeep. A community infrastructure bond for the park. A local caf&eacute; owner invests $500, a group of residents each put in $50, and a nearby business contributes $2,000. The bond funds a seasonal maintenance programme and generates returns for investors through carbon credits from the park's tree canopy. A retired resident who already mows the grass and trims hedges every week registers as a community maintainer, logs their work through the platform, and receives compensation from the fund which also received 3% of park revenue from the cafe and street vendor permit sales. The park's condition, fund balance, maintenance schedule, and contributor activity are all publicly visible and auditable.</p>
+        </div>
+        <div class="concept-needs">
+          <div class="concept-needs-label">What We Need From a City Partner</div>
+          <ul>
+            <li>A public asset or set of assets where maintenance is underfunded or contractor coverage is incomplete.</li>
+            <li>Understanding of existing community-led maintenance activity, whether formal or informal.</li>
+            <li>Insight into existing revenue streams attached to or generated by the asset.</li>
+            <li>A Public Works team willing to co-design a bond-adjacent or bond mechanism.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-block">
+        <p>Interested in exploring any of these for your city? We'd like to schedule a 45-minute co-design session with your team and relevant stakeholders to explore which of these areas fits your current priorities and what a scoped pilot could look like. Contact: <a href="mailto:usecaselab@ethereum.org">usecaselab@ethereum.org</a></p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

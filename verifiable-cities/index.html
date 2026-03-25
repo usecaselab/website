@@ -9,122 +9,121 @@
   <meta property="og:title" content="Verifiable Cities — Use Case Lab" />
   <meta property="og:description" content="Making municipal operations verifiable, composable, and privacy-preserving." />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="/src/initiative.css" />
+  <link rel="stylesheet" href="/src/vc-style.css" />
+  <style>
+    .landing-page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+    }
+
+    .landing-title {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .landing-hypothesis {
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 56px;
+    }
+
+    .landing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .landing-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .landing-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .landing-card h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .landing-card p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .landing-card .arrow {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .landing-page {
+        padding: 80px 20px 60px;
+      }
+
+      .landing-title {
+        font-size: 32px;
+      }
+
+      .landing-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="nav">
     <a href="/#bottom" class="nav-logo">
       <img src="/src/assets/initiative.svg" alt="Use Case Lab" />
     </a>
-    <a href="/#bottom" class="nav-back">Back</a>
+    <a href="/#bottom" class="nav-back">&larr; Back</a>
   </nav>
 
-  <main class="initiative-page">
-    <header class="initiative-header">
-      <h1 class="initiative-title">Verifiable Cities</h1>
-      <p class="initiative-hypothesis">Cities lack cross-agency coordination capacity, constraining service delivery and policy execution. Cryptographic technologies can make municipal operations verifiable, composable, and privacy-preserving — moving from institutional trust to technical proof.</p>
-      <div class="initiative-actions">
-        <a href="https://usecaselab.org/verifiable-cities.pdf" target="_blank" rel="noopener" class="init-btn">Download PDF <span class="arrow">&#8599;</span></a>
-        <a href="https://sticky-mink-a1c.notion.site/2e1d34f360e480a9b8b3d0d0bc89e800" target="_blank" rel="noopener" class="init-btn">Get in touch <span class="arrow">&#8599;</span></a>
-      </div>
-    </header>
+  <div class="landing-page">
+    <h1 class="landing-title">Verifiable Cities</h1>
+    <p class="landing-hypothesis">Cities lack cross-agency coordination capacity, constraining service delivery and policy execution. Cryptographic technologies can make municipal operations verifiable, composable, and privacy-preserving — moving from institutional trust to technical proof.</p>
 
-    <section class="initiative-section">
-      <div class="section-num">01</div>
-      <h2>Overview</h2>
-      <p>Cities are increasingly expected to deliver public services with greater effectiveness and accountability. While many are beginning to adopt AI and data-driven systems, a shared digital foundation to support coordination and verifiability across organizations and domains remains largely absent. As a result, long-standing public-sector challenges — such as fragmented data sharing, citizen privacy concerns, slow financial flows, and high compliance and reporting costs — continue to divert institutional capacity away from improving services and outcomes.</p>
-      <blockquote>Recent advances in public blockchains make it possible to transparently embed verification, accountability, and coordination capabilities directly into how public rules and finances operate.</blockquote>
-      <p>Rather than introduce new fully centralized or closed platforms, as previous and current government modernization efforts have done, these technologies offer a practical path to increasing state capacity without expanding state power and vendor control, or adding further administrative overhead. In doing so, they can enable the development of a shared digital "trust" layer across cities that extend accountability from administrative processes to transparent technical mechanisms.</p>
-    </section>
-
-    <section class="initiative-section">
-      <div class="section-num">02</div>
-      <h2>Why Cities</h2>
-      <ul class="hypotheses">
-        <li><strong>Hypothesis #1:</strong> Cities are the primary institutional level where coordination and service delivery must happen in real time due to their proximity to operational pressure.</li>
-        <li><strong>Hypothesis #2:</strong> Cities face immediate service demands, operate across dense networks of public and private actors, and contend with real implications and constraints that require equally pragmatic solutions.</li>
-        <li><strong>Hypothesis #3:</strong> Despite wide variation in competitive pressures and context, thousands of municipal governments and service providers worldwide face common operational needs, creating clear but currently underleveraged opportunities for experimentation and knowledge transfer.</li>
-        <li><strong>Hypothesis #4:</strong> Together these conditions make cities powerful levers for public sector innovation, offering a scalable pathway for modernizing civic and state capacity.</li>
-      </ul>
-      <figure class="landscape-figure">
-        <img src="/verifiable-cities/vc-landscape.png" alt="Verifiable Cities Use Case Landscape — a map of structural pressures, governance tensions, technical primitives, and coordination-era outcomes for applying cryptographic technologies to urban systems" class="landscape-img" />
-      </figure>
-    </section>
-
-    <section class="initiative-section">
-      <div class="section-num">03</div>
-      <h2>Call for Implementations</h2>
-      <p><em>The Verifiable Cities landscape is intended to frame early areas of inquiry and surface concrete use cases with the potential to meaningfully improve city operations and outcomes.</em></p>
-      <p>As part of this work, the Ethereum Foundation Use Case Lab is issuing an open call for implementations. The work is oriented toward collaboration with city and regional governments, as well as other funders and organizations engaged in municipal innovation. Priority will be given to implementations that are narrowly scoped, aware of real-world constraints and considerations, and test approaches that can inform broader adoption over time.</p>
-      <p><strong>Implementations may take several forms, including:</strong></p>
-      <ul class="impl-list">
-        <li>Sandboxed/Focused Pilots</li>
-        <li>Policy Frameworks & Regulatory Guidance</li>
-        <li>Technical Primitives & Open Standards</li>
-      </ul>
-      <p>We anticipate supporting a select number of implementations through a combination of technical support, exploratory funding, and connections to relevant collaborators and ecosystems.</p>
-    </section>
-
-    <section class="initiative-section">
-      <div class="section-num">04</div>
-      <h2>Inspiration</h2>
-      <p class="readings-intro">The following pieces have shaped our thinking around the Verifiable Cities track.</p>
-
-      <div class="readings">
-        <div class="reading-group">
-          <h3>AI & Programmability</h3>
-          <a class="reading-card" rel="noopener" href="https://www.forbes.com/sites/tonyaevans/2024/10/29/how-ai-and-blockchain-are-solving-each-others-biggest-challenges/" target="_blank"><span class="reading-title">How Blockchain & AI are Solving Each other's Biggest Challenges</span><span class="reading-meta">Tonya M. Evans · forbes.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://agenticstate.org/paper.html" target="_blank"><span class="reading-title">The Agentic State: Rethinking Government for the Era of Agentic AI</span><span class="reading-meta">Ilves et al. · agenticstate.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://law.mit.edu/pub/blawxrulesascodedemonstration/release/1" target="_blank"><span class="reading-title">Rules as Code Demonstration</span><span class="reading-meta">MIT Law · law.mit.edu</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.gap-map.org/gaps/policy-creation-and-evaluation-is-manual-and-suffers-from-low-efficiency-and-accountability/" target="_blank"><span class="reading-title">Gap Map: Manual Policy Creation and Evaluation</span><span class="reading-meta">Convergent Research · gap-map.org</span></a>
+    <div class="landing-cards">
+      <a href="/verifiable-cities/use-case-landscape" class="landing-card">
+        <div>
+          <h2>Use Case Landscape</h2>
+          <p>An overview of how cryptographic technologies can be applied to urban systems and municipal services.</p>
         </div>
-
-        <div class="reading-group">
-          <h3>Trust & Cryptographic Verifiability</h3>
-          <a class="reading-card" rel="noopener" href="https://vitalik.eth.limo/general/2025/09/24/openness_and_verifiability.html" target="_blank"><span class="reading-title">The Importance of Full-Stack Openness and Verifiability</span><span class="reading-meta">Vitalik Buterin · vitalik.eth.limo</span></a>
-          <a class="reading-card" rel="noopener" href="https://files.acquia.undp.org/public/migration/oslo_governance_centre/Trust-in-Public-Institutions-Policy-Brief_FINAL.pdf" target="_blank"><span class="reading-title">Trust in Public Institutions</span><span class="reading-meta">UNDP · undp.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://paragraph.com/@josh-stark/atoms-institutions-blockchains" target="_blank"><span class="reading-title">Atoms, Institutions, and Blockchains</span><span class="reading-meta">Josh Stark · paragraph.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.aria.org.uk/opportunity-spaces/trust-everything-everywhere/" target="_blank"><span class="reading-title">Trust Everything Everywhere Programme Opportunity Space</span><span class="reading-meta">ARIA · aria.org.uk</span></a>
-          <a class="reading-card" rel="noopener" href="https://medium.com/@Nothing_Research/technical-comparison-fhe-vs-zk-vs-mpc-b876c7266c14" target="_blank"><span class="reading-title">A Primer to Cryptography Primitives</span><span class="reading-meta">Nothing Research · medium.com</span></a>
+        <span class="arrow">Explore &rarr;</span>
+      </a>
+      <a href="/verifiable-cities/pilot-concepts" class="landing-card">
+        <div>
+          <h2>Pilot Concepts</h2>
+          <p>Six scoped pilot concepts designed to demonstrate trust infrastructure for cities.</p>
         </div>
-
-        <div class="reading-group">
-          <h3>City & Policy Innovation</h3>
-          <a class="reading-card" rel="noopener" href="https://ssir.org/articles/entry/can_cities_be_the_source_of_scalable_innovations" target="_blank"><span class="reading-title">Can Cities Be the Source of Scalable Innovations?</span><span class="reading-meta">Christof Brandtner · ssir.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://gravitylobby.club/administrationmarkets.html" target="_blank"><span class="reading-title">Administration Markets</span><span class="reading-meta">Chris Beiser · gravitylobby.club</span></a>
-          <a class="reading-card" rel="noopener" href="https://vitalik.eth.limo/general/2021/10/31/cities.html" target="_blank"><span class="reading-title">Crypto Cities</span><span class="reading-meta">Vitalik Buterin · vitalik.eth.limo</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.columbia.edu/~mmt2033/state_capacity.pdf" target="_blank"><span class="reading-title">An Organizational Theory of State Capacity</span><span class="reading-meta">Erik Snowberg & Michael M. Ting · columbia.edu</span></a>
-          <a class="reading-card" rel="noopener" href="https://ssir.org/articles/entry/city_government_problem_solving_skills" target="_blank"><span class="reading-title">The New Problem-Solving Skills That All Cities Need</span><span class="reading-meta">James Anderson · ssir.org</span></a>
-        </div>
-
-        <div class="reading-group">
-          <h3>Government & Digital Public Infrastructure</h3>
-          <a class="reading-card" rel="noopener" href="https://medium.com/@joybonaguro/how-government-procurement-creates-tech-stack-chaos-f30608c63e65" target="_blank"><span class="reading-title">How Government Procurement Creates Tech Stack Chaos</span><span class="reading-meta">Joy Bonaguro · medium.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://alastairparvin.medium.com/the-future-of-planning-8a1f93e17ae1" target="_blank"><span class="reading-title">The Future of Planning / Rules-Based Planning</span><span class="reading-meta">Alastair Parvin · medium.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://chiefdigitalofficer4london.medium.com/further-thoughts-on-a-new-local-government-digital-service-24fce01be865" target="_blank"><span class="reading-title">Further Thoughts on a New Local Government Digital Service</span><span class="reading-meta">Theo Blackwell MBE · medium.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.techpolicy.press/the-path-to-a-sovereign-tech-stack-is-via-a-commodified-tech-stack/" target="_blank"><span class="reading-title">The Path to a Sovereign Tech Stack Is via a Commodified Tech Stack</span><span class="reading-meta">David Eaves · techpolicy.press</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.statecraft.pub/p/how-to-digitize-the-government" target="_blank"><span class="reading-title">How to Digitize the Government</span><span class="reading-meta">Statecraft · statecraft.pub</span></a>
-        </div>
-
-        <div class="reading-group">
-          <h3>Use Case Radar</h3>
-          <a class="reading-card" rel="noopener" href="https://www.reuters.com/technology/california-dmv-puts-42-million-car-titles-blockchain-fight-fraud-2024-07-30/" target="_blank"><span class="reading-title">California DMV puts 42 million car titles on blockchain to fight fraud</span><span class="reading-meta">reuters.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.bhutanndi.com/article/bhutan-adopts-ethereum-for-national-identity-a-new-chapter-in-digital-sovereignty_2d0c7ec2-5605-4c42-b258-bd9361ae8878" target="_blank"><span class="reading-title">Bhutan launches national digital identity on Ethereum</span><span class="reading-meta">bhutanndi.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://nextcity.org/urbanist-news/how-blockchain-technology-could-make-zoning-work-for-people" target="_blank"><span class="reading-title">How blockchain could make zoning work for people</span><span class="reading-meta">nextcity.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.radicalxchange.org/projects/plural-voting-for-participatory-budgeting-in-nyc/" target="_blank"><span class="reading-title">Plural voting for participatory budgeting in NYC</span><span class="reading-meta">radicalxchange.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.jpmorganchase.com/about/technology/blog/first-live-municipal-blockchain-based-bond-issuance-in-US" target="_blank"><span class="reading-title">Quincy, MA: First U.S. city to issue blockchain-based municipal bonds</span><span class="reading-meta">jpmorganchase.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.smartcitiesdive.com/news/how-shreveport-used-blockchain-technology-build-low-cost-public-wifi-network-crypto/637211/" target="_blank"><span class="reading-title">Shreveport, LA: blockchain-powered low-cost public WiFi</span><span class="reading-meta">smartcitiesdive.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.freightwaves.com/news/blockchain-unifying-public-transport-payments-across-madrid-spain" target="_blank"><span class="reading-title">Blockchain unifying public transport payments across Madrid</span><span class="reading-meta">freightwaves.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://blockworks.co/news/buenos-aires-id-ethereum-zksync" target="_blank"><span class="reading-title">Buenos Aires rolls out digital ID on Ethereum</span><span class="reading-meta">blockworks.co</span></a>
-          <a class="reading-card" rel="noopener" href="https://www.researchsquare.com/article/rs-7567042/v1" target="_blank"><span class="reading-title">Blockchain-enabled water metering & management</span><span class="reading-meta">researchsquare.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://blog.vocdoni.io/referendum-bellpuig" target="_blank"><span class="reading-title">Spanish town holds referendum on Ethereum</span><span class="reading-meta">vocdoni.io</span></a>
-          <a class="reading-card" rel="noopener" href="https://www3.weforum.org/docs/WEF_Blockchain_Government_Transparency_Report_Supplementary%20Research.pdf" target="_blank"><span class="reading-title">Blockchain-based public procurement to reduce corruption</span><span class="reading-meta">weforum.org</span></a>
-          <a class="reading-card" rel="noopener" href="https://decrypt.co/20366/seoul-launches-blockchain-voting-system-march-1" target="_blank"><span class="reading-title">Seoul launches blockchain voting system</span><span class="reading-meta">decrypt.co</span></a>
-          <a class="reading-card" rel="noopener" href="https://paragraph.com/%400xcity3/city3-gitcoin-pilot-better-community-governance-with-quadratic-funding-in-oakland" target="_blank"><span class="reading-title">Oakland non-profits receive quadratically matched donor contributions</span><span class="reading-meta">paragraph.com</span></a>
-          <a class="reading-card" rel="noopener" href="https://gulfnews.com/business/markets/dubai-customs-launches-blockchain-platform-to-improve-commercial-transparency-1.1720431113485" target="_blank"><span class="reading-title">Dubai Customs blockchain platform for commercial transparency</span><span class="reading-meta">gulfnews.com</span></a>
-        </div>
-      </div>
-    </section>
-  </main>
+        <span class="arrow">Explore &rarr;</span>
+      </a>
+    </div>
+  </div>
 </body>
 </html>

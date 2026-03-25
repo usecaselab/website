@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/src/assets/favicon.svg" />
-  <title>Use Case Lab — Ethereum Foundation</title>
+  <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
+  <title>Use Case Lab | Ethereum Foundation</title>
   <meta name="description" content="Advancing underexplored use cases for Ethereum. The Use Case Lab identifies where Ethereum can meaningfully reduce reliance on trusted intermediaries." />
   <meta property="og:title" content="Use Case Lab" />
   <meta property="og:description" content="Advancing underexplored use cases for Ethereum" />
@@ -13,6 +13,7 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
+  <div class="canvas-fade"></div>
 
   <img src="/src/assets/initiative.svg" class="landing-logo" alt="An ethereum foundation initiative by Use Case Lab" />
 
@@ -20,6 +21,12 @@
     <div class="landing-content">
       <h1 class="landing-title">Use Case Lab</h1>
       <p class="landing-subtitle">Advancing underexplored use cases for Ethereum</p>
+      <div class="landing-contact" style="visibility: hidden;">
+        <h3 class="contact-heading">Get in touch</h3>
+        <div class="contact-links">
+          <span class="contact-link">Placeholder</span>
+        </div>
+      </div>
       <span class="scroll-hint">Scroll to explore</span>
     </div>
   </div>
@@ -27,41 +34,36 @@
   <!-- Story beats — one per cube face -->
   <div id="story-0" class="story-overlay">
     <div class="story-content">
-      <span class="story-label">01</span>
-      <h2 class="story-title">Powerful but Underutilized</h2>
+      <h2 class="story-title">Ethereum is powerful but underutilized</h2>
       <p class="story-desc">DeFi and stablecoins already settle trillions in value but these are just the first building blocks of the broader internet of value.</p>
     </div>
   </div>
 
   <div id="story-1" class="story-overlay">
     <div class="story-content">
-      <span class="story-label">02</span>
-      <h2 class="story-title">Self-Sovereign Coordination</h2>
+      <h2 class="story-title">The bigger picture is self-sovereign coordination</h2>
       <p class="story-desc">Ethereum is designed to enable unstoppable money, organizations, markets; user-owned identity, agents, social networks; programmable governance, insurance, credit, property rights.</p>
     </div>
   </div>
 
   <div id="story-2" class="story-overlay">
     <div class="story-content">
-      <span class="story-label">03</span>
-      <h2 class="story-title">What Ethereum Uniquely Unlocks</h2>
+      <h2 class="story-title">Focusing on what Ethereum uniquely unlocks</h2>
       <p class="story-desc">The Use Case Lab starts from specific user problems that Ethereum can solve and works backward to define the breakthroughs required to unlock these solutions.</p>
     </div>
   </div>
 
   <div id="story-3" class="story-overlay">
     <div class="story-content">
-      <span class="story-label">04</span>
-      <h2 class="story-title">Removing Blockers</h2>
+      <h2 class="story-title">Working hands-on to remove blockers</h2>
       <p class="story-desc">We collaborate with builders, companies, and institutions to overcome critical blockers holding back high-potential use cases.</p>
     </div>
   </div>
 
   <div id="story-4" class="story-overlay">
     <div class="story-content">
-      <span class="story-label">05</span>
-      <h2 class="story-title">A Shared Vision</h2>
-      <p class="story-desc">Our goal is to find consensus on what must be built on Ethereum to unshackle the world from trusted intermediaries.</p>
+      <h2 class="story-title">Aligning the ecosystem around a shared vision</h2>
+      <p class="story-desc">Join us in defining the use cases that will unshackle the world from trusted intermediaries.</p>
     </div>
   </div>
 
@@ -70,18 +72,26 @@
     <div class="landing-content">
       <h1 class="landing-title">Use Case Lab</h1>
       <p class="landing-subtitle">Advancing underexplored use cases for Ethereum</p>
-      <div class="landing-btns">
-        <a href="/pilots.html" class="landing-btn">Initiatives</a>
-        <a href="https://forms.gle/7Mrh3ZSL1scRw15j7" target="_blank" rel="noopener" class="landing-btn">Get in touch</a>
+      <div class="landing-contact">
+        <h3 class="contact-heading">Get in touch</h3>
+        <div class="contact-links">
+          <a href="https://forms.gle/7Mrh3ZSL1scRw15j7" target="_blank" rel="noopener" class="contact-link">Contact form</a>
+          <span class="contact-sep">|</span>
+          <a href="mailto:usecaselab@ethereum.org" class="contact-link">usecaselab@ethereum.org</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <button id="play-btn" aria-label="Play animation">
-    <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
-      <path d="M1 1L15 9L1 17V1Z" stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
-    </svg>
-  </button>
+  <div id="initiatives-overlay">
+    <a href="https://explorer.usecaselab.org" target="_blank" rel="noopener" class="initiative-float" style="--float-x: 58%; --float-y: 15%;">Use Case Explorer</a>
+    <a href="https://x.com/i/status/2000650998243532814" target="_blank" rel="noopener" class="initiative-float" style="--float-x: 85%; --float-y: 15%;">Argentina Onchain</a>
+    <a href="https://luma.com/unblock-sf-2026" target="_blank" rel="noopener" class="initiative-float" style="--float-x: 90%; --float-y: 46%;">Unblock SF</a>
+    <a href="/verifiable-cities" class="initiative-float" style="--float-x: 86%; --float-y: 76%;">Verifiable Cities</a>
+    <a href="https://x.com/orishim/status/2023459491459506427" target="_blank" rel="noopener" class="initiative-float" style="--float-x: 58%; --float-y: 80%;">Onchain Orgs</a>
+    <a href="/commerce" class="initiative-float" style="--float-x: 57%; --float-y: 48%;">Composable Commerce</a>
+  </div>
+
 
   <script type="module" src="/src/main.js"></script>
 </body>

@@ -3,53 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/src/assets/favicon.svg" />
-  <title>Verifiable Cities — Use Case Lab</title>
+  <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
+  <title>Verifiable Cities</title>
   <meta name="description" content="Cryptographic technologies applied to urban systems and municipal services to increase coordination capacity and service delivery accountability." />
-  <meta property="og:title" content="Verifiable Cities — Use Case Lab" />
+  <meta property="og:title" content="Use Case Landscape — Verifiable Cities" />
   <meta property="og:description" content="Making municipal operations verifiable, composable, and privacy-preserving." />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="/src/initiative.css" />
+  <link rel="stylesheet" href="/src/vc-style.css" />
 </head>
 <body>
   <nav class="nav">
-    <a href="/" class="nav-logo">
+    <a href="/#bottom" class="nav-logo">
       <img src="/src/assets/initiative.svg" alt="Use Case Lab" />
     </a>
-    <a href="/pilots.html" class="nav-back">Back</a>
+    <a href="/verifiable-cities" class="nav-back">&larr; Back</a>
   </nav>
 
-  <main class="initiative-page">
-    <header class="initiative-header">
-      <h1 class="initiative-title">Verifiable Cities</h1>
-      <p class="initiative-hypothesis">Cities lack cross-agency coordination capacity, constraining service delivery and policy execution. Cryptographic technologies can make municipal operations verifiable, composable, and privacy-preserving — moving from institutional trust to technical proof.</p>
-      <div class="initiative-actions">
-        <a href="https://usecaselab.org/verifiable-cities.pdf" target="_blank" rel="noopener" class="init-btn">Download PDF <span class="arrow">&#8599;</span></a>
-        <a href="https://sticky-mink-a1c.notion.site/2e1d34f360e480a9b8b3d0d0bc89e800" target="_blank" rel="noopener" class="init-btn">Get in touch <span class="arrow">&#8599;</span></a>
+  <div class="page">
+    <div class="header">
+      <div class="header-label">Verifiable Cities</div>
+      <h1>Use Case Landscape</h1>
+      <div style="margin-top: 8px;">
+        <a href="https://usecaselab.org/verifiable-cities.pdf" target="_blank" rel="noopener" class="header-pdf-link">Download PDF &nearr;</a>
       </div>
-    </header>
+    </div>
 
-    <section class="initiative-section">
-      <div class="section-num">01</div>
+    <section class="landscape-section">
+      <div class="landscape-section-num">01</div>
       <h2>Overview</h2>
       <p>Cities are increasingly expected to deliver public services with greater effectiveness and accountability. While many are beginning to adopt AI and data-driven systems, a shared digital foundation to support coordination and verifiability across organizations and domains remains largely absent. As a result, long-standing public-sector challenges — such as fragmented data sharing, citizen privacy concerns, slow financial flows, and high compliance and reporting costs — continue to divert institutional capacity away from improving services and outcomes.</p>
       <blockquote>Recent advances in public blockchains make it possible to transparently embed verification, accountability, and coordination capabilities directly into how public rules and finances operate.</blockquote>
       <p>Rather than introduce new fully centralized or closed platforms, as previous and current government modernization efforts have done, these technologies offer a practical path to increasing state capacity without expanding state power and vendor control, or adding further administrative overhead. In doing so, they can enable the development of a shared digital "trust" layer across cities that extend accountability from administrative processes to transparent technical mechanisms.</p>
     </section>
 
-    <section class="initiative-section">
-      <div class="section-num">02</div>
+    <section class="landscape-section">
+      <div class="landscape-section-num">02</div>
       <h2>Why Cities</h2>
-      <ul class="hypotheses">
+      <ul>
         <li><strong>Hypothesis #1:</strong> Cities are the primary institutional level where coordination and service delivery must happen in real time due to their proximity to operational pressure.</li>
         <li><strong>Hypothesis #2:</strong> Cities face immediate service demands, operate across dense networks of public and private actors, and contend with real implications and constraints that require equally pragmatic solutions.</li>
         <li><strong>Hypothesis #3:</strong> Despite wide variation in competitive pressures and context, thousands of municipal governments and service providers worldwide face common operational needs, creating clear but currently underleveraged opportunities for experimentation and knowledge transfer.</li>
         <li><strong>Hypothesis #4:</strong> Together these conditions make cities powerful levers for public sector innovation, offering a scalable pathway for modernizing civic and state capacity.</li>
       </ul>
+      <figure class="landscape-figure">
+        <img src="/verifiable-cities/vc-landscape.png" alt="Verifiable Cities Use Case Landscape — a map of structural pressures, governance tensions, technical primitives, and coordination-era outcomes for applying cryptographic technologies to urban systems" class="landscape-img" />
+      </figure>
     </section>
 
-    <section class="initiative-section">
-      <div class="section-num">03</div>
+    <section class="landscape-section">
+      <div class="landscape-section-num">03</div>
       <h2>Call for Implementations</h2>
       <p><em>The Verifiable Cities landscape is intended to frame early areas of inquiry and surface concrete use cases with the potential to meaningfully improve city operations and outcomes.</em></p>
       <p>As part of this work, the Ethereum Foundation Use Case Lab is issuing an open call for implementations. The work is oriented toward collaboration with city and regional governments, as well as other funders and organizations engaged in municipal innovation. Priority will be given to implementations that are narrowly scoped, aware of real-world constraints and considerations, and test approaches that can inform broader adoption over time.</p>
@@ -62,8 +64,8 @@
       <p>We anticipate supporting a select number of implementations through a combination of technical support, exploratory funding, and connections to relevant collaborators and ecosystems.</p>
     </section>
 
-    <section class="initiative-section">
-      <div class="section-num">04</div>
+    <section class="landscape-section">
+      <div class="landscape-section-num">04</div>
       <h2>Inspiration</h2>
       <p class="readings-intro">The following pieces have shaped our thinking around the Verifiable Cities track.</p>
 
@@ -122,6 +124,12 @@
         </div>
       </div>
     </section>
-  </main>
+
+    <div class="cta-block">
+      <h3>Interested in collaborating?</h3>
+      <p>We're looking for city partners and collaborators to explore these use cases together.</p>
+      <span class="contact"><a href="mailto:usecaselab@ethereum.org">usecaselab@ethereum.org</a></span>
+    </div>
+  </div>
 </body>
 </html>

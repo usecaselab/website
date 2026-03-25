@@ -7,7 +7,7 @@ import { setupPostProcessing } from './postprocessing/bloom.js';
 const canvas = document.getElementById('canvas');
 const isMobile = window.innerWidth <= 768;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: false });
-const canvasWidth = isMobile ? window.innerWidth : Math.floor(window.innerWidth / 2);
+const canvasWidth = window.innerWidth;
 const canvasHeight = isMobile ? Math.floor(window.innerHeight / 2) : window.innerHeight;
 renderer.setSize(canvasWidth, canvasHeight, false);
 canvas.style.width = '';
@@ -63,6 +63,11 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, isMobile ? 11 : 9);
 camera.lookAt(0, 0, 0);
 
+// On desktop, shift the view so the cube renders on the right half of the full-width canvas
+if (!isMobile) {
+  camera.setViewOffset(canvasWidth * 2, canvasHeight, canvasWidth * 0.25, 0, canvasWidth, canvasHeight);
+}
+
 // Minimal lighting — wireframe lines don't need much
 scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
@@ -100,9 +105,14 @@ function getColorShift(progress) {
 // Resize
 function onResize() {
   const mobile = window.innerWidth <= 768;
-  const w = mobile ? window.innerWidth : Math.floor(window.innerWidth / 2);
+  const w = window.innerWidth;
   const h = mobile ? Math.floor(window.innerHeight / 2) : window.innerHeight;
   camera.aspect = w / h;
+  if (!mobile) {
+    camera.setViewOffset(w * 2, h, w * 0.25, 0, w, h);
+  } else {
+    camera.clearViewOffset();
+  }
   camera.updateProjectionMatrix();
   renderer.setSize(w, h, false);
   canvas.style.width = '';
@@ -119,7 +129,7 @@ let autoDirection = 1;
 let autoFromScroll = 0;
 const AUTO_DURATION = 10000;
 
-playBtn.addEventListener('click', () => {
+if (playBtn) playBtn.addEventListener('click', () => {
   if (autoPlaying) return;
   autoPlaying = true;
   autoStart = Date.now();
@@ -145,7 +155,7 @@ function updateAutoPlay() {
   window.scrollTo(0, autoFromScroll + (target - autoFromScroll) * eased);
   if (t >= 1) {
     autoPlaying = false;
-    playBtn.classList.remove('playing');
+    if (playBtn) playBtn.classList.remove('playing');
   }
 }
 
@@ -209,7 +219,7 @@ function updateOverlays(progress, faceProgresses) {
     const nextLanded = i < 4 && faceProgresses[i + 1] >= 0.9;
 
     // Last story (index 4) dismisses when landing overlay starts
-    const dismissed = i < 4 ? nextLanded : progress > 0.78;
+    const dismissed = i < 4 ? nextLanded : progress > 0.74;
 
     if (landed && !dismissed) {
       el.style.display = 'flex';
@@ -238,9 +248,10 @@ function updateOverlays(progress, faceProgresses) {
   // Landing — after cube is complete
   const landing = document.getElementById('landing-overlay');
   if (landing) {
-    const landingStart = 0.78;
+    const landingStart = 0.74;
+    const landingFadeDuration = 0.06; // fade in over ~60vh, similar to story transitions
     if (progress > landingStart) {
-      const p = (progress - landingStart) / (1 - landingStart);
+      const p = Math.min(1, (progress - landingStart) / landingFadeDuration);
       const s = smoothstep(p);
       landing.style.display = 'flex';
       landing.style.opacity = s;
@@ -249,22 +260,49 @@ function updateOverlays(progress, faceProgresses) {
       if (title) {
         title.style.opacity = 1;
         title.querySelectorAll('.char-reveal').forEach(ch => {
-          if (p > 0.1) ch.classList.add('visible');
+          if (p > 0.3) ch.classList.add('visible');
         });
       }
       const subtitle = landing.querySelector('.landing-subtitle');
       if (subtitle) {
-        const d = Math.max(0, p - 0.3) / 0.7;
-        subtitle.style.opacity = smoothstep(d);
+        subtitle.style.opacity = s;
       }
-      const btns = landing.querySelector('.landing-btns') || landing.querySelector('.landing-btn');
-      if (btns) {
-        const d = Math.max(0, p - 0.5) / 0.5;
-        btns.style.opacity = smoothstep(d);
+      const contact = landing.querySelector('.landing-contact');
+      if (contact) {
+        contact.style.opacity = s;
       }
     } else {
       landing.style.display = 'none';
       landing.style.opacity = 0;
+    }
+  }
+
+  // Floating initiative labels with wire connections
+  const initOverlay = document.getElementById('initiatives-overlay');
+  if (initOverlay) {
+    const initStart = 0.78;
+    if (progress > initStart) {
+      const p = Math.min(1, (progress - initStart) / 0.08);
+      initOverlay.style.display = 'block';
+      initOverlay.style.opacity = 1;
+
+      const rotX = mouse.smoothY * -15;
+      const rotY = mouse.smoothX * 15;
+      const floats = initOverlay.querySelectorAll('.initiative-float');
+      floats.forEach((el, i) => {
+        const stagger = i * 0.08;
+        const d = Math.max(0, p - stagger) / (1 - stagger);
+        const s = smoothstep(Math.min(1, d));
+        el.style.opacity = s;
+        el.style.transform = `translate(-50%, ${-50 + (1 - s) * 20}%) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      });
+
+    } else {
+      initOverlay.style.display = 'none';
+      initOverlay.style.opacity = 0;
+      initOverlay.querySelectorAll('.initiative-float').forEach(el => {
+        el.style.opacity = 0;
+      });
     }
   }
 }
@@ -299,7 +337,7 @@ function animate() {
   if (newActiveFace >= 0 && newActiveFace < 5 && faceProgresses[newActiveFace + 1] >= 0.9) {
     newActiveFace = newActiveFace + 1;
   }
-  if (progress > 0.78) newActiveFace = -1; // landing takes over
+  if (progress > 0.74) newActiveFace = -1; // landing takes over
   activeFace = newActiveFace;
 
   // Base angles for each face's outward normal (before cube rotation)
@@ -333,8 +371,8 @@ function animate() {
 
   // Zoom: in during assembly, pull back for reveal, hold wide for landing
   let camDist, camYBase;
-  const revealStart = 0.60;
-  const revealEnd = 0.72;
+  const revealStart = 0.62;
+  const revealEnd = 0.74;
 
   if (progress < revealStart) {
     const zoomT = Math.max(0, Math.min(1, progress / revealStart));
@@ -351,10 +389,15 @@ function animate() {
     camYBase = 0;
   }
 
+  // Mouse-driven orbit: stronger when no face is presenting (intro + landing)
+  const mouseOrbitStrength = activeFace < 0 ? 0.6 : 0.1;
+  const finalTheta = camTheta + mouse.smoothX * mouseOrbitStrength;
+  const finalPhi = camPhi - mouse.smoothY * mouseOrbitStrength * 0.5;
+
   camera.position.set(
-    Math.sin(camTheta) * camDist * Math.cos(camPhi) + mouse.smoothX * 0.5,
-    camYBase + Math.sin(camPhi) * camDist - mouse.smoothY * 0.3,
-    Math.cos(camTheta) * camDist * Math.cos(camPhi)
+    Math.sin(finalTheta) * camDist * Math.cos(finalPhi),
+    camYBase + Math.sin(finalPhi) * camDist,
+    Math.cos(finalTheta) * camDist * Math.cos(finalPhi)
   );
   camera.lookAt(0, 0, 0);
 
@@ -371,17 +414,17 @@ function animate() {
   // Bloom — off for clean wireframe look
   bloomPass.strength = 0;
 
-  // Play button
-  if (progress > 0.8) {
-    playBtn.style.transform = 'rotate(180deg)';
-  } else {
-    playBtn.style.transform = 'rotate(0deg)';
-  }
-
   // Overlays — synced to face assembly
   updateOverlays(progress, faceProgresses);
 
   composer.render();
+}
+
+// If arriving with #bottom hash, scroll to the bottom immediately
+if (window.location.hash === '#bottom') {
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  window.scrollTo(0, maxScroll);
+  history.replaceState(null, '', '/');
 }
 
 animate();

@@ -219,7 +219,7 @@ function updateOverlays(progress, faceProgresses) {
     const nextLanded = i < 4 && faceProgresses[i + 1] >= 0.9;
 
     // Last story (index 4) dismisses when landing overlay starts
-    const dismissed = i < 4 ? nextLanded : progress > 0.74;
+    const dismissed = i < 4 ? nextLanded : progress > 0.68;
 
     if (landed && !dismissed) {
       el.style.display = 'flex';
@@ -248,8 +248,8 @@ function updateOverlays(progress, faceProgresses) {
   // Landing — after cube is complete
   const landing = document.getElementById('landing-overlay');
   if (landing) {
-    const landingStart = 0.74;
-    const landingFadeDuration = 0.06; // fade in over ~60vh, similar to story transitions
+    const landingStart = 0.68;
+    const landingFadeDuration = 0.05;
     if (progress > landingStart) {
       const p = Math.min(1, (progress - landingStart) / landingFadeDuration);
       const s = smoothstep(p);
@@ -280,9 +280,9 @@ function updateOverlays(progress, faceProgresses) {
   // Floating initiative labels with wire connections
   const initOverlay = document.getElementById('initiatives-overlay');
   if (initOverlay) {
-    const initStart = 0.78;
+    const initStart = 0.68;
     if (progress > initStart) {
-      const p = Math.min(1, (progress - initStart) / 0.08);
+      const p = Math.min(1, (progress - initStart) / 0.06);
       initOverlay.style.display = 'block';
       initOverlay.style.opacity = 1;
 
@@ -337,7 +337,7 @@ function animate() {
   if (newActiveFace >= 0 && newActiveFace < 5 && faceProgresses[newActiveFace + 1] >= 0.9) {
     newActiveFace = newActiveFace + 1;
   }
-  if (progress > 0.74) newActiveFace = -1; // landing takes over
+  if (progress > 0.68) newActiveFace = -1; // landing takes over
   activeFace = newActiveFace;
 
   // Base angles for each face's outward normal (before cube rotation)
@@ -371,8 +371,8 @@ function animate() {
 
   // Zoom: in during assembly, pull back for reveal, hold wide for landing
   let camDist, camYBase;
-  const revealStart = 0.62;
-  const revealEnd = 0.74;
+  const revealStart = 0.60;
+  const revealEnd = 0.68;
 
   if (progress < revealStart) {
     const zoomT = Math.max(0, Math.min(1, progress / revealStart));
@@ -389,8 +389,9 @@ function animate() {
     camYBase = 0;
   }
 
-  // Mouse-driven orbit: stronger when no face is presenting (intro + landing)
-  const mouseOrbitStrength = activeFace < 0 ? 0.6 : 0.1;
+  // Mouse-driven orbit: gentle in intro, stronger in landing, subtle during faces
+  const isIntro = activeFace < 0 && progress < 0.1;
+  const mouseOrbitStrength = isIntro ? 0.1 : activeFace < 0 ? 0.6 : 0.1;
   const finalTheta = camTheta + mouse.smoothX * mouseOrbitStrength;
   const finalPhi = camPhi - mouse.smoothY * mouseOrbitStrength * 0.5;
 
@@ -419,6 +420,37 @@ function animate() {
 
   composer.render();
 }
+
+// Arrow-key snap navigation between views
+const SNAP_POINTS = [0, 0.17, 0.27, 0.37, 0.47, 0.57, 1.0];
+let snapCooldown = false;
+window.addEventListener('keydown', (e) => {
+  if (snapCooldown) return;
+  const isNext = e.key === 'ArrowDown' || e.key === 'ArrowRight';
+  const isPrev = e.key === 'ArrowUp' || e.key === 'ArrowLeft';
+  if (!isNext && !isPrev) return;
+  e.preventDefault();
+
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const currentProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+  let targetIdx;
+  if (isNext) {
+    targetIdx = SNAP_POINTS.findIndex(p => p > currentProgress + 0.01);
+    if (targetIdx === -1) targetIdx = SNAP_POINTS.length - 1;
+  } else {
+    targetIdx = -1;
+    for (let i = SNAP_POINTS.length - 1; i >= 0; i--) {
+      if (SNAP_POINTS[i] < currentProgress - 0.01) { targetIdx = i; break; }
+    }
+    if (targetIdx === -1) targetIdx = 0;
+  }
+
+  const targetScroll = SNAP_POINTS[targetIdx] * maxScroll;
+  window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  snapCooldown = true;
+  setTimeout(() => { snapCooldown = false; }, 600);
+});
 
 // If arriving with #bottom hash, scroll to the bottom immediately
 if (window.location.hash === '#bottom') {

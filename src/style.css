@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  height: 1000vh;
+  height: 385vh;
   background: #ffffff;
 }
 
@@ -305,7 +305,7 @@ canvas {
 /* --- Mobile optimizations --- */
 @media (max-width: 768px) {
   body {
-    height: 600vh;
+    height: 280vh;
   }
 
   canvas {

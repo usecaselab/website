@@ -7,9 +7,9 @@ export const PHASES = {
   DESCEND:  { start: 0.24, end: 0.30 },
   THROUGH:  { start: 0.30, end: 0.35 },
   FLOOR1:   { start: 0.35, end: 0.55 },
-  FLOOR2:   { start: 0.55, end: 0.75 },
-  FLOOR3:   { start: 0.75, end: 0.90 },
-  LANDING:  { start: 0.90, end: 0.97 },
+  FLOOR2:   { start: 0.55, end: 0.68 },
+  FLOOR3:   { start: 0.68, end: 0.82 },
+  LANDING:  { start: 0.82, end: 0.92 },
 };
 
 export function phaseProgress(progress, phase) {

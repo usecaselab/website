@@ -305,7 +305,7 @@ canvas {
 /* --- Mobile optimizations --- */
 @media (max-width: 768px) {
   body {
-    height: 280vh;
+    height: 385vh;
   }
 
   canvas {
@@ -373,6 +373,7 @@ canvas {
 
   .contact-links {
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.4rem;
   }
 
@@ -381,7 +382,25 @@ canvas {
   }
 
   #initiatives-overlay {
-    display: none !important;
+    top: auto;
+    bottom: 0;
+    height: auto;
+    display: none;
+    opacity: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 1rem 2rem;
+    pointer-events: none;
+  }
+
+  .initiative-float {
+    position: static;
+    transform: none;
+    font-size: 0.65rem;
+    padding: 0.4rem 0.8rem;
+    pointer-events: auto;
+    will-change: opacity;
   }
 
   .landing-logo {
@@ -412,6 +431,10 @@ canvas {
 
   .reveal-subtitle {
     font-size: clamp(0.9rem, 3.5vw, 1.15rem);
+  }
+
+  .canvas-fade {
+    display: none;
   }
 
   .scroll-hint {

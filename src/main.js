@@ -281,9 +281,10 @@ function updateOverlays(progress, faceProgresses) {
   const initOverlay = document.getElementById('initiatives-overlay');
   if (initOverlay) {
     const initStart = 0.68;
+    const mobile = window.innerWidth <= 768;
     if (progress > initStart) {
       const p = Math.min(1, (progress - initStart) / 0.06);
-      initOverlay.style.display = 'block';
+      initOverlay.style.display = mobile ? 'flex' : 'block';
       initOverlay.style.opacity = 1;
 
       const rotX = mouse.smoothY * -15;
@@ -294,7 +295,9 @@ function updateOverlays(progress, faceProgresses) {
         const d = Math.max(0, p - stagger) / (1 - stagger);
         const s = smoothstep(Math.min(1, d));
         el.style.opacity = s;
-        el.style.transform = `translate(-50%, ${-50 + (1 - s) * 20}%) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        if (!mobile) {
+          el.style.transform = `translate(-50%, ${-50 + (1 - s) * 20}%) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        }
       });
 
     } else {

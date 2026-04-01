@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
+  <title>Argentina Onchain</title>
+  <meta name="description" content="Bringing together Argentine institutions with Ethereum builders to explore how onchain infrastructure can address coordination bottlenecks across private enterprise, public sector, and civil society." />
+  <meta property="og:title" content="Argentina Onchain — Use Case Lab" />
+  <meta property="og:description" content="Bringing together Argentine institutions with Ethereum builders to explore how onchain infrastructure can address coordination bottlenecks across private enterprise, public sector, and civil society." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/src/vc-style.css" />
+  <style>
+    .landing-page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 140px 40px 80px;
+    }
+
+    .landing-title {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .landing-hypothesis {
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 56px;
+    }
+
+    .landing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .landing-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .landing-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .landing-card h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .landing-card p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .landing-card .arrow {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .landing-page {
+        padding: 80px 20px 60px;
+      }
+
+      .landing-title {
+        font-size: 32px;
+      }
+
+      .landing-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/#bottom" class="nav-logo">
+      <img src="/src/assets/initiative.svg" alt="Use Case Lab" />
+    </a>
+    <a href="/#bottom" class="nav-back">&larr; Back</a>
+  </nav>
+
+  <div class="landing-page">
+    <h1 class="landing-title">Argentina Onchain</h1>
+    <p class="landing-hypothesis">Bringing together Argentine institutions with Ethereum builders to explore how onchain infrastructure can address coordination bottlenecks across private enterprise, public sector, and civil society.</p>
+
+    <div class="landing-cards">
+      <a href="https://x.com/i/status/2000650998243532814" target="_blank" rel="noopener" class="landing-card">
+        <div>
+          <h2>Watch the Recap Video</h2>
+          <p>A video recap of the Argentina Onchain sprint and its key outcomes.</p>
+        </div>
+        <span class="arrow">Watch &rarr;</span>
+      </a>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6465860" target="_blank" rel="noopener" class="landing-card">
+        <div>
+          <h2>Read the Report</h2>
+          <p>The full research report on onchain infrastructure opportunities in Argentina.</p>
+        </div>
+        <span class="arrow">Read &rarr;</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
